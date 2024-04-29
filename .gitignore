@@ -8,3 +8,6 @@ output/logs
 output/logs/
 tmp
 tmp/
+
+.ipynb_checkpoints
+env
