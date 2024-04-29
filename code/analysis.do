@@ -19,13 +19,15 @@ set more off
 set varabbrev off
 cap log close
 
-if "c(username)" == "ricardodahis" global path /path/to/main_paper	// c(username) is your computer's username
+if "`c(username)'" == "Work" global path "C:/Users/Work/Documents/Personal/Work/papers/GPT-Impact-GitHub"	// c(username) is your computer's username
 
 cd "$path"
 
 log using "output/analysis.log", replace
 
-use "output/data/data.dta", clear
+import delimited "output/data/data.csv", clear
+
+drop if iso2_code == "HK"
 
 
 //----------------------------------------------------------------------------//
