@@ -1,11 +1,13 @@
--------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+---------------------------------------------------------------
       name:  <unnamed>
-       log:  C:\Users\Work\Documents\Personal\Work\papers\GPT-Impact-GitHub\output/analysis.log
+       log:  C:\Users\ronco\Desktop\Tesis_Nicho_Janampa\GPT-Imp
+> act-GitHub\output/analysis.log
   log type:  text
- opened on:  11 May 2024, 12:35:03
+ opened on:  11 May 2024, 10:54:22
 
 . 
-. import delimited "output/data/data_langs.csv", clear
+. import delimited "output/data.csv", clear
+(encoding automatically selected: ISO-8859-1)
 (14 vars, 48,640 obs)
 
 . 
@@ -13,25 +15,195 @@
 (304 observations deleted)
 
 . 
-. 
-. //----------------------------------------------------------------------------//
-. // main
-. //----------------------------------------------------------------------------//
-. 
-. // regressions
-. do "code/sub/analysis_per_lang.do"
+end of do-file
 
-. //----------------------------------------------------------------------------//
-. //
-. // project:
-. //
-. // do.file: analysis_regressions
-. //
-. // author(s):
-. //
-. //----------------------------------------------------------------------------//
+. br
+
+. do "C:\Users\ronco\AppData\Local\Temp\STD35b0_000000.tmp"
+
 . 
-. local languages "Python Java R Julia Swift"
+. eststo est_sdid: sdid num_pushers_pc unique_id quarter treatment, ///
+>         vce(bootstrap) reps(100) seed(1234) method(sdid) graph g1on ///
+>         g1_opt(xtitle("") scheme(sj)) ///
+>         g2_opt(ytitle("Pushers per 100k inhabitants") scheme(sj) ///
+>         xtitle("Quarters since 2020Q1")) 
+Bootstrap replications (100). This may take some time.
+----+--- 1 ---+--- 2 ---+--- 3 ---+--- 4 ---+--- 5
+..................................................     50
+..................................................     100
+
+
+Synthetic Difference-in-Differences Estimator
+
+-----------------------------------------------------------------------------
+num_pusher~c |     ATT     Std. Err.     t      P>|t|    [95% Conf. Interval]
+-------------+---------------------------------------------------------------
+   treatment |   1.21494    0.20084     6.05    0.000     0.82131     1.60858
+-----------------------------------------------------------------------------
+95% CIs and p-values are based on Large-Sample approximations.
+Refer to Arkhangelsky et al., (2020) for theoretical derivations.
+
+. 
+. graph export sd_id_analysis.png, as(png) replace
+file sd_id_analysis.png saved as PNG format
+
+. 
+end of do-file
+
+. do "C:\Users\ronco\AppData\Local\Temp\STD35b0_000000.tmp"
+
+. eststo est_sdid: sdid num_pushers_pc unique_id quarter treatment if language=="Python",  ///
+>         vce(bootstrap) reps(100) seed(1234) method(sdid) graph g1on ///
+>         g1_opt(xtitle("") scheme(sj)) ///
+>         g2_opt(ytitle("Pushers per 100k inhabitants-Python") scheme(sj) ///
+>         xtitle("Quarters since 2020Q1")) 
+Bootstrap replications (100). This may take some time.
+----+--- 1 ---+--- 2 ---+--- 3 ---+--- 4 ---+--- 5
+..................................................     50
+..................................................     100
+
+
+Synthetic Difference-in-Differences Estimator
+
+-----------------------------------------------------------------------------
+num_pusher~c |     ATT     Std. Err.     t      P>|t|    [95% Conf. Interval]
+-------------+---------------------------------------------------------------
+   treatment |   4.53667    1.09431     4.15    0.000     2.39187     6.68148
+-----------------------------------------------------------------------------
+95% CIs and p-values are based on Large-Sample approximations.
+Refer to Arkhangelsky et al., (2020) for theoretical derivations.
+
+. 
+end of do-file
+
+. do "C:\Users\ronco\AppData\Local\Temp\STD35b0_000000.tmp"
+
+. eststo est_sdid: sdid num_pushers_pc unique_id quarter treatment if language=="Java",    ///
+>         vce(bootstrap) reps(100) seed(1234) method(sdid) graph g1on ///
+>         g1_opt(xtitle("") scheme(sj)) ///
+>         g2_opt(ytitle("Pushers per 100k inhabitants-Python") scheme(sj) ///
+>         xtitle("Quarters since 2020Q1")) 
+Bootstrap replications (100). This may take some time.
+----+--- 1 ---+--- 2 ---+--- 3 ---+--- 4 ---+--- 5
+..................................................     50
+..................................................     100
+
+
+Synthetic Difference-in-Differences Estimator
+
+-----------------------------------------------------------------------------
+num_pusher~c |     ATT     Std. Err.     t      P>|t|    [95% Conf. Interval]
+-------------+---------------------------------------------------------------
+   treatment |   1.72985    0.88365     1.96    0.050    -0.00207     3.46177
+-----------------------------------------------------------------------------
+95% CIs and p-values are based on Large-Sample approximations.
+Refer to Arkhangelsky et al., (2020) for theoretical derivations.
+
+. 
+end of do-file
+
+. do "C:\Users\ronco\AppData\Local\Temp\STD35b0_000000.tmp"
+
+. eststo est_sdid: sdid num_pushers_pc unique_id quarter treatment if language=="C++",     ///
+>         vce(bootstrap) reps(100) seed(1234) method(sdid) graph g1on ///
+>         g1_opt(xtitle("") scheme(sj)) ///
+>         g2_opt(ytitle("Pushers per 100k inhabitants-Python") scheme(sj) ///
+>         xtitle("Quarters since 2020Q1")) 
+Bootstrap replications (100). This may take some time.
+----+--- 1 ---+--- 2 ---+--- 3 ---+--- 4 ---+--- 5
+..................................................     50
+..................................................     100
+
+
+Synthetic Difference-in-Differences Estimator
+
+-----------------------------------------------------------------------------
+num_pusher~c |     ATT     Std. Err.     t      P>|t|    [95% Conf. Interval]
+-------------+---------------------------------------------------------------
+   treatment |   1.13495    0.37720     3.01    0.003     0.39565     1.87425
+-----------------------------------------------------------------------------
+95% CIs and p-values are based on Large-Sample approximations.
+Refer to Arkhangelsky et al., (2020) for theoretical derivations.
+
+. 
+end of do-file
+
+. do "C:\Users\ronco\AppData\Local\Temp\STD35b0_000000.tmp"
+
+. eststo est_sdid: sdid num_pushers_pc unique_id quarter treatment if language=="Pearl",   ///
+>         vce(bootstrap) reps(100) seed(1234) method(sdid) graph g1on ///
+>         g1_opt(xtitle("") scheme(sj)) ///
+>         g2_opt(ytitle("Pushers per 100k inhabitants-Python") scheme(sj) ///
+>         xtitle("Quarters since 2020Q1")) 
+Panel is unbalanced.
+r(451);
+
+end of do-file
+
+r(451);
+
+. BR
+command BR is unrecognized
+r(199);
+
+. br
+
+. do "C:\Users\ronco\AppData\Local\Temp\STD35b0_000000.tmp"
+
+. 
+. eststo est_sdid: sdid num_pushers_pc unique_id quarter treatment if language=="Perl",    ///
+>         vce(bootstrap) reps(100) seed(1234) method(sdid) graph g1on ///
+>         g1_opt(xtitle("") scheme(sj)) ///
+>         g2_opt(ytitle("Pushers per 100k inhabitants-Python") scheme(sj) ///
+>         xtitle("Quarters since 2020Q1")) 
+Bootstrap replications (100). This may take some time.
+----+--- 1 ---+--- 2 ---+--- 3 ---+--- 4 ---+--- 5
+..................................................     50
+..................................................     100
+
+
+Synthetic Difference-in-Differences Estimator
+
+-----------------------------------------------------------------------------
+num_pusher~c |     ATT     Std. Err.     t      P>|t|    [95% Conf. Interval]
+-------------+---------------------------------------------------------------
+   treatment |   0.22601    0.05019     4.50    0.000     0.12763     0.32439
+-----------------------------------------------------------------------------
+95% CIs and p-values are based on Large-Sample approximations.
+Refer to Arkhangelsky et al., (2020) for theoretical derivations.
+
+. 
+end of do-file
+
+. do "C:\Users\ronco\AppData\Local\Temp\STD35b0_000000.tmp"
+
+. eststo est_sdid: sdid num_pushers_pc unique_id quarter treatment if language=="R",       ///
+>         vce(bootstrap) reps(100) seed(1234) method(sdid) graph g1on ///
+>         g1_opt(xtitle("") scheme(sj)) ///
+>         g2_opt(ytitle("Pushers per 100k inhabitants-Python") scheme(sj) ///
+>         xtitle("Quarters since 2020Q1")) 
+Bootstrap replications (100). This may take some time.
+----+--- 1 ---+--- 2 ---+--- 3 ---+--- 4 ---+--- 5
+..................................................     50
+..................................................     100
+
+
+Synthetic Difference-in-Differences Estimator
+
+-----------------------------------------------------------------------------
+num_pusher~c |     ATT     Std. Err.     t      P>|t|    [95% Conf. Interval]
+-------------+---------------------------------------------------------------
+   treatment |   0.14226    0.06435     2.21    0.027     0.01613     0.26838
+-----------------------------------------------------------------------------
+95% CIs and p-values are based on Large-Sample approximations.
+Refer to Arkhangelsky et al., (2020) for theoretical derivations.
+
+. 
+end of do-file
+
+. do "C:\Users\ronco\AppData\Local\Temp\STD35b0_000000.tmp"
+
+.  local languages "JavaScript Python PHP Java TypeScript Ruby C# C++ Kotlin Swift " // Eliminar esta linea
 
 . 
 . foreach lang of local languages {
@@ -42,7 +214,38 @@
   4. 
 .         keep if language == "`lang'"
   5. 
-.         eststo est_sdid: sdid num_pushers_pc iso2_code quarter treatment, ///
+.         eststo est_sdid: sdid num_pushers_pc unique_id quarter treatment, ///
+>                 vce(bootstrap) reps(100) seed(1234) method(sdid) graph g1on ///
+>                 g1_opt(xtitle("") scheme(sj)) ///
+>                 g2_opt(ytitle("`lang' pushers per 100k inhabitants") scheme(sj) ///
+>                 xtitle("Quarters since 2020Q1")) graph_export(`lang'_sdid_, .png)
+  6. 
+.         cd "$path/output/tables"
+  7. 
+.         esttab est_sdid using `lang'_sdid.tex, replace
+  8. 
+.         restore
+  9. 
+unexpected end of file
+r(612);
+
+end of do-file
+
+r(612);
+. do "C:\Users\ronco\AppData\Local\Temp\STD35b0_000000.tmp"
+
+.  local languages "JavaScript Python PHP Java TypeScript Ruby C# C++ Kotlin Swift" // Eliminar esta linea
+
+. 
+. foreach lang of local languages {
+  2. 
+.         preserve
+  3. 
+.         cd "$path/output/figures"
+  4. 
+.         keep if language == "`lang'"
+  5. 
+.         eststo est_sdid: sdid num_pushers_pc unique_id quarter treatment, ///
 >                 vce(bootstrap) reps(100) seed(1234) method(sdid) graph g1on ///
 >                 g1_opt(xtitle("") scheme(sj)) ///
 >                 g2_opt(ytitle("`lang' pushers per 100k inhabitants") scheme(sj) ///
@@ -54,7 +257,7 @@
   8. 
 .         restore
   9. }
-C:\Users\Work\Documents\Personal\Work\papers\GPT-Impact-GitHub\output\figures
+C:\Users\ronco\Desktop\Tesis_Nicho_Janampa\GPT-Impact-GitHub\output\figures
 (45,792 observations deleted)
 Bootstrap replications (100). This may take some time.
 ----+--- 1 ---+--- 2 ---+--- 3 ---+--- 4 ---+--- 5
@@ -67,15 +270,42 @@ Synthetic Difference-in-Differences Estimator
 -----------------------------------------------------------------------------
 num_pusher~c |     ATT     Std. Err.     t      P>|t|    [95% Conf. Interval]
 -------------+---------------------------------------------------------------
-   treatment |   4.79920    1.10425     4.35    0.000     2.63490     6.96349
+   treatment |   8.31696    2.97351     2.80    0.005     2.48898    14.14494
 -----------------------------------------------------------------------------
 95% CIs and p-values are based on Large-Sample approximations.
 Refer to Arkhangelsky et al., (2020) for theoretical derivations.
-(file Python_sdid_weights9.png written in PNG format)
-(file Python_sdid_trends9.png written in PNG format)
-C:\Users\Work\Documents\Personal\Work\papers\GPT-Impact-GitHub\output\tables
+(file JavaScript_sdid_weights12.png not found)
+file JavaScript_sdid_weights12.png saved as PNG format
+(file JavaScript_sdid_trends12.png not found)
+file JavaScript_sdid_trends12.png saved as PNG format
+C:\Users\ronco\Desktop\Tesis_Nicho_Janampa\GPT-Impact-GitHub\output\tables
+(file JavaScript_sdid.tex not found)
+(output written to JavaScript_sdid.tex)
+C:\Users\ronco\Desktop\Tesis_Nicho_Janampa\GPT-Impact-GitHub\output\figures
+(45,792 observations deleted)
+Bootstrap replications (100). This may take some time.
+----+--- 1 ---+--- 2 ---+--- 3 ---+--- 4 ---+--- 5
+..................................................     50
+..................................................     100
+
+
+Synthetic Difference-in-Differences Estimator
+
+-----------------------------------------------------------------------------
+num_pusher~c |     ATT     Std. Err.     t      P>|t|    [95% Conf. Interval]
+-------------+---------------------------------------------------------------
+   treatment |   4.53667    1.09431     4.15    0.000     2.39187     6.68148
+-----------------------------------------------------------------------------
+95% CIs and p-values are based on Large-Sample approximations.
+Refer to Arkhangelsky et al., (2020) for theoretical derivations.
+(file Python_sdid_weights12.png not found)
+file Python_sdid_weights12.png saved as PNG format
+(file Python_sdid_trends12.png not found)
+file Python_sdid_trends12.png saved as PNG format
+C:\Users\ronco\Desktop\Tesis_Nicho_Janampa\GPT-Impact-GitHub\output\tables
+(file Python_sdid.tex not found)
 (output written to Python_sdid.tex)
-C:\Users\Work\Documents\Personal\Work\papers\GPT-Impact-GitHub\output\figures
+C:\Users\ronco\Desktop\Tesis_Nicho_Janampa\GPT-Impact-GitHub\output\figures
 (45,792 observations deleted)
 Bootstrap replications (100). This may take some time.
 ----+--- 1 ---+--- 2 ---+--- 3 ---+--- 4 ---+--- 5
@@ -88,15 +318,42 @@ Synthetic Difference-in-Differences Estimator
 -----------------------------------------------------------------------------
 num_pusher~c |     ATT     Std. Err.     t      P>|t|    [95% Conf. Interval]
 -------------+---------------------------------------------------------------
-   treatment |   2.97917    1.07555     2.77    0.006     0.87112     5.08722
+   treatment |   0.92041    0.45882     2.01    0.045     0.02114     1.81969
 -----------------------------------------------------------------------------
 95% CIs and p-values are based on Large-Sample approximations.
 Refer to Arkhangelsky et al., (2020) for theoretical derivations.
-(file Java_sdid_weights9.png written in PNG format)
-(file Java_sdid_trends9.png written in PNG format)
-C:\Users\Work\Documents\Personal\Work\papers\GPT-Impact-GitHub\output\tables
+(file PHP_sdid_weights12.png not found)
+file PHP_sdid_weights12.png saved as PNG format
+(file PHP_sdid_trends12.png not found)
+file PHP_sdid_trends12.png saved as PNG format
+C:\Users\ronco\Desktop\Tesis_Nicho_Janampa\GPT-Impact-GitHub\output\tables
+(file PHP_sdid.tex not found)
+(output written to PHP_sdid.tex)
+C:\Users\ronco\Desktop\Tesis_Nicho_Janampa\GPT-Impact-GitHub\output\figures
+(45,792 observations deleted)
+Bootstrap replications (100). This may take some time.
+----+--- 1 ---+--- 2 ---+--- 3 ---+--- 4 ---+--- 5
+..................................................     50
+..................................................     100
+
+
+Synthetic Difference-in-Differences Estimator
+
+-----------------------------------------------------------------------------
+num_pusher~c |     ATT     Std. Err.     t      P>|t|    [95% Conf. Interval]
+-------------+---------------------------------------------------------------
+   treatment |   1.72985    0.88365     1.96    0.050    -0.00207     3.46177
+-----------------------------------------------------------------------------
+95% CIs and p-values are based on Large-Sample approximations.
+Refer to Arkhangelsky et al., (2020) for theoretical derivations.
+(file Java_sdid_weights12.png not found)
+file Java_sdid_weights12.png saved as PNG format
+(file Java_sdid_trends12.png not found)
+file Java_sdid_trends12.png saved as PNG format
+C:\Users\ronco\Desktop\Tesis_Nicho_Janampa\GPT-Impact-GitHub\output\tables
+(file Java_sdid.tex not found)
 (output written to Java_sdid.tex)
-C:\Users\Work\Documents\Personal\Work\papers\GPT-Impact-GitHub\output\figures
+C:\Users\ronco\Desktop\Tesis_Nicho_Janampa\GPT-Impact-GitHub\output\figures
 (45,792 observations deleted)
 Bootstrap replications (100). This may take some time.
 ----+--- 1 ---+--- 2 ---+--- 3 ---+--- 4 ---+--- 5
@@ -109,15 +366,18 @@ Synthetic Difference-in-Differences Estimator
 -----------------------------------------------------------------------------
 num_pusher~c |     ATT     Std. Err.     t      P>|t|    [95% Conf. Interval]
 -------------+---------------------------------------------------------------
-   treatment |   0.15750    0.08716     1.81    0.071    -0.01333     0.32833
+   treatment |   3.08084    0.91348     3.37    0.001     1.29045     4.87122
 -----------------------------------------------------------------------------
 95% CIs and p-values are based on Large-Sample approximations.
 Refer to Arkhangelsky et al., (2020) for theoretical derivations.
-(file R_sdid_weights9.png written in PNG format)
-(file R_sdid_trends9.png written in PNG format)
-C:\Users\Work\Documents\Personal\Work\papers\GPT-Impact-GitHub\output\tables
-(output written to R_sdid.tex)
-C:\Users\Work\Documents\Personal\Work\papers\GPT-Impact-GitHub\output\figures
+(file TypeScript_sdid_weights12.png not found)
+file TypeScript_sdid_weights12.png saved as PNG format
+(file TypeScript_sdid_trends12.png not found)
+file TypeScript_sdid_trends12.png saved as PNG format
+C:\Users\ronco\Desktop\Tesis_Nicho_Janampa\GPT-Impact-GitHub\output\tables
+(file TypeScript_sdid.tex not found)
+(output written to TypeScript_sdid.tex)
+C:\Users\ronco\Desktop\Tesis_Nicho_Janampa\GPT-Impact-GitHub\output\figures
 (45,792 observations deleted)
 Bootstrap replications (100). This may take some time.
 ----+--- 1 ---+--- 2 ---+--- 3 ---+--- 4 ---+--- 5
@@ -130,15 +390,18 @@ Synthetic Difference-in-Differences Estimator
 -----------------------------------------------------------------------------
 num_pusher~c |     ATT     Std. Err.     t      P>|t|    [95% Conf. Interval]
 -------------+---------------------------------------------------------------
-   treatment |   0.05731    0.03169     1.81    0.071    -0.00481     0.11942
+   treatment |   0.81102    0.26451     3.07    0.002     0.29259     1.32945
 -----------------------------------------------------------------------------
 95% CIs and p-values are based on Large-Sample approximations.
 Refer to Arkhangelsky et al., (2020) for theoretical derivations.
-(file Julia_sdid_weights9.png written in PNG format)
-(file Julia_sdid_trends9.png written in PNG format)
-C:\Users\Work\Documents\Personal\Work\papers\GPT-Impact-GitHub\output\tables
-(output written to Julia_sdid.tex)
-C:\Users\Work\Documents\Personal\Work\papers\GPT-Impact-GitHub\output\figures
+(file Ruby_sdid_weights12.png not found)
+file Ruby_sdid_weights12.png saved as PNG format
+(file Ruby_sdid_trends12.png not found)
+file Ruby_sdid_trends12.png saved as PNG format
+C:\Users\ronco\Desktop\Tesis_Nicho_Janampa\GPT-Impact-GitHub\output\tables
+(file Ruby_sdid.tex not found)
+(output written to Ruby_sdid.tex)
+C:\Users\ronco\Desktop\Tesis_Nicho_Janampa\GPT-Impact-GitHub\output\figures
 (45,792 observations deleted)
 Bootstrap replications (100). This may take some time.
 ----+--- 1 ---+--- 2 ---+--- 3 ---+--- 4 ---+--- 5
@@ -151,325 +414,329 @@ Synthetic Difference-in-Differences Estimator
 -----------------------------------------------------------------------------
 num_pusher~c |     ATT     Std. Err.     t      P>|t|    [95% Conf. Interval]
 -------------+---------------------------------------------------------------
-   treatment |   0.57828    0.20946     2.76    0.006     0.16774     0.98883
+   treatment |   0.44739    0.34373     1.30    0.193    -0.22631     1.12110
 -----------------------------------------------------------------------------
 95% CIs and p-values are based on Large-Sample approximations.
 Refer to Arkhangelsky et al., (2020) for theoretical derivations.
-(file Swift_sdid_weights9.png written in PNG format)
-(file Swift_sdid_trends9.png written in PNG format)
-C:\Users\Work\Documents\Personal\Work\papers\GPT-Impact-GitHub\output\tables
+(file C#_sdid_weights12.png not found)
+file C#_sdid_weights12.png saved as PNG format
+(file C#_sdid_trends12.png not found)
+file C#_sdid_trends12.png saved as PNG format
+C:\Users\ronco\Desktop\Tesis_Nicho_Janampa\GPT-Impact-GitHub\output\tables
+(file C#_sdid.tex not found)
+(output written to C#_sdid.tex)
+C:\Users\ronco\Desktop\Tesis_Nicho_Janampa\GPT-Impact-GitHub\output\figures
+(45,792 observations deleted)
+Bootstrap replications (100). This may take some time.
+----+--- 1 ---+--- 2 ---+--- 3 ---+--- 4 ---+--- 5
+..................................................     50
+..................................................     100
+
+
+Synthetic Difference-in-Differences Estimator
+
+-----------------------------------------------------------------------------
+num_pusher~c |     ATT     Std. Err.     t      P>|t|    [95% Conf. Interval]
+-------------+---------------------------------------------------------------
+   treatment |   1.13495    0.37720     3.01    0.003     0.39565     1.87425
+-----------------------------------------------------------------------------
+95% CIs and p-values are based on Large-Sample approximations.
+Refer to Arkhangelsky et al., (2020) for theoretical derivations.
+(file C++_sdid_weights12.png not found)
+file C++_sdid_weights12.png saved as PNG format
+(file C++_sdid_trends12.png not found)
+file C++_sdid_trends12.png saved as PNG format
+C:\Users\ronco\Desktop\Tesis_Nicho_Janampa\GPT-Impact-GitHub\output\tables
+(file C++_sdid.tex not found)
+(output written to C++_sdid.tex)
+C:\Users\ronco\Desktop\Tesis_Nicho_Janampa\GPT-Impact-GitHub\output\figures
+(45,792 observations deleted)
+Bootstrap replications (100). This may take some time.
+----+--- 1 ---+--- 2 ---+--- 3 ---+--- 4 ---+--- 5
+..................................................     50
+..................................................     100
+
+
+Synthetic Difference-in-Differences Estimator
+
+-----------------------------------------------------------------------------
+num_pusher~c |     ATT     Std. Err.     t      P>|t|    [95% Conf. Interval]
+-------------+---------------------------------------------------------------
+   treatment |   0.61267    0.13512     4.53    0.000     0.34784     0.87749
+-----------------------------------------------------------------------------
+95% CIs and p-values are based on Large-Sample approximations.
+Refer to Arkhangelsky et al., (2020) for theoretical derivations.
+(file Kotlin_sdid_weights12.png not found)
+file Kotlin_sdid_weights12.png saved as PNG format
+(file Kotlin_sdid_trends12.png not found)
+file Kotlin_sdid_trends12.png saved as PNG format
+C:\Users\ronco\Desktop\Tesis_Nicho_Janampa\GPT-Impact-GitHub\output\tables
+(file Kotlin_sdid.tex not found)
+(output written to Kotlin_sdid.tex)
+C:\Users\ronco\Desktop\Tesis_Nicho_Janampa\GPT-Impact-GitHub\output\figures
+(45,792 observations deleted)
+Bootstrap replications (100). This may take some time.
+----+--- 1 ---+--- 2 ---+--- 3 ---+--- 4 ---+--- 5
+..................................................     50
+..................................................     100
+
+
+Synthetic Difference-in-Differences Estimator
+
+-----------------------------------------------------------------------------
+num_pusher~c |     ATT     Std. Err.     t      P>|t|    [95% Conf. Interval]
+-------------+---------------------------------------------------------------
+   treatment |   0.54108    0.16714     3.24    0.001     0.21350     0.86867
+-----------------------------------------------------------------------------
+95% CIs and p-values are based on Large-Sample approximations.
+Refer to Arkhangelsky et al., (2020) for theoretical derivations.
+(file Swift_sdid_weights12.png not found)
+file Swift_sdid_weights12.png saved as PNG format
+(file Swift_sdid_trends12.png not found)
+file Swift_sdid_trends12.png saved as PNG format
+C:\Users\ronco\Desktop\Tesis_Nicho_Janampa\GPT-Impact-GitHub\output\tables
+(file Swift_sdid.tex not found)
 (output written to Swift_sdid.tex)
 
 . 
-. cd "$path"
-C:\Users\Work\Documents\Personal\Work\papers\GPT-Impact-GitHub
+end of do-file
+
+. do "C:\Users\ronco\AppData\Local\Temp\STD35b0_000000.tmp"
+
+.  local languages "JavaScript Python PHP Java TypeScript Ruby C# C++ Kotlin Swift" // Eliminar esta linea
+
+. 
+. foreach lang of local languages {
+  2. 
+.         preserve
+  3. 
+.         cd "$path/output/figures"
+  4. 
+.         keep if language == "`lang'"
+  5. 
+.         eststo est_sdid: sdid num_pushers_pc unique_id quarter treatment, ///
+>                 vce(bootstrap) reps(100) seed(1234) method(sdid) graph g1on ///
+>                 g1_opt(xtitle("") scheme(sj)) ///
+>                 g2_opt(ytitle("`lang' pushers per 100k inhabitants") scheme(sj) ///
+>                 xtitle("Quarters since 2020Q1")) graph_export(`lang'_sdid_, .png)
+  6. 
+.         cd "$path/output/tables"
+  7. 
+.         esttab est_sdid using `lang'_sdid.tex, replace
+  8. 
+.         restore
+  9. }
+C:\Users\ronco\Desktop\Tesis_Nicho_Janampa\GPT-Impact-GitHub\output\figures
+(45,792 observations deleted)
+Bootstrap replications (100). This may take some time.
+----+--- 1 ---+--- 2 ---+--- 3 ---+--- 4 ---+--- 5
+..................................................     50
+..................................................     100
+
+
+Synthetic Difference-in-Differences Estimator
+
+-----------------------------------------------------------------------------
+num_pusher~c |     ATT     Std. Err.     t      P>|t|    [95% Conf. Interval]
+-------------+---------------------------------------------------------------
+   treatment |   8.31696    2.97351     2.80    0.005     2.48898    14.14494
+-----------------------------------------------------------------------------
+95% CIs and p-values are based on Large-Sample approximations.
+Refer to Arkhangelsky et al., (2020) for theoretical derivations.
+file JavaScript_sdid_weights12.png saved as PNG format
+file JavaScript_sdid_trends12.png saved as PNG format
+C:\Users\ronco\Desktop\Tesis_Nicho_Janampa\GPT-Impact-GitHub\output\tables
+(output written to JavaScript_sdid.tex)
+C:\Users\ronco\Desktop\Tesis_Nicho_Janampa\GPT-Impact-GitHub\output\figures
+(45,792 observations deleted)
+Bootstrap replications (100). This may take some time.
+----+--- 1 ---+--- 2 ---+--- 3 ---+--- 4 ---+--- 5
+..................................................     50
+..................................................     100
+
+
+Synthetic Difference-in-Differences Estimator
+
+-----------------------------------------------------------------------------
+num_pusher~c |     ATT     Std. Err.     t      P>|t|    [95% Conf. Interval]
+-------------+---------------------------------------------------------------
+   treatment |   4.53667    1.09431     4.15    0.000     2.39187     6.68148
+-----------------------------------------------------------------------------
+95% CIs and p-values are based on Large-Sample approximations.
+Refer to Arkhangelsky et al., (2020) for theoretical derivations.
+file Python_sdid_weights12.png saved as PNG format
+file Python_sdid_trends12.png saved as PNG format
+C:\Users\ronco\Desktop\Tesis_Nicho_Janampa\GPT-Impact-GitHub\output\tables
+(output written to Python_sdid.tex)
+C:\Users\ronco\Desktop\Tesis_Nicho_Janampa\GPT-Impact-GitHub\output\figures
+(45,792 observations deleted)
+Bootstrap replications (100). This may take some time.
+----+--- 1 ---+--- 2 ---+--- 3 ---+--- 4 ---+--- 5
+..................................................     50
+..................................................     100
+
+
+Synthetic Difference-in-Differences Estimator
+
+-----------------------------------------------------------------------------
+num_pusher~c |     ATT     Std. Err.     t      P>|t|    [95% Conf. Interval]
+-------------+---------------------------------------------------------------
+   treatment |   0.92041    0.45882     2.01    0.045     0.02114     1.81969
+-----------------------------------------------------------------------------
+95% CIs and p-values are based on Large-Sample approximations.
+Refer to Arkhangelsky et al., (2020) for theoretical derivations.
+file PHP_sdid_weights12.png saved as PNG format
+file PHP_sdid_trends12.png saved as PNG format
+C:\Users\ronco\Desktop\Tesis_Nicho_Janampa\GPT-Impact-GitHub\output\tables
+(output written to PHP_sdid.tex)
+C:\Users\ronco\Desktop\Tesis_Nicho_Janampa\GPT-Impact-GitHub\output\figures
+(45,792 observations deleted)
+Bootstrap replications (100). This may take some time.
+----+--- 1 ---+--- 2 ---+--- 3 ---+--- 4 ---+--- 5
+..................................................     50
+..................................................     100
+
+
+Synthetic Difference-in-Differences Estimator
+
+-----------------------------------------------------------------------------
+num_pusher~c |     ATT     Std. Err.     t      P>|t|    [95% Conf. Interval]
+-------------+---------------------------------------------------------------
+   treatment |   1.72985    0.88365     1.96    0.050    -0.00207     3.46177
+-----------------------------------------------------------------------------
+95% CIs and p-values are based on Large-Sample approximations.
+Refer to Arkhangelsky et al., (2020) for theoretical derivations.
+file Java_sdid_weights12.png saved as PNG format
+file Java_sdid_trends12.png saved as PNG format
+C:\Users\ronco\Desktop\Tesis_Nicho_Janampa\GPT-Impact-GitHub\output\tables
+(output written to Java_sdid.tex)
+C:\Users\ronco\Desktop\Tesis_Nicho_Janampa\GPT-Impact-GitHub\output\figures
+(45,792 observations deleted)
+Bootstrap replications (100). This may take some time.
+----+--- 1 ---+--- 2 ---+--- 3 ---+--- 4 ---+--- 5
+..................................................     50
+..................................................     100
+
+
+Synthetic Difference-in-Differences Estimator
+
+-----------------------------------------------------------------------------
+num_pusher~c |     ATT     Std. Err.     t      P>|t|    [95% Conf. Interval]
+-------------+---------------------------------------------------------------
+   treatment |   3.08084    0.91348     3.37    0.001     1.29045     4.87122
+-----------------------------------------------------------------------------
+95% CIs and p-values are based on Large-Sample approximations.
+Refer to Arkhangelsky et al., (2020) for theoretical derivations.
+file TypeScript_sdid_weights12.png saved as PNG format
+file TypeScript_sdid_trends12.png saved as PNG format
+C:\Users\ronco\Desktop\Tesis_Nicho_Janampa\GPT-Impact-GitHub\output\tables
+(output written to TypeScript_sdid.tex)
+C:\Users\ronco\Desktop\Tesis_Nicho_Janampa\GPT-Impact-GitHub\output\figures
+(45,792 observations deleted)
+Bootstrap replications (100). This may take some time.
+----+--- 1 ---+--- 2 ---+--- 3 ---+--- 4 ---+--- 5
+..................................................     50
+..................................................     100
+
+
+Synthetic Difference-in-Differences Estimator
+
+-----------------------------------------------------------------------------
+num_pusher~c |     ATT     Std. Err.     t      P>|t|    [95% Conf. Interval]
+-------------+---------------------------------------------------------------
+   treatment |   0.81102    0.26451     3.07    0.002     0.29259     1.32945
+-----------------------------------------------------------------------------
+95% CIs and p-values are based on Large-Sample approximations.
+Refer to Arkhangelsky et al., (2020) for theoretical derivations.
+file Ruby_sdid_weights12.png saved as PNG format
+file Ruby_sdid_trends12.png saved as PNG format
+C:\Users\ronco\Desktop\Tesis_Nicho_Janampa\GPT-Impact-GitHub\output\tables
+(output written to Ruby_sdid.tex)
+C:\Users\ronco\Desktop\Tesis_Nicho_Janampa\GPT-Impact-GitHub\output\figures
+(45,792 observations deleted)
+Bootstrap replications (100). This may take some time.
+----+--- 1 ---+--- 2 ---+--- 3 ---+--- 4 ---+--- 5
+..................................................     50
+..................................................     100
+
+
+Synthetic Difference-in-Differences Estimator
+
+-----------------------------------------------------------------------------
+num_pusher~c |     ATT     Std. Err.     t      P>|t|    [95% Conf. Interval]
+-------------+---------------------------------------------------------------
+   treatment |   0.44739    0.34373     1.30    0.193    -0.22631     1.12110
+-----------------------------------------------------------------------------
+95% CIs and p-values are based on Large-Sample approximations.
+Refer to Arkhangelsky et al., (2020) for theoretical derivations.
+file C#_sdid_weights12.png saved as PNG format
+file C#_sdid_trends12.png saved as PNG format
+C:\Users\ronco\Desktop\Tesis_Nicho_Janampa\GPT-Impact-GitHub\output\tables
+(output written to C#_sdid.tex)
+C:\Users\ronco\Desktop\Tesis_Nicho_Janampa\GPT-Impact-GitHub\output\figures
+(45,792 observations deleted)
+Bootstrap replications (100). This may take some time.
+----+--- 1 ---+--- 2 ---+--- 3 ---+--- 4 ---+--- 5
+..................................................     50
+..................................................     100
+
+
+Synthetic Difference-in-Differences Estimator
+
+-----------------------------------------------------------------------------
+num_pusher~c |     ATT     Std. Err.     t      P>|t|    [95% Conf. Interval]
+-------------+---------------------------------------------------------------
+   treatment |   1.13495    0.37720     3.01    0.003     0.39565     1.87425
+-----------------------------------------------------------------------------
+95% CIs and p-values are based on Large-Sample approximations.
+Refer to Arkhangelsky et al., (2020) for theoretical derivations.
+file C++_sdid_weights12.png saved as PNG format
+file C++_sdid_trends12.png saved as PNG format
+C:\Users\ronco\Desktop\Tesis_Nicho_Janampa\GPT-Impact-GitHub\output\tables
+(output written to C++_sdid.tex)
+C:\Users\ronco\Desktop\Tesis_Nicho_Janampa\GPT-Impact-GitHub\output\figures
+(45,792 observations deleted)
+Bootstrap replications (100). This may take some time.
+----+--- 1 ---+--- 2 ---+--- 3 ---+--- 4 ---+--- 5
+..................................................     50
+..................................................     100
+
+
+Synthetic Difference-in-Differences Estimator
+
+-----------------------------------------------------------------------------
+num_pusher~c |     ATT     Std. Err.     t      P>|t|    [95% Conf. Interval]
+-------------+---------------------------------------------------------------
+   treatment |   0.61267    0.13512     4.53    0.000     0.34784     0.87749
+-----------------------------------------------------------------------------
+95% CIs and p-values are based on Large-Sample approximations.
+Refer to Arkhangelsky et al., (2020) for theoretical derivations.
+file Kotlin_sdid_weights12.png saved as PNG format
+file Kotlin_sdid_trends12.png saved as PNG format
+C:\Users\ronco\Desktop\Tesis_Nicho_Janampa\GPT-Impact-GitHub\output\tables
+(output written to Kotlin_sdid.tex)
+C:\Users\ronco\Desktop\Tesis_Nicho_Janampa\GPT-Impact-GitHub\output\figures
+(45,792 observations deleted)
+Bootstrap replications (100). This may take some time.
+----+--- 1 ---+--- 2 ---+--- 3 ---+--- 4 ---+--- 5
+..................................................     50
+..................................................     100
+
+
+Synthetic Difference-in-Differences Estimator
+
+-----------------------------------------------------------------------------
+num_pusher~c |     ATT     Std. Err.     t      P>|t|    [95% Conf. Interval]
+-------------+---------------------------------------------------------------
+   treatment |   0.54108    0.16714     3.24    0.001     0.21350     0.86867
+-----------------------------------------------------------------------------
+95% CIs and p-values are based on Large-Sample approximations.
+Refer to Arkhangelsky et al., (2020) for theoretical derivations.
+file Swift_sdid_weights12.png saved as PNG format
+file Swift_sdid_trends12.png saved as PNG format
+C:\Users\ronco\Desktop\Tesis_Nicho_Janampa\GPT-Impact-GitHub\output\tables
+(output written to Swift_sdid.tex)
 
 . 
 end of do-file
 
-. 
-. import delimited "output/data/pushes.csv", clear
-(15 vars, 2,368 obs)
-
-. 
-. drop if iso2_code == "HK"
-(16 observations deleted)
-
-. 
-. do "code/sub/analysis_pushes.do"
-
-. cd "$path/output/figures" 
-C:\Users\Work\Documents\Personal\Work\papers\GPT-Impact-GitHub\output\figures
-
-. 
-. gen pushes_p100k = pushes_pc * 100000
-
-. gen developers_p100k = developers_pc * 100000
-
-. 
-. eststo pp100_did: sdid pushes_p100k iso2_code year_quarter_num gpt_available_post1, ///
->         vce(bootstrap) reps(100) seed(1234) method(did) graph g1on /// 
->         g1_opt(xtitle("") scheme(sj)) ///
->         g2_opt(ytitle("Pushes per 100k inhabitants") scheme(sj) ///
->         xtitle("Quarters since 2020Q1")) graph_export(pp100_did_, .png)
-Bootstrap replications (100). This may take some time.
-----+--- 1 ---+--- 2 ---+--- 3 ---+--- 4 ---+--- 5
-..................................................     50
-..................................................     100
-
-
-Difference-in-Differences Estimator
-
------------------------------------------------------------------------------
-pushes_p100k |     ATT     Std. Err.     t      P>|t|    [95% Conf. Interval]
--------------+---------------------------------------------------------------
-gpt_availa~1 | 899.26770  147.39530     6.10    0.000   610.37822    1.19e+03
------------------------------------------------------------------------------
-95% CIs and p-values are based on Large-Sample approximations.
-
-(note: file pp100_did_weights12.png not found)
-(file pp100_did_weights12.png written in PNG format)
-(note: file pp100_did_trends12.png not found)
-(file pp100_did_trends12.png written in PNG format)
-
-. 
-. eststo pp100_sc: sdid pushes_p100k iso2_code year_quarter_num gpt_available_post1, ///
->         vce(bootstrap) reps(100) seed(1234) method(sc) graph g1on /// 
->         g1_opt(xtitle("") scheme(sj)) ///
->         g2_opt(ytitle("Pushes per 100k inhabitants") scheme(sj) ///
->         xtitle("Quarters since 2020Q1")) graph_export(pp100_sc_, .png)
-Bootstrap replications (100). This may take some time.
-----+--- 1 ---+--- 2 ---+--- 3 ---+--- 4 ---+--- 5
-..................................................     50
-..................................................     100
-
-
-Synthetic Control
-
------------------------------------------------------------------------------
-pushes_p100k |     ATT     Std. Err.     t      P>|t|    [95% Conf. Interval]
--------------+---------------------------------------------------------------
-gpt_availa~1 | 595.05880  437.06130     1.36    0.173   -2.62e+02    1.45e+03
------------------------------------------------------------------------------
-95% CIs and p-values are based on Large-Sample approximations.
-
-(note: file pp100_sc_weights12.png not found)
-(file pp100_sc_weights12.png written in PNG format)
-(note: file pp100_sc_trends12.png not found)
-(file pp100_sc_trends12.png written in PNG format)
-
-. 
-. eststo pp100_sdid: sdid pushes_p100k iso2_code year_quarter_num gpt_available_post1, ///
->         vce(bootstrap) reps(100) seed(1234) method(sdid) graph g1on /// 
->         g1_opt(xtitle("") scheme(sj)) ///
->         g2_opt(ytitle("Pushes per 100k inhabitants") scheme(sj) ///
->         xtitle("Quarters since 2020Q1")) graph_export(pp100_sdid_, .png)
-Bootstrap replications (100). This may take some time.
-----+--- 1 ---+--- 2 ---+--- 3 ---+--- 4 ---+--- 5
-..................................................     50
-..................................................     100
-
-
-Synthetic Difference-in-Differences Estimator
-
------------------------------------------------------------------------------
-pushes_p100k |     ATT     Std. Err.     t      P>|t|    [95% Conf. Interval]
--------------+---------------------------------------------------------------
-gpt_availa~1 | 645.62310  146.44510     4.41    0.000   358.59598   932.65022
------------------------------------------------------------------------------
-95% CIs and p-values are based on Large-Sample approximations.
-Refer to Arkhangelsky et al., (2020) for theoretical derivations.
-(note: file pp100_sdid_weights12.png not found)
-(file pp100_sdid_weights12.png written in PNG format)
-(note: file pp100_sdid_trends12.png not found)
-(file pp100_sdid_trends12.png written in PNG format)
-
-. 
-. eststo dp100_did: sdid developers_p100k iso2_code year_quarter_num gpt_available_post1, ///
->         vce(bootstrap) reps(100) seed(1234) method(did) graph g1on /// 
->         g1_opt(xtitle("") scheme(sj)) ///
->         g2_opt(ytitle("Developers per 100k inhabitants") scheme(sj) ///
->         xtitle("Quarters since 2020Q1")) graph_export(dp100_did_, .png)
-Bootstrap replications (100). This may take some time.
-----+--- 1 ---+--- 2 ---+--- 3 ---+--- 4 ---+--- 5
-..................................................     50
-..................................................     100
-
-
-Difference-in-Differences Estimator
-
------------------------------------------------------------------------------
-develop~100k |     ATT     Std. Err.     t      P>|t|    [95% Conf. Interval]
--------------+---------------------------------------------------------------
-gpt_availa~1 | 578.91240  109.39790     5.29    0.000   364.49646   793.32834
------------------------------------------------------------------------------
-95% CIs and p-values are based on Large-Sample approximations.
-
-(note: file dp100_did_weights12.png not found)
-(file dp100_did_weights12.png written in PNG format)
-(note: file dp100_did_trends12.png not found)
-(file dp100_did_trends12.png written in PNG format)
-
-. 
-. eststo dp100_sc: sdid developers_p100k iso2_code year_quarter_num gpt_available_post1, ///
->         vce(bootstrap) reps(100) seed(1234) method(sc) graph g1on /// 
->         g1_opt(xtitle("") scheme(sj)) ///
->         g2_opt(ytitle("Developers per 100k inhabitants") scheme(sj) ///
->         xtitle("Quarters since 2020Q1")) graph_export(dp100_sc_, .png)
-Bootstrap replications (100). This may take some time.
-----+--- 1 ---+--- 2 ---+--- 3 ---+--- 4 ---+--- 5
-..................................................     50
-..................................................     100
-
-
-Synthetic Control
-
------------------------------------------------------------------------------
-develop~100k |     ATT     Std. Err.     t      P>|t|    [95% Conf. Interval]
--------------+---------------------------------------------------------------
-gpt_availa~1 |  13.75245  204.40550     0.07    0.946   -3.87e+02   414.37987
------------------------------------------------------------------------------
-95% CIs and p-values are based on Large-Sample approximations.
-
-(note: file dp100_sc_weights12.png not found)
-(file dp100_sc_weights12.png written in PNG format)
-(note: file dp100_sc_trends12.png not found)
-(file dp100_sc_trends12.png written in PNG format)
-
-. 
-. eststo dp100_sdid: sdid developers_p100k iso2_code year_quarter_num gpt_available_post1, ///
->         vce(bootstrap) reps(100) seed(1234) method(sdid) graph g1on /// 
->         g1_opt(xtitle("") scheme(sj)) ///
->         g2_opt(ytitle("Developers per 100k inhabitants") scheme(sj) ///
->         xtitle("Quarters since 2020Q1")) graph_export(dp100_sdid_, .png)
-Bootstrap replications (100). This may take some time.
-----+--- 1 ---+--- 2 ---+--- 3 ---+--- 4 ---+--- 5
-..................................................     50
-..................................................     100
-
-
-Synthetic Difference-in-Differences Estimator
-
------------------------------------------------------------------------------
-develop~100k |     ATT     Std. Err.     t      P>|t|    [95% Conf. Interval]
--------------+---------------------------------------------------------------
-gpt_availa~1 |  51.69258   45.91805     1.13    0.260   -38.30514   141.69030
------------------------------------------------------------------------------
-95% CIs and p-values are based on Large-Sample approximations.
-Refer to Arkhangelsky et al., (2020) for theoretical derivations.
-(note: file dp100_sdid_weights12.png not found)
-(file dp100_sdid_weights12.png written in PNG format)
-(note: file dp100_sdid_trends12.png not found)
-(file dp100_sdid_trends12.png written in PNG format)
-
-. 
-. 
-. eststo ppd_did: sdid pushes_perdev iso2_code year_quarter_num gpt_available_post1, ///
->         vce(bootstrap) reps(100) seed(1234) method(did) graph g1on /// 
->         g1_opt(xtitle("") scheme(sj)) ///
->         g2_opt(ytitle("Pushes per developer") scheme(sj) ///
->         xtitle("Quarters since 2020Q1")) graph_export(ppd_did_, .png)
-Bootstrap replications (100). This may take some time.
-----+--- 1 ---+--- 2 ---+--- 3 ---+--- 4 ---+--- 5
-..................................................     50
-..................................................     100
-
-
-Difference-in-Differences Estimator
-
------------------------------------------------------------------------------
-pushes_per~v |     ATT     Std. Err.     t      P>|t|    [95% Conf. Interval]
--------------+---------------------------------------------------------------
-gpt_availa~1 |  -0.12223    0.10854    -1.13    0.260    -0.33496     0.09050
------------------------------------------------------------------------------
-95% CIs and p-values are based on Large-Sample approximations.
-
-(note: file ppd_did_weights12.png not found)
-(file ppd_did_weights12.png written in PNG format)
-(note: file ppd_did_trends12.png not found)
-(file ppd_did_trends12.png written in PNG format)
-
-. 
-. eststo ppd_sc: sdid pushes_perdev iso2_code year_quarter_num gpt_available_post1, ///
->         vce(bootstrap) reps(100) seed(1234) method(sc) graph g1on /// 
->         g1_opt(xtitle("") scheme(sj)) ///
->         g2_opt(ytitle("Pushes per developer") scheme(sj) ///
->         xtitle("Quarters since 2020Q1")) graph_export(ppd_sc_, .png)
-Bootstrap replications (100). This may take some time.
-----+--- 1 ---+--- 2 ---+--- 3 ---+--- 4 ---+--- 5
-..................................................     50
-..................................................     100
-
-
-Synthetic Control
-
------------------------------------------------------------------------------
-pushes_per~v |     ATT     Std. Err.     t      P>|t|    [95% Conf. Interval]
--------------+---------------------------------------------------------------
-gpt_availa~1 |   0.06085    0.09605     0.63    0.526    -0.12740     0.24911
------------------------------------------------------------------------------
-95% CIs and p-values are based on Large-Sample approximations.
-
-(note: file ppd_sc_weights12.png not found)
-(file ppd_sc_weights12.png written in PNG format)
-(note: file ppd_sc_trends12.png not found)
-(file ppd_sc_trends12.png written in PNG format)
-
-. 
-. eststo ppd_sdid: sdid pushes_perdev iso2_code year_quarter_num gpt_available_post1, ///
->         vce(bootstrap) reps(100) seed(1234) method(sdid) graph g1on /// 
->         g1_opt(xtitle("") scheme(sj)) ///
->         g2_opt(ytitle("Pushes per developer") scheme(sj) ///
->         xtitle("Quarters since 2020Q1")) graph_export(ppd_sdid_, .png)
-Bootstrap replications (100). This may take some time.
-----+--- 1 ---+--- 2 ---+--- 3 ---+--- 4 ---+--- 5
-..................................................     50
-..................................................     100
-
-
-Synthetic Difference-in-Differences Estimator
-
------------------------------------------------------------------------------
-pushes_per~v |     ATT     Std. Err.     t      P>|t|    [95% Conf. Interval]
--------------+---------------------------------------------------------------
-gpt_availa~1 |  -0.03259    0.06387    -0.51    0.610    -0.15777     0.09259
------------------------------------------------------------------------------
-95% CIs and p-values are based on Large-Sample approximations.
-Refer to Arkhangelsky et al., (2020) for theoretical derivations.
-(note: file ppd_sdid_weights12.png not found)
-(file ppd_sdid_weights12.png written in PNG format)
-(note: file ppd_sdid_trends12.png not found)
-(file ppd_sdid_trends12.png written in PNG format)
-
-. 
-. cd "$path/output/tables"
-C:\Users\Work\Documents\Personal\Work\papers\GPT-Impact-GitHub\output\tables
-
-. 
-. esttab pp100_did using pp100_did.tex, replace
-(note: file pp100_did.tex not found)
-(output written to pp100_did.tex)
-
-. esttab pp100_sc using pp100_sc.tex, replace
-(note: file pp100_sc.tex not found)
-(output written to pp100_sc.tex)
-
-. esttab pp100_sdid using pp100_sdid.tex, replace
-(note: file pp100_sdid.tex not found)
-(output written to pp100_sdid.tex)
-
-. esttab dp100_did using dp100_did.tex, replace
-(note: file dp100_did.tex not found)
-(output written to dp100_did.tex)
-
-. esttab dp100_sc using dp100_sc.tex, replace
-(note: file dp100_sc.tex not found)
-(output written to dp100_sc.tex)
-
-. esttab dp100_sdid using dp100_sdid.tex, replace
-(note: file dp100_sdid.tex not found)
-(output written to dp100_sdid.tex)
-
-. esttab ppd_did using ppd_did.tex, replace
-(note: file ppd_did.tex not found)
-(output written to ppd_did.tex)
-
-. esttab ppd_sc using ppd_sc.tex, replace
-(note: file ppd_sc.tex not found)
-(output written to ppd_sc.tex)
-
-. esttab ppd_sdid using ppd_sdid.tex, replace
-(note: file ppd_sdid.tex not found)
-(output written to ppd_sdid.tex)
-
-. 
-end of do-file
-
-. 
-. 
-. log close
-      name:  <unnamed>
-       log:  C:\Users\Work\Documents\Personal\Work\papers\GPT-Impact-GitHub\output/analysis.log
-  log type:  text
- closed on:  11 May 2024, 12:36:22
--------------------------------------------------------------------------------------------------------------------------------------------------------------------------
