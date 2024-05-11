@@ -2,8 +2,8 @@
 
 input
 input/
-output/data
-output/data/
+# output/data
+# output/data/
 output/logs
 output/logs/
 tmp
