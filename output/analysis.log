@@ -1,8 +1,9 @@
-----------------------------------------------------------------------------------------------------------------------------------------------------------
+---------------------------------------------------------------
       name:  <unnamed>
-       log:  C:\Users\ronco\Desktop\Tesis_Nicho_Janampa\GPT-Impact-GitHub\output/analysis.log
+       log:  C:\Users\ronco\Desktop\Tesis_Nicho_Janampa\GPT-Imp
+> act-GitHub\output/analysis.log
   log type:  text
- opened on:   8 May 2024, 16:43:56
+ opened on:  11 May 2024, 10:54:22
 
 . 
 . import delimited "output/data.csv", clear
@@ -16,7 +17,9 @@
 . 
 end of do-file
 
-. do "C:\Users\ronco\AppData\Local\Temp\STD34c0_000000.tmp"
+. br
+
+. do "C:\Users\ronco\AppData\Local\Temp\STD35b0_000000.tmp"
 
 . 
 . eststo est_sdid: sdid num_pushers_pc unique_id quarter treatment, ///
@@ -47,24 +50,12 @@ file sd_id_analysis.png saved as PNG format
 . 
 end of do-file
 
-. 
-. do "C:\Users\ronco\AppData\Local\Temp\STD34c0_000000.tmp"
+. do "C:\Users\ronco\AppData\Local\Temp\STD35b0_000000.tmp"
 
-. graph export sd_id_analysis.png, as(png) replace
-could not find Graph window
-r(693);
-
-end of do-file
-
-r(693);
-
-. do "C:\Users\ronco\AppData\Local\Temp\STD34c0_000000.tmp"
-
-. 
-. eststo est_sdid: sdid num_pushers_pc unique_id quarter treatment, ///
+. eststo est_sdid: sdid num_pushers_pc unique_id quarter treatment if language=="Python",  ///
 >         vce(bootstrap) reps(100) seed(1234) method(sdid) graph g1on ///
 >         g1_opt(xtitle("") scheme(sj)) ///
->         g2_opt(ytitle("Pushers per 100k inhabitants") scheme(sj) ///
+>         g2_opt(ytitle("Pushers per 100k inhabitants-Python") scheme(sj) ///
 >         xtitle("Quarters since 2020Q1")) 
 Bootstrap replications (100). This may take some time.
 ----+--- 1 ---+--- 2 ---+--- 3 ---+--- 4 ---+--- 5
@@ -77,18 +68,136 @@ Synthetic Difference-in-Differences Estimator
 -----------------------------------------------------------------------------
 num_pusher~c |     ATT     Std. Err.     t      P>|t|    [95% Conf. Interval]
 -------------+---------------------------------------------------------------
-   treatment |   1.21494    0.20084     6.05    0.000     0.82131     1.60858
+   treatment |   4.53667    1.09431     4.15    0.000     2.39187     6.68148
 -----------------------------------------------------------------------------
 95% CIs and p-values are based on Large-Sample approximations.
 Refer to Arkhangelsky et al., (2020) for theoretical derivations.
 
 . 
-. graph export sd_id_analysis.png, as(png) replace
-file sd_id_analysis.png saved as PNG format
+end of do-file
+
+. do "C:\Users\ronco\AppData\Local\Temp\STD35b0_000000.tmp"
+
+. eststo est_sdid: sdid num_pushers_pc unique_id quarter treatment if language=="Java",    ///
+>         vce(bootstrap) reps(100) seed(1234) method(sdid) graph g1on ///
+>         g1_opt(xtitle("") scheme(sj)) ///
+>         g2_opt(ytitle("Pushers per 100k inhabitants-Python") scheme(sj) ///
+>         xtitle("Quarters since 2020Q1")) 
+Bootstrap replications (100). This may take some time.
+----+--- 1 ---+--- 2 ---+--- 3 ---+--- 4 ---+--- 5
+..................................................     50
+..................................................     100
+
+
+Synthetic Difference-in-Differences Estimator
+
+-----------------------------------------------------------------------------
+num_pusher~c |     ATT     Std. Err.     t      P>|t|    [95% Conf. Interval]
+-------------+---------------------------------------------------------------
+   treatment |   1.72985    0.88365     1.96    0.050    -0.00207     3.46177
+-----------------------------------------------------------------------------
+95% CIs and p-values are based on Large-Sample approximations.
+Refer to Arkhangelsky et al., (2020) for theoretical derivations.
 
 . 
 end of do-file
 
-. graph save "g2_12" "C:\Users\ronco\Downloads\grafica2.gph"
-file C:\Users\ronco\Downloads\grafica2.gph saved
+. do "C:\Users\ronco\AppData\Local\Temp\STD35b0_000000.tmp"
+
+. eststo est_sdid: sdid num_pushers_pc unique_id quarter treatment if language=="C++",     ///
+>         vce(bootstrap) reps(100) seed(1234) method(sdid) graph g1on ///
+>         g1_opt(xtitle("") scheme(sj)) ///
+>         g2_opt(ytitle("Pushers per 100k inhabitants-Python") scheme(sj) ///
+>         xtitle("Quarters since 2020Q1")) 
+Bootstrap replications (100). This may take some time.
+----+--- 1 ---+--- 2 ---+--- 3 ---+--- 4 ---+--- 5
+..................................................     50
+..................................................     100
+
+
+Synthetic Difference-in-Differences Estimator
+
+-----------------------------------------------------------------------------
+num_pusher~c |     ATT     Std. Err.     t      P>|t|    [95% Conf. Interval]
+-------------+---------------------------------------------------------------
+   treatment |   1.13495    0.37720     3.01    0.003     0.39565     1.87425
+-----------------------------------------------------------------------------
+95% CIs and p-values are based on Large-Sample approximations.
+Refer to Arkhangelsky et al., (2020) for theoretical derivations.
+
+. 
+end of do-file
+
+. do "C:\Users\ronco\AppData\Local\Temp\STD35b0_000000.tmp"
+
+. eststo est_sdid: sdid num_pushers_pc unique_id quarter treatment if language=="Pearl",   ///
+>         vce(bootstrap) reps(100) seed(1234) method(sdid) graph g1on ///
+>         g1_opt(xtitle("") scheme(sj)) ///
+>         g2_opt(ytitle("Pushers per 100k inhabitants-Python") scheme(sj) ///
+>         xtitle("Quarters since 2020Q1")) 
+Panel is unbalanced.
+r(451);
+
+end of do-file
+
+r(451);
+
+. BR
+command BR is unrecognized
+r(199);
+
+. br
+
+. do "C:\Users\ronco\AppData\Local\Temp\STD35b0_000000.tmp"
+
+. 
+. eststo est_sdid: sdid num_pushers_pc unique_id quarter treatment if language=="Perl",    ///
+>         vce(bootstrap) reps(100) seed(1234) method(sdid) graph g1on ///
+>         g1_opt(xtitle("") scheme(sj)) ///
+>         g2_opt(ytitle("Pushers per 100k inhabitants-Python") scheme(sj) ///
+>         xtitle("Quarters since 2020Q1")) 
+Bootstrap replications (100). This may take some time.
+----+--- 1 ---+--- 2 ---+--- 3 ---+--- 4 ---+--- 5
+..................................................     50
+..................................................     100
+
+
+Synthetic Difference-in-Differences Estimator
+
+-----------------------------------------------------------------------------
+num_pusher~c |     ATT     Std. Err.     t      P>|t|    [95% Conf. Interval]
+-------------+---------------------------------------------------------------
+   treatment |   0.22601    0.05019     4.50    0.000     0.12763     0.32439
+-----------------------------------------------------------------------------
+95% CIs and p-values are based on Large-Sample approximations.
+Refer to Arkhangelsky et al., (2020) for theoretical derivations.
+
+. 
+end of do-file
+
+. do "C:\Users\ronco\AppData\Local\Temp\STD35b0_000000.tmp"
+
+. eststo est_sdid: sdid num_pushers_pc unique_id quarter treatment if language=="R",       ///
+>         vce(bootstrap) reps(100) seed(1234) method(sdid) graph g1on ///
+>         g1_opt(xtitle("") scheme(sj)) ///
+>         g2_opt(ytitle("Pushers per 100k inhabitants-Python") scheme(sj) ///
+>         xtitle("Quarters since 2020Q1")) 
+Bootstrap replications (100). This may take some time.
+----+--- 1 ---+--- 2 ---+--- 3 ---+--- 4 ---+--- 5
+..................................................     50
+..................................................     100
+
+
+Synthetic Difference-in-Differences Estimator
+
+-----------------------------------------------------------------------------
+num_pusher~c |     ATT     Std. Err.     t      P>|t|    [95% Conf. Interval]
+-------------+---------------------------------------------------------------
+   treatment |   0.14226    0.06435     2.21    0.027     0.01613     0.26838
+-----------------------------------------------------------------------------
+95% CIs and p-values are based on Large-Sample approximations.
+Refer to Arkhangelsky et al., (2020) for theoretical derivations.
+
+. 
+end of do-file
 
