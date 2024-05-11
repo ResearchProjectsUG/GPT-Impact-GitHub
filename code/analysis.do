@@ -25,7 +25,7 @@ cd "$path"
 
 log using "output/analysis.log", replace
 
-import delimited "output/data/data.csv", clear
+import delimited "output/data/data_langs.csv", clear
 
 drop if iso2_code == "HK"
 
@@ -34,13 +34,14 @@ drop if iso2_code == "HK"
 // main
 //----------------------------------------------------------------------------//
 
-// tables
-	do "code/sub/analysis_tables.do"
-
-// figures
-	do "code/sub/analysis_figures.do"
-
 // regressions
-	do "code/sub/analysis_regressions.do"
+do "code/sub/analysis_per_lang.do"
+
+import delimited "output/data/pushes.csv", clear
+
+drop if iso2_code == "HK"
+
+do "code/sub/analysis_pushes.do"
+
 
 log close

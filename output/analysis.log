@@ -2,11 +2,11 @@
       name:  <unnamed>
        log:  C:\Users\Work\Documents\Personal\Work\papers\GPT-Impact-GitHub\output/analysis.log
   log type:  text
- opened on:  29 Apr 2024, 18:53:08
+ opened on:  11 May 2024, 12:35:03
 
 . 
-. import delimited "output/data/data.csv", clear
-(15 vars, 48,640 obs)
+. import delimited "output/data/data_langs.csv", clear
+(14 vars, 48,640 obs)
 
 . 
 . drop if iso2_code == "HK"
@@ -18,40 +18,8 @@
 . // main
 . //----------------------------------------------------------------------------//
 . 
-. // tables
-.         do "code/sub/analysis_tables.do"
-
-. //----------------------------------------------------------------------------//
-. //
-. // project: 
-. //
-. // do.file: analysis_tables
-. //
-. // author(s):
-. //
-. //----------------------------------------------------------------------------//
-. 
-end of do-file
-
-. 
-. // figures
-.         do "code/sub/analysis_figures.do"
-
-. //----------------------------------------------------------------------------//
-. //
-. // project: 
-. //
-. // do.file: analysis_figures
-. //
-. // author(s):
-. //
-. //----------------------------------------------------------------------------//
-. 
-end of do-file
-
-. 
 . // regressions
-.         do "code/sub/analysis_regressions.do"
+. do "code/sub/analysis_per_lang.do"
 
 . //----------------------------------------------------------------------------//
 . //
@@ -200,9 +168,308 @@ C:\Users\Work\Documents\Personal\Work\papers\GPT-Impact-GitHub
 end of do-file
 
 . 
+. import delimited "output/data/pushes.csv", clear
+(15 vars, 2,368 obs)
+
+. 
+. drop if iso2_code == "HK"
+(16 observations deleted)
+
+. 
+. do "code/sub/analysis_pushes.do"
+
+. cd "$path/output/figures" 
+C:\Users\Work\Documents\Personal\Work\papers\GPT-Impact-GitHub\output\figures
+
+. 
+. gen pushes_p100k = pushes_pc * 100000
+
+. gen developers_p100k = developers_pc * 100000
+
+. 
+. eststo pp100_did: sdid pushes_p100k iso2_code year_quarter_num gpt_available_post1, ///
+>         vce(bootstrap) reps(100) seed(1234) method(did) graph g1on /// 
+>         g1_opt(xtitle("") scheme(sj)) ///
+>         g2_opt(ytitle("Pushes per 100k inhabitants") scheme(sj) ///
+>         xtitle("Quarters since 2020Q1")) graph_export(pp100_did_, .png)
+Bootstrap replications (100). This may take some time.
+----+--- 1 ---+--- 2 ---+--- 3 ---+--- 4 ---+--- 5
+..................................................     50
+..................................................     100
+
+
+Difference-in-Differences Estimator
+
+-----------------------------------------------------------------------------
+pushes_p100k |     ATT     Std. Err.     t      P>|t|    [95% Conf. Interval]
+-------------+---------------------------------------------------------------
+gpt_availa~1 | 899.26770  147.39530     6.10    0.000   610.37822    1.19e+03
+-----------------------------------------------------------------------------
+95% CIs and p-values are based on Large-Sample approximations.
+
+(note: file pp100_did_weights12.png not found)
+(file pp100_did_weights12.png written in PNG format)
+(note: file pp100_did_trends12.png not found)
+(file pp100_did_trends12.png written in PNG format)
+
+. 
+. eststo pp100_sc: sdid pushes_p100k iso2_code year_quarter_num gpt_available_post1, ///
+>         vce(bootstrap) reps(100) seed(1234) method(sc) graph g1on /// 
+>         g1_opt(xtitle("") scheme(sj)) ///
+>         g2_opt(ytitle("Pushes per 100k inhabitants") scheme(sj) ///
+>         xtitle("Quarters since 2020Q1")) graph_export(pp100_sc_, .png)
+Bootstrap replications (100). This may take some time.
+----+--- 1 ---+--- 2 ---+--- 3 ---+--- 4 ---+--- 5
+..................................................     50
+..................................................     100
+
+
+Synthetic Control
+
+-----------------------------------------------------------------------------
+pushes_p100k |     ATT     Std. Err.     t      P>|t|    [95% Conf. Interval]
+-------------+---------------------------------------------------------------
+gpt_availa~1 | 595.05880  437.06130     1.36    0.173   -2.62e+02    1.45e+03
+-----------------------------------------------------------------------------
+95% CIs and p-values are based on Large-Sample approximations.
+
+(note: file pp100_sc_weights12.png not found)
+(file pp100_sc_weights12.png written in PNG format)
+(note: file pp100_sc_trends12.png not found)
+(file pp100_sc_trends12.png written in PNG format)
+
+. 
+. eststo pp100_sdid: sdid pushes_p100k iso2_code year_quarter_num gpt_available_post1, ///
+>         vce(bootstrap) reps(100) seed(1234) method(sdid) graph g1on /// 
+>         g1_opt(xtitle("") scheme(sj)) ///
+>         g2_opt(ytitle("Pushes per 100k inhabitants") scheme(sj) ///
+>         xtitle("Quarters since 2020Q1")) graph_export(pp100_sdid_, .png)
+Bootstrap replications (100). This may take some time.
+----+--- 1 ---+--- 2 ---+--- 3 ---+--- 4 ---+--- 5
+..................................................     50
+..................................................     100
+
+
+Synthetic Difference-in-Differences Estimator
+
+-----------------------------------------------------------------------------
+pushes_p100k |     ATT     Std. Err.     t      P>|t|    [95% Conf. Interval]
+-------------+---------------------------------------------------------------
+gpt_availa~1 | 645.62310  146.44510     4.41    0.000   358.59598   932.65022
+-----------------------------------------------------------------------------
+95% CIs and p-values are based on Large-Sample approximations.
+Refer to Arkhangelsky et al., (2020) for theoretical derivations.
+(note: file pp100_sdid_weights12.png not found)
+(file pp100_sdid_weights12.png written in PNG format)
+(note: file pp100_sdid_trends12.png not found)
+(file pp100_sdid_trends12.png written in PNG format)
+
+. 
+. eststo dp100_did: sdid developers_p100k iso2_code year_quarter_num gpt_available_post1, ///
+>         vce(bootstrap) reps(100) seed(1234) method(did) graph g1on /// 
+>         g1_opt(xtitle("") scheme(sj)) ///
+>         g2_opt(ytitle("Developers per 100k inhabitants") scheme(sj) ///
+>         xtitle("Quarters since 2020Q1")) graph_export(dp100_did_, .png)
+Bootstrap replications (100). This may take some time.
+----+--- 1 ---+--- 2 ---+--- 3 ---+--- 4 ---+--- 5
+..................................................     50
+..................................................     100
+
+
+Difference-in-Differences Estimator
+
+-----------------------------------------------------------------------------
+develop~100k |     ATT     Std. Err.     t      P>|t|    [95% Conf. Interval]
+-------------+---------------------------------------------------------------
+gpt_availa~1 | 578.91240  109.39790     5.29    0.000   364.49646   793.32834
+-----------------------------------------------------------------------------
+95% CIs and p-values are based on Large-Sample approximations.
+
+(note: file dp100_did_weights12.png not found)
+(file dp100_did_weights12.png written in PNG format)
+(note: file dp100_did_trends12.png not found)
+(file dp100_did_trends12.png written in PNG format)
+
+. 
+. eststo dp100_sc: sdid developers_p100k iso2_code year_quarter_num gpt_available_post1, ///
+>         vce(bootstrap) reps(100) seed(1234) method(sc) graph g1on /// 
+>         g1_opt(xtitle("") scheme(sj)) ///
+>         g2_opt(ytitle("Developers per 100k inhabitants") scheme(sj) ///
+>         xtitle("Quarters since 2020Q1")) graph_export(dp100_sc_, .png)
+Bootstrap replications (100). This may take some time.
+----+--- 1 ---+--- 2 ---+--- 3 ---+--- 4 ---+--- 5
+..................................................     50
+..................................................     100
+
+
+Synthetic Control
+
+-----------------------------------------------------------------------------
+develop~100k |     ATT     Std. Err.     t      P>|t|    [95% Conf. Interval]
+-------------+---------------------------------------------------------------
+gpt_availa~1 |  13.75245  204.40550     0.07    0.946   -3.87e+02   414.37987
+-----------------------------------------------------------------------------
+95% CIs and p-values are based on Large-Sample approximations.
+
+(note: file dp100_sc_weights12.png not found)
+(file dp100_sc_weights12.png written in PNG format)
+(note: file dp100_sc_trends12.png not found)
+(file dp100_sc_trends12.png written in PNG format)
+
+. 
+. eststo dp100_sdid: sdid developers_p100k iso2_code year_quarter_num gpt_available_post1, ///
+>         vce(bootstrap) reps(100) seed(1234) method(sdid) graph g1on /// 
+>         g1_opt(xtitle("") scheme(sj)) ///
+>         g2_opt(ytitle("Developers per 100k inhabitants") scheme(sj) ///
+>         xtitle("Quarters since 2020Q1")) graph_export(dp100_sdid_, .png)
+Bootstrap replications (100). This may take some time.
+----+--- 1 ---+--- 2 ---+--- 3 ---+--- 4 ---+--- 5
+..................................................     50
+..................................................     100
+
+
+Synthetic Difference-in-Differences Estimator
+
+-----------------------------------------------------------------------------
+develop~100k |     ATT     Std. Err.     t      P>|t|    [95% Conf. Interval]
+-------------+---------------------------------------------------------------
+gpt_availa~1 |  51.69258   45.91805     1.13    0.260   -38.30514   141.69030
+-----------------------------------------------------------------------------
+95% CIs and p-values are based on Large-Sample approximations.
+Refer to Arkhangelsky et al., (2020) for theoretical derivations.
+(note: file dp100_sdid_weights12.png not found)
+(file dp100_sdid_weights12.png written in PNG format)
+(note: file dp100_sdid_trends12.png not found)
+(file dp100_sdid_trends12.png written in PNG format)
+
+. 
+. 
+. eststo ppd_did: sdid pushes_perdev iso2_code year_quarter_num gpt_available_post1, ///
+>         vce(bootstrap) reps(100) seed(1234) method(did) graph g1on /// 
+>         g1_opt(xtitle("") scheme(sj)) ///
+>         g2_opt(ytitle("Pushes per developer") scheme(sj) ///
+>         xtitle("Quarters since 2020Q1")) graph_export(ppd_did_, .png)
+Bootstrap replications (100). This may take some time.
+----+--- 1 ---+--- 2 ---+--- 3 ---+--- 4 ---+--- 5
+..................................................     50
+..................................................     100
+
+
+Difference-in-Differences Estimator
+
+-----------------------------------------------------------------------------
+pushes_per~v |     ATT     Std. Err.     t      P>|t|    [95% Conf. Interval]
+-------------+---------------------------------------------------------------
+gpt_availa~1 |  -0.12223    0.10854    -1.13    0.260    -0.33496     0.09050
+-----------------------------------------------------------------------------
+95% CIs and p-values are based on Large-Sample approximations.
+
+(note: file ppd_did_weights12.png not found)
+(file ppd_did_weights12.png written in PNG format)
+(note: file ppd_did_trends12.png not found)
+(file ppd_did_trends12.png written in PNG format)
+
+. 
+. eststo ppd_sc: sdid pushes_perdev iso2_code year_quarter_num gpt_available_post1, ///
+>         vce(bootstrap) reps(100) seed(1234) method(sc) graph g1on /// 
+>         g1_opt(xtitle("") scheme(sj)) ///
+>         g2_opt(ytitle("Pushes per developer") scheme(sj) ///
+>         xtitle("Quarters since 2020Q1")) graph_export(ppd_sc_, .png)
+Bootstrap replications (100). This may take some time.
+----+--- 1 ---+--- 2 ---+--- 3 ---+--- 4 ---+--- 5
+..................................................     50
+..................................................     100
+
+
+Synthetic Control
+
+-----------------------------------------------------------------------------
+pushes_per~v |     ATT     Std. Err.     t      P>|t|    [95% Conf. Interval]
+-------------+---------------------------------------------------------------
+gpt_availa~1 |   0.06085    0.09605     0.63    0.526    -0.12740     0.24911
+-----------------------------------------------------------------------------
+95% CIs and p-values are based on Large-Sample approximations.
+
+(note: file ppd_sc_weights12.png not found)
+(file ppd_sc_weights12.png written in PNG format)
+(note: file ppd_sc_trends12.png not found)
+(file ppd_sc_trends12.png written in PNG format)
+
+. 
+. eststo ppd_sdid: sdid pushes_perdev iso2_code year_quarter_num gpt_available_post1, ///
+>         vce(bootstrap) reps(100) seed(1234) method(sdid) graph g1on /// 
+>         g1_opt(xtitle("") scheme(sj)) ///
+>         g2_opt(ytitle("Pushes per developer") scheme(sj) ///
+>         xtitle("Quarters since 2020Q1")) graph_export(ppd_sdid_, .png)
+Bootstrap replications (100). This may take some time.
+----+--- 1 ---+--- 2 ---+--- 3 ---+--- 4 ---+--- 5
+..................................................     50
+..................................................     100
+
+
+Synthetic Difference-in-Differences Estimator
+
+-----------------------------------------------------------------------------
+pushes_per~v |     ATT     Std. Err.     t      P>|t|    [95% Conf. Interval]
+-------------+---------------------------------------------------------------
+gpt_availa~1 |  -0.03259    0.06387    -0.51    0.610    -0.15777     0.09259
+-----------------------------------------------------------------------------
+95% CIs and p-values are based on Large-Sample approximations.
+Refer to Arkhangelsky et al., (2020) for theoretical derivations.
+(note: file ppd_sdid_weights12.png not found)
+(file ppd_sdid_weights12.png written in PNG format)
+(note: file ppd_sdid_trends12.png not found)
+(file ppd_sdid_trends12.png written in PNG format)
+
+. 
+. cd "$path/output/tables"
+C:\Users\Work\Documents\Personal\Work\papers\GPT-Impact-GitHub\output\tables
+
+. 
+. esttab pp100_did using pp100_did.tex, replace
+(note: file pp100_did.tex not found)
+(output written to pp100_did.tex)
+
+. esttab pp100_sc using pp100_sc.tex, replace
+(note: file pp100_sc.tex not found)
+(output written to pp100_sc.tex)
+
+. esttab pp100_sdid using pp100_sdid.tex, replace
+(note: file pp100_sdid.tex not found)
+(output written to pp100_sdid.tex)
+
+. esttab dp100_did using dp100_did.tex, replace
+(note: file dp100_did.tex not found)
+(output written to dp100_did.tex)
+
+. esttab dp100_sc using dp100_sc.tex, replace
+(note: file dp100_sc.tex not found)
+(output written to dp100_sc.tex)
+
+. esttab dp100_sdid using dp100_sdid.tex, replace
+(note: file dp100_sdid.tex not found)
+(output written to dp100_sdid.tex)
+
+. esttab ppd_did using ppd_did.tex, replace
+(note: file ppd_did.tex not found)
+(output written to ppd_did.tex)
+
+. esttab ppd_sc using ppd_sc.tex, replace
+(note: file ppd_sc.tex not found)
+(output written to ppd_sc.tex)
+
+. esttab ppd_sdid using ppd_sdid.tex, replace
+(note: file ppd_sdid.tex not found)
+(output written to ppd_sdid.tex)
+
+. 
+end of do-file
+
+. 
+. 
 . log close
       name:  <unnamed>
        log:  C:\Users\Work\Documents\Personal\Work\papers\GPT-Impact-GitHub\output/analysis.log
   log type:  text
- closed on:  29 Apr 2024, 18:53:31
+ closed on:  11 May 2024, 12:36:22
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------
