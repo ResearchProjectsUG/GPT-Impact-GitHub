@@ -1,5 +1,10 @@
 cd "$path/output/figures" 
 
+import delimited "output/data/pushes.csv", clear
+
+drop if iso2_code == "HK"
+
+
 gen pushes_p100k = pushes_pc * 100000
 gen developers_p100k = developers_pc * 100000
 
@@ -52,11 +57,11 @@ eststo ppd_sc: sdid pushes_perdev iso2_code year_quarter_num gpt_available_post1
 	g2_opt(ytitle("Pushes per developer") scheme(sj) ///
 	xtitle("Quarters since 2020Q1")) graph_export(ppd_sc_, .png)
 
-eststo ppd_sdid: sdid pushes_perdev iso2_code year_quarter_num gpt_available_post1, ///
-	vce(bootstrap) reps(100) seed(1234) method(sdid) graph g1on /// 
-	g1_opt(xtitle("") scheme(sj)) ///
-	g2_opt(ytitle("Pushes per developer") scheme(sj) ///
-	xtitle("Quarters since 2020Q1")) graph_export(ppd_sdid_, .png)
+	eststo ppd_sdid: sdid pushes_perdev iso2_code year_quarter_num gpt_available_post1, ///
+		vce(bootstrap) reps(100) seed(1234) method(sdid) graph g1on /// 
+		g1_opt(xtitle("") scheme(sj)) ///
+		g2_opt(ytitle("Pushes per developer") scheme(sj) ///
+		xtitle("Quarters since 2020Q1")) graph_export(ppd_sdid_, .png)
 
 cd "$path/output/tables"
 

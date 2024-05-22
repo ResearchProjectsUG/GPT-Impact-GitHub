@@ -19,7 +19,13 @@ set more off
 set varabbrev off
 cap log close
 
-if "`c(username)'" == "Work" global path "C:/Users/Work/Documents/Personal/Work/papers/GPT-Impact-GitHub"	// c(username) is your computer's username
+if "`c(username)'" == "Work" {
+	global path "C:/Users/Work/Documents/Personal/Work/papers/GPT-Impact-GitHub"
+}
+
+if "`c(username)'" == "Alexander" {
+	global path "C:/Users/Alexander/Documents/GitHub/GPT-Impact-GitHub" 
+}	
 
 cd "$path"
 

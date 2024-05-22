@@ -1,0 +1,42 @@
+{
+\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
+\begin{tabular}{l*{3}{c}}
+\toprule
+                    &\multicolumn{1}{c}{\shortstack{DID}}&\multicolumn{1}{c}{\shortstack{SC}}&\multicolumn{1}{c}{\shortstack{SDID}}\\\cmidrule(lr){2-2}\cmidrule(lr){3-3}\cmidrule(lr){4-4}
+\hline
+\Gape[0.25cm][0.25cm]{ \underline{Panel A. \textbf{ \textit{C} } } }&               &               &               \\
+Chat GPT Available  &       3.005***&       3.469** &       1.690***\\
+                    &     (0.794)   &     (1.361)   &     (0.564)   \\
+
+Observations        &        1984   &        1984   &        1984   \\
+Baseline Mean Outcome&       2.043   &       2.043   &       2.043   \\
+
+
+\hline
+\Gape[0.25cm][0.25cm]{ \underline{Panel B. \textbf{ \textit{C++} } } }&               &               &               \\
+Chat GPT Available  &       2.681***&       1.983   &       1.466***\\
+                    &     (0.673)   &     (1.692)   &     (0.521)   \\
+
+Observations        &        1856   &        1856   &        1856   \\
+Baseline Mean Outcome&       2.684   &       2.684   &       2.684   \\
+
+
+\hline
+\Gape[0.25cm][0.25cm]{ \underline{Panel C. \textbf{ \textit{Rust} } } }&               &               &               \\
+Chat GPT Available  &       2.783***&       3.779***&       1.728***\\
+                    &     (0.470)   &     (0.795)   &     (0.553)   \\
+
+Observations        &        1104   &        1104   &        1104   \\
+Baseline Mean Outcome&       0.402   &       0.402   &       0.402   \\
+
+
+\hline
+\Gape[0.25cm][0.25cm]{ \underline{Panel D. \textbf{ \textit{Assembly} } } }&               &               &               \\
+Chat GPT Available  &       0.877***&       1.447***&       0.643***\\
+                    &     (0.226)   &     (0.485)   &     (0.181)   \\
+
+Observations        &        1248   &        1248   &        1248   \\
+Baseline Mean Outcome&       0.674   &       0.674   &       0.674   \\
+\bottomrule
+\end{tabular}
+}
