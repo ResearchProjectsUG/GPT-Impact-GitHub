@@ -2,6 +2,18 @@ import pandas as pd
 import pycountry
 from countryinfo import CountryInfo as CInfo
 
+import os
+
+# Get the path to the directory of the current script
+current_file_directory = os.path.dirname(__file__)
+
+# Change the current working directory to the script's directory
+os.chdir(current_file_directory)
+
+# Now, the current directory is set to where the script is located
+print("Current Working Directory is now:", os.getcwd())
+
+
 # clean git pushes
 
 pushes_data = pd.read_csv("https://raw.githubusercontent.com/github/innovationgraph/main/data/git_pushes.csv")
@@ -107,11 +119,18 @@ pushes_data_clean["population"] = pushes_data_clean["iso2_code"].map(country_pop
 pushes_data_clean["pushes_pc"] = pushes_data_clean["git_pushes"] / pushes_data_clean["population"]
 
 developers = pd.read_csv("https://raw.githubusercontent.com/github/innovationgraph/main/data/developers.csv")
+repositories = pd.read_csv("https://raw.githubusercontent.com/github/innovationgraph/main/data/repositories.csv")
 
-main_data = pd.merge(pushes_data_clean, developers, how="left", on=["iso2_code", "year", "quarter"])
+
+push_dev_data = pd.merge(pushes_data_clean, developers, how="left", on=["iso2_code", "year", "quarter"])
+main_data = pd.merge(push_dev_data, repositories, how="left", on=["iso2_code", "year", "quarter"])
+
 
 main_data["developers_pc"] = main_data["developers"] / main_data["population"]
+main_data["repositories_pc"] = main_data["repositories"] / main_data["population"]
 
 main_data["pushes_perdev"] = main_data["git_pushes"] / main_data["developers"]
 
-main_data.to_csv("output/data/pushes.csv", index=False)
+
+main_data.to_csv("../output/data/pushes.csv", index=False)
+
