@@ -46,7 +46,7 @@ eststo `lang'_did: sdid num_pushers_pc iso2_code quarter treatment if language =
         vce(bootstrap) reps(100) seed(1234) method(did) graph g1on /// 
         g1_opt(xtitle("") scheme(plotplainblind)) ///
         g2_opt(ytitle("`l`v''-`lang'")scheme(plotplainblind) ///
-        xtitle("Quarters since 2020Q1")) graph_export("$path/output/figures/`valangr'_did_", .png )
+        xtitle("Quarters since 2020Q1")) graph_export("$path/output/figures/`lang'_did_", .png )
 
         sum  num_pushers_pc  if  gpt_available==0 & quarter<12 & language == "`lang'"
         estadd scalar control_mean `r(mean)'
@@ -75,19 +75,19 @@ x
 
 ****** Table with three panels 
 
-esttab  pushes_p100k_did ///
-                pushes_p100k_sc ///
-                pushes_p100k_sdid ///
-                using "$path/output\tables/gpt_impact_github_push_dev_repo.tex",                         ///
+esttab  Python_did ///
+                Python_sc ///
+                Python_sdid ///
+                using "$path/output\tables/gpt_impact_github_langugages.tex",                         ///
                 replace label booktabs                                                                   ///
                 cells(b(star fmt(%9.3f)) se(par fmt(%9.3f)))             ///
                 starlevels(* 0.10 ** 0.05 *** 0.01) ///         
                 delim("&")  /// Type of column delimiter 
                 nomtitle ///
                 collabels(none) /// No column names within model
-                keep( gpt_treat ///
+                keep( treatment ///
                         ) ///
-                order(gpt_treat) ///
+                order(treatment) ///
                 mgroups("\shortstack{DID}" ///
                                         "\shortstack{SC}" ///
                                         "\shortstack{SDID}",  ///
@@ -96,36 +96,63 @@ esttab  pushes_p100k_did ///
                                         erepeat(\cmidrule(lr){@span})) ///
                                 nomtitles                       ///
                 scalars("control_mean Baseline Mean Outcome") ///
-                        refcat( gpt_treat "\Gape[0.25cm][0.25cm]{ \underline{Panel A. \textbf{ \textit{Num Pushes per 100k} } } }" , nolabel) ///
+                        refcat( treatment "\Gape[0.25cm][0.25cm]{ \underline{Panel A. \textbf{ \textit{Python} } } }" , nolabel) ///
                         prefoot("") posthead(\hline) postfoot("")  nonumbers
         
-esttab  repositories_p100k_did ///
-                repositories_p100k_sc ///
-                repositories_p100k_sdid ///
-                using "$path/output\tables/gpt_impact_github_push_dev_repo.tex", ///
+esttab  Java_did ///
+                Java_sc ///
+                Java_sdid ///
+                using "$path/output\tables/gpt_impact_github_langugages.tex", ///
                 append label booktabs mlabel(,none)                                                                      ///
                 cells(b(star fmt(%9.3f)) se(par fmt(%9.3f)))             ///
                 starlevels(* 0.10 ** 0.05 *** 0.01) /// 
-        keep( gpt_treat ///
+        keep( treatment ///
                 ) ///
-        order(gpt_treat) ///
+        order(treatment) ///
                 scalars("control_mean Baseline Mean Outcome") ///
-                refcat( gpt_treat "\Gape[0.25cm][0.25cm]{ \underline{Panel B. \textbf{ \textit{Num Repos per 100k} } } }" , nolabel) /// Subtitles
+                refcat( treatment "\Gape[0.25cm][0.25cm]{ \underline{Panel B. \textbf{ \textit{Java} } } }" , nolabel) /// Subtitles
                 prehead("") prefoot("") posthead("\hline") postfoot("") delim("&") collabels(none) nonumbers nogaps nonote
 
-
-esttab  developers_p100k_did ///
-                developers_p100k_sc ///
-                developers_p100k_sdid ///
-                using "$path/output\tables/gpt_impact_github_push_dev_repo.tex", ///
+esttab  R_did ///
+                R_sc ///
+                R_sdid ///
+                using "$path/output\tables/gpt_impact_github_langugages.tex", ///
                 append label booktabs mlabel(,none)                                                                      ///
                 cells(b(star fmt(%9.3f)) se(par fmt(%9.3f)))             ///
                 starlevels(* 0.10 ** 0.05 *** 0.01) /// 
-        keep( gpt_treat ///
+        keep( treatment ///
                 ) ///
-        order(gpt_treat) ///
+        order(treatment) ///
                 scalars("control_mean Baseline Mean Outcome") ///
-                refcat( gpt_treat "\Gape[0.25cm][0.25cm]{ \underline{Panel C. \textbf{ \textit{Num developers per 100k} } } }" , nolabel) /// Subtitles
+                refcat( treatment "\Gape[0.25cm][0.25cm]{ \underline{Panel B. \textbf{ \textit{R} } } }" , nolabel) /// Subtitles
+                prehead("") prefoot("") posthead("\hline") postfoot("") delim("&") collabels(none) nonumbers nogaps nonote
+
+esttab  Julia_did ///
+                Julia_sc ///
+                Julia_sdid ///
+                using "$path/output\tables/gpt_impact_github_langugages.tex", ///
+                append label booktabs mlabel(,none)                                                                      ///
+                cells(b(star fmt(%9.3f)) se(par fmt(%9.3f)))             ///
+                starlevels(* 0.10 ** 0.05 *** 0.01) /// 
+        keep( treatment ///
+                ) ///
+        order(treatment) ///
+                scalars("control_mean Baseline Mean Outcome") ///
+                refcat( treatment "\Gape[0.25cm][0.25cm]{ \underline{Panel B. \textbf{ \textit{Julia} } } }" , nolabel) /// Subtitles
+                prehead("") prefoot("") posthead("\hline") postfoot("") delim("&") collabels(none) nonumbers nogaps nonote
+
+esttab  Swift_did ///
+                Swift_sc ///
+                Swift_sdid ///
+                using "$path/output\tables/gpt_impact_github_langugages.tex", ///
+                append label booktabs mlabel(,none)                                                                      ///
+                cells(b(star fmt(%9.3f)) se(par fmt(%9.3f)))             ///
+                starlevels(* 0.10 ** 0.05 *** 0.01) /// 
+        keep( treatment ///
+                ) ///
+        order(treatment) ///
+                scalars("control_mean Baseline Mean Outcome") ///
+                refcat( treatment "\Gape[0.25cm][0.25cm]{ \underline{Panel C. \textbf{ \textit{Swift} } } }" , nolabel) /// Subtitles
                 prehead("") prefoot("") posthead("\hline")  delim("&") collabels(none) nonumbers nogaps nonote 
 
 
