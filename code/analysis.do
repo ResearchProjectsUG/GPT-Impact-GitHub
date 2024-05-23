@@ -31,11 +31,12 @@ cd "$path"
 
 log using "output/analysis.log", replace
 
+x
 import delimited "output/data/data_langs.csv", clear
 
 drop if iso2_code == "HK"
 
-
+C:\Users\Alexander\Documents\GitHub\GPT-Impact-GitHub\output\tables
 //----------------------------------------------------------------------------//
 // main
 //----------------------------------------------------------------------------//
