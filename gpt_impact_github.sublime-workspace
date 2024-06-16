@@ -4,6 +4,22 @@
 		"selected_items":
 		[
 			[
+				"quarte",
+				"quarter\tVariable"
+			],
+			[
+				"quarter",
+				"quarter_int\tVariable"
+			],
+			[
+				"yea",
+				"year_quarter_num\tVariable"
+			],
+			[
+				"gp",
+				"gpt_available\tVariable"
+			],
+			[
 				"inve",
 				"inverse_distance_pos_v11\tVariable"
 			],
@@ -78,10 +94,6 @@
 			[
 				"more",
 				"more_100km_0\tVariable"
-			],
-			[
-				"yea",
-				"years_operating\tVariable"
 			],
 			[
 				"min_dis",
@@ -502,37 +514,22 @@
 			[
 				"reten",
 				"retention11"
-			],
-			[
-				"geod",
-				"geo_mode_min\tVariable"
-			],
-			[
-				"fronti",
-				"frontier_mode_min\tVariable"
-			],
-			[
-				"vrae",
-				"vraem_mode_min\tVariable"
 			]
 		]
 	},
 	"buffers":
 	[
 		{
-			"contents": "//----------------------------------------------------------------------------//\n//\n// project: \n//\n// do.file: analysis\n//\n// author(s):\n//\n//----------------------------------------------------------------------------//\n\n\n//----------------------------------------------------------------------------//\n// preface\n//----------------------------------------------------------------------------//\n\nclear all\nclear programs\nset more off\nset varabbrev off\ncap log close\n\nif \"`c(username)'\" == \"Work\" {\n\tglobal path \"C:/Users/Work/Documents/Personal/Work/papers/GPT-Impact-GitHub\"\n}\n\nif \"`c(username)'\" == \"Alexander\" {\n\tglobal path \"C:/Users/Alexander/Documents/GitHub/GPT-Impact-GitHub\" \n}\t\n\ncd \"$path\"\n\nlog using \"output/analysis.log\", replace\n\nx\nimport delimited \"output/data/data_langs.csv\", clear\n\ndrop if iso2_code == \"HK\"\n\n\n//----------------------------------------------------------------------------//\n// main\n//----------------------------------------------------------------------------//\n\n// regressions\ndo \"code/sub/analysis_per_lang.do\"\n\nimport delimited \"output/data/pushes.csv\", clear\n\ndrop if iso2_code == \"HK\"\n\ndo \"code/sub/analysis_pushes.do\"\n\n\nlog close\n",
 			"file": "code/analysis.do",
-			"file_size": 1224,
-			"file_write_time": 133599313749963897,
 			"settings":
 			{
-				"buffer_size": 1173,
+				"buffer_size": 1240,
 				"encoding": "UTF-8",
 				"line_ending": "Windows"
 			}
 		}
 	],
-	"build_system": "",
+	"build_system": "Packages/Python/Python.sublime-build",
 	"build_system_choices":
 	[
 		[
@@ -664,7 +661,7 @@
 			],
 			[
 				"Packages/Python/Python.sublime-build",
-				""
+				"Syntax Check"
 			]
 		],
 		[
@@ -930,8 +927,28 @@
 		"side_bar_visible": false,
 		"status_bar_visible": false
 	},
+	"expanded_folders":
+	[
+		"/C/Users/Alexander/Documents/GitHub/GPT-Impact-GitHub",
+		"/C/Users/Alexander/Documents/GitHub/GPT-Impact-GitHub/code",
+		"/C/Users/Alexander/Documents/GitHub/GPT-Impact-GitHub/code/sub",
+		"/C/Users/Alexander/Documents/GitHub/GPT-Impact-GitHub/output",
+		"/C/Users/Alexander/Documents/GitHub/GPT-Impact-GitHub/output/csv",
+		"/C/Users/Alexander/Documents/GitHub/GPT-Impact-GitHub/output/data"
+	],
 	"file_history":
 	[
+		"/C/Users/Alexander/Documents/GitHub/GPT-Impact-GitHub/code/sub/analysis_per_lang.do",
+		"/C/Users/Alexander/Documents/GitHub/BISP-IE/2019_IE_analysis/code/3_tex/esttab/gpt_impact_github_push_dev_repo.tex",
+		"/C/Users/Alexander/Documents/GitHub/GPT-Impact-GitHub/output/tables/gpt_impact_github_shell.tex",
+		"/C/Users/Alexander/Documents/GitHub/GPT-Impact-GitHub/output/tables/gpt_impact_github_dsl.tex",
+		"/C/Users/Alexander/Documents/GitHub/GPT-Impact-GitHub/code/sub/analysis_pushes.do",
+		"/C/Users/Alexander/Documents/GitHub/GPT-Impact-GitHub/code/sub/analysis_all_lang.do",
+		"/C/Users/Alexander/Documents/GitHub/BISP-IE/Policy_Report/policy_report.tex",
+		"/C/Users/Alexander/Documents/GitHub/GPT-Impact-GitHub/output/tables/gpt_impact_github_high_level.tex",
+		"/C/Users/Alexander/Documents/GitHub/GPT-Impact-GitHub/output/tables/gpt_impact_github_langugages.tex",
+		"/C/Users/Alexander/Documents/GitHub/GPT-Impact-GitHub/output/tables/gpt_impact_github_push_dev_repo.tex",
+		"/C/Users/Alexander/Documents/GitHub/GPT-Impact-GitHub/code/build_pushes.py",
 		"/C/Users/Alexander/Documents/GitHub/GPT-Impact-GitHub/code/sub/analysis_figures.do",
 		"/C/Users/Alexander/Documents/GitHub/GPT-Impact-GitHub/code/sub/build_covariates.do",
 		"/C/Users/Alexander/Documents/GitHub/GPT-Impact-GitHub/code/sub/build_datasets.do",
@@ -1024,7 +1041,6 @@
 		"/C/Users/Alexander/Documents/GitHub/BISP-IE/2019_IE_analysis/code/1_cleaning/52_closest_pp_uc_ma.do",
 		"/C/Users/Alexander/Documents/GitHub/BISP-IE/2019_IE_analysis/code/2_analysis/11_main_HTE_panel_reg_PART2.do",
 		"/C/Users/Alexander/Dropbox/halflife_regression_rl/cleaning.do",
-		"/C/Users/Alexander/Documents/GitHub/BISP-IE/Policy_Report/policy_report.tex",
 		"/C/Users/Alexander/Documents/GitHub/BISP-IE/2019_IE_analysis/code/2_analysis/62_uc_ma_main_reg_hte_panel_ES_final.do",
 		"/C/Users/Alexander/Documents/GitHub/BISP-IE/2019_IE_analysis/code/4_graphs/presentations/HTE_triple_interaction_self_collection.do",
 		"/C/Users/Alexander/Documents/GitHub/BISP-IE/2019_IE_analysis/code/3_tex/esttab/ihs_anybr_diffdist_idw_v11_fe_no2013.tex",
@@ -1049,21 +1065,11 @@
 		"/C/Users/Alexander/Documents/GitHub/BISP-IE/2019_IE_analysis/code/3_tex/esttab/uc_ma_psuctr_ihs_poscompet_v11.tex",
 		"/C/Users/Alexander/Documents/GitHub/BISP-IE/2019_IE_analysis/code/2_analysis/42_Tehsil_dist_ES_DD.do",
 		"/C/Users/Alexander/Documents/GitHub/BISP-IE/2019_IE_analysis/code/3_tex/esttab/uc_ma_psuctr_ihs_poscompet_in_all.tex",
-		"/C/Users/Alexander/Documents/GitHub/BISP-IE/2019_IE_analysis/code/3_tex/esttab/uc_ma_ihs_dist_med_in_all_panel.tex",
-		"/C/Users/Alexander/Documents/GitHub/BISP-IE/2019_IE_analysis/code/3_tex/esttab/uc_ma_ihs_dist_poscompet_in_all.tex",
-		"/C/Users/Alexander/Documents/GitHub/BISP-IE/2019_IE_analysis/code/3_tex/esttab/uc_ma_ihs_dist_med_in_all.tex",
-		"/C/Users/Alexander/Documents/GitHub/BISP-IE/2019_IE_analysis/code/2_analysis/28_MIS_9k_tranche-level_ES+DDgraphs.do",
-		"/C/Users/Alexander/Documents/GitHub/BISP-IE/2019_IE_analysis/code/3_tex/alternative_HHI_specification.tex",
-		"/C/Users/Alexander/Documents/num_visit_test_100k.do",
-		"/C/Users/Alexander/Documents/GitHub/BISP-IE/2019_IE_analysis/code/3_tex/alternative_HHI_specification.toc",
-		"/C/Users/Alexander/Documents/GitHub/BISP-IE/2019_IE_analysis/code/3_tex/alternative_HHI_specification.pdf",
-		"/C/Users/Alexander/Documents/GitHub/BISP-IE/2019_IE_analysis/code/2_analysis/47_PART1_different_pp_used_method4.do",
-		"/C/Users/Alexander/Documents/GitHub/BISP-IE/2019_IE_analysis/code/3_tex/Competition_Analysis_method4.tex",
-		"/C/Users/Alexander/Documents/GitHub/BISP-IE/2019_IE_analysis/code/1_cleaning/38_PP_unique_id.do"
+		"/C/Users/Alexander/Documents/GitHub/BISP-IE/2019_IE_analysis/code/3_tex/esttab/uc_ma_ihs_dist_med_in_all_panel.tex"
 	],
 	"find":
 	{
-		"height": 22.0
+		"height": 39.0
 	},
 	"find_in_files":
 	{
@@ -1080,6 +1086,40 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"hig",
+			"d JavaScript_sdid  TypeScript_sdid ///\nPHP_sdid, keep(gpt_available_post1) sort ylab(\"\") ytitle(\"\", orient(horiz)) xline(0) msymbol(S) ///\neqlabels(\"Equation 1\" \"Equation 2\" \"Equation 3\")\n",
+			"xla",
+			"gpt_impact_github_shell",
+			"PowerShell",
+			"Batchfile",
+			"Shell",
+			"Assembly",
+			"cpp",
+			"C_",
+			"gpt_impact_github_high_level",
+			"TypeScript",
+			"Ruby",
+			"JavaScript",
+			"Python",
+			"\"`lang'\"",
+			"`lang'",
+			"treatment",
+			"gpt_impact_github_langugages",
+			"Swift",
+			"Julia",
+			"Java",
+			"'",
+			"gpt_treat",
+			"gpt_impact_github_push_dev_repo",
+			"repositories_p100k",
+			"pushes_p100k",
+			"1.BVS#1.post#c.inv_dist_pos_v11_bl_std",
+			"3_tex/esttab",
+			"$code",
+			"3_tex/esttab",
+			"code",
+			"path",
+			"\\",
 			"method",
 			"\\",
 			"pos_wdr_inv",
@@ -1173,41 +1213,7 @@
 			"10_FE_panel_amount_nohbl_no2013",
 			"inv_dist_pos_v11_firststage",
 			"Source:O",
-			"wins_JQ03",
-			"positive_wdr_12m_opm",
-			"positive_wdr_12m_opm ",
-			"append",
-			"label",
-			"wins_JQ03_pctl",
-			"`var'_`HTE'_1",
-			"drop",
-			"estimates",
-			"estiamtes",
-			"resid_p10",
-			"buffer_2017",
-			"OPM Not balanced Panel 2014",
-			"_no2013",
-			"bank_access",
-			"read",
-			"coefplot_bribes_bvs_post_comp_thresh",
-			"50",
-			"75",
-			"10_FE_panel_distance_nohbl_no2013",
-			"pct_amt_received",
-			"wins_JQ03",
-			"JQ03",
-			"total_bribes",
-			"wins",
-			"wino",
-			"total_bribes",
-			"10_FE_panel_bribes_total_nohbl_no2013",
-			"10_FE_panel_amount_nohbl_no2013",
-			"hist_inverse_distance_pos_v11",
-			"Human Agents",
-			"inv_dist_pos_v11_firststage",
-			"human age",
-			"paid any",
-			"respond"
+			"wins_JQ03"
 		],
 		"highlight": false,
 		"in_selection": false,
@@ -1215,6 +1221,37 @@
 		"regex": false,
 		"replace_history":
 		[
+			"gpt_impact_github_dsl",
+			"R",
+			"MATLAB",
+			"CSS",
+			"HTML",
+			"PLpgSQL",
+			"TSQL",
+			"PowerShell",
+			"Batchfile",
+			"Shell_",
+			"gpt_impact_github_low_level",
+			"Assembly",
+			"Rust",
+			"cpp",
+			"C",
+			"\"C++\"",
+			"gpt_available_post1",
+			"gpt_impact_github_high_level",
+			"TypeScript",
+			"PHP",
+			"JavaScript",
+			"",
+			"treatment",
+			"gpt_impact_github_langugages",
+			"Java",
+			"Python",
+			"gpt_treat",
+			"output\\tables",
+			"$path",
+			"output\\tables",
+			"path",
 			"/",
 			"idw_std",
 			"",
@@ -1311,38 +1348,7 @@
 			"50",
 			"sum_inv_dist_atm_1km",
 			"inv_dist",
-			"2018",
-			"pred_num_pos_m2_10km_w",
-			"$osrm_dir",
-			"10km",
-			"poly",
-			"num_dens_pos_50km",
-			"`var'_w",
-			"`var'",
-			"num_pos_m2_10km",
-			"den",
-			"atm",
-			"mark_acc_osrm_V2",
-			"20",
-			"anyb",
-			"mark_acc_osrm_V2",
-			"mark_acc_eucl_V2",
-			"mark_acc_osrm_V1",
-			"mark_acc_eucl_V1",
-			"75",
-			"",
-			"latitude_pp longitude_pp",
-			"lat_psu long_psu",
-			"Wait duration for turn",
-			"6-45",
-			"pos_6_14",
-			"1.post",
-			"baseline_PSU",
-			"pred3",
-			"pred2",
-			"",
-			"c.pctg_visited",
-			"pctg_visited"
+			"2018"
 		],
 		"reverse": false,
 		"show_context": true,
@@ -1362,15 +1368,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 1173,
+						"buffer_size": 1240,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								407,
-								407
+								123,
+								123
 							]
 						],
 						"settings":
@@ -1393,71 +1399,86 @@
 							},
 							"bracket_highlighter.regions":
 							[
-								"bh_double_quote",
-								"bh_double_quote_center",
-								"bh_double_quote_open",
-								"bh_double_quote_close",
-								"bh_double_quote_content",
-								"bh_tag",
-								"bh_tag_center",
-								"bh_tag_open",
-								"bh_tag_close",
-								"bh_tag_content",
-								"bh_c_define",
-								"bh_c_define_center",
-								"bh_c_define_open",
-								"bh_c_define_close",
-								"bh_c_define_content",
-								"bh_regex",
-								"bh_regex_center",
-								"bh_regex_open",
-								"bh_regex_close",
-								"bh_regex_content",
-								"bh_single_quote",
-								"bh_single_quote_center",
-								"bh_single_quote_open",
-								"bh_single_quote_close",
-								"bh_single_quote_content",
-								"bh_curly",
-								"bh_curly_center",
-								"bh_curly_open",
-								"bh_curly_close",
-								"bh_curly_content",
 								"bh_round",
 								"bh_round_center",
 								"bh_round_open",
 								"bh_round_close",
 								"bh_round_content",
-								"bh_angle",
-								"bh_angle_center",
-								"bh_angle_open",
-								"bh_angle_close",
-								"bh_angle_content",
-								"bh_square",
-								"bh_square_center",
-								"bh_square_open",
-								"bh_square_close",
-								"bh_square_content",
+								"bh_single_quote",
+								"bh_single_quote_center",
+								"bh_single_quote_open",
+								"bh_single_quote_close",
+								"bh_single_quote_content",
+								"bh_unmatched",
+								"bh_unmatched_center",
+								"bh_unmatched_open",
+								"bh_unmatched_close",
+								"bh_unmatched_content",
 								"bh_default",
 								"bh_default_center",
 								"bh_default_open",
 								"bh_default_close",
 								"bh_default_content",
-								"bh_unmatched",
-								"bh_unmatched_center",
-								"bh_unmatched_open",
-								"bh_unmatched_close",
-								"bh_unmatched_content"
+								"bh_double_quote",
+								"bh_double_quote_center",
+								"bh_double_quote_open",
+								"bh_double_quote_close",
+								"bh_double_quote_content",
+								"bh_angle",
+								"bh_angle_center",
+								"bh_angle_open",
+								"bh_angle_close",
+								"bh_angle_content",
+								"bh_c_define",
+								"bh_c_define_center",
+								"bh_c_define_open",
+								"bh_c_define_close",
+								"bh_c_define_content",
+								"bh_curly",
+								"bh_curly_center",
+								"bh_curly_open",
+								"bh_curly_close",
+								"bh_curly_content",
+								"bh_regex",
+								"bh_regex_center",
+								"bh_regex_open",
+								"bh_regex_close",
+								"bh_regex_content",
+								"bh_tag",
+								"bh_tag_center",
+								"bh_tag_open",
+								"bh_tag_close",
+								"bh_tag_content",
+								"bh_square",
+								"bh_square_center",
+								"bh_square_open",
+								"bh_square_close",
+								"bh_square_content"
 							],
 							"syntax": "Packages/StataEditor/StataEditor.tmLanguage"
 						},
 						"translation.x": 0.0,
-						"translation.y": 70.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 0,
 					"type": "text"
 				}
+			]
+		},
+		{
+			"sheets":
+			[
+			]
+		},
+		{
+			"sheets":
+			[
+			]
+		},
+		{
+			"sheets":
+			[
 			]
 		}
 	],
@@ -1478,16 +1499,36 @@
 				0,
 				1,
 				1
+			],
+			[
+				1,
+				0,
+				2,
+				1
+			],
+			[
+				0,
+				1,
+				1,
+				2
+			],
+			[
+				1,
+				1,
+				2,
+				2
 			]
 		],
 		"cols":
 		[
 			0.0,
+			0.365421764327,
 			1.0
 		],
 		"rows":
 		[
 			0.0,
+			0.562564102565,
 			1.0
 		]
 	},
@@ -1498,7 +1539,7 @@
 	},
 	"output.exec":
 	{
-		"height": 341.0
+		"height": 123.0
 	},
 	"output.find_results":
 	{
@@ -1516,7 +1557,7 @@
 	"project": "gpt_impact_github.sublime-project",
 	"replace":
 	{
-		"height": 40.0
+		"height": 70.0
 	},
 	"save_all_on_build": false,
 	"select_file":
