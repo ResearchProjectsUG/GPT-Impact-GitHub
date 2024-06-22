@@ -1,809 +1,72 @@
-------------------------------------------------------------------------------------------------------------------------------------------
+------------------------------------------------------------
       name:  <unnamed>
-       log:  C:\Users\Alexander\Documents\GitHub\GPT-Impact-GitHub\output/analysis.log
+       log:  C:\Users\ronco\Desktop\Tesis_Nicho_Janampa\GPT-
+> Impact-GitHub\output/analysis.log
   log type:  text
- opened on:  22 May 2024, 15:16:45
+ opened on:  21 Jun 2024, 21:21:26
 
 . 
-. x
-command x is unrecognized
-r(199);
-
-end of do-file
-
-r(199);
-
-. do "c:\users\alexan~1\appdata\local\temp\st_stata_temp.tmp"
-
-. // cd "$path/output/figures" 
-. 
-. import delimited "output/data/pushes.csv", clear
-(17 vars, 2,368 obs)
-
-. 
-. sort iso2_code year quarter year_quarter_num
+. import delimited "output/data/data_langs.csv", clear
+(encoding automatically selected: ISO-8859-1)
+(14 vars, 48,640 obs)
 
 . 
 . drop if iso2_code == "HK"
-(16 observations deleted)
+(304 observations deleted)
 
 . 
 . 
-. gen pushes_p100k = pushes_pc * 100000
-
-. gen developers_p100k = developers_pc * 100000
-
-. gen repositories_p100k = repositories_pc * 100000
-
-. 
-. 
-. label var pushes_p100k "Num. Pushes per 100k inhabitants"
-
-. label var repositories_p100k "Num. Repositories per 100k inhabitants"
-
-. label var developers_p100k "Num. Developers per 100k inhabitants"
-
-. 
-. 
-. 
-. 
-. // bysort iso2_code : gen quarter_int = _n
-. 
-. drop post_1 post_2
-
-. * Generate post variable
-. gen post_1 =  year_quarter_num >= 12
-
-. gen post_2 =  year_quarter_num >= 13
-
-. 
-. * Treatment
-. gen gpt_treat = post_1 * gpt_available
-
-. label var gpt_treat "Chat GPT Available"
-
-. 
-. local outcomes  pushes_p100k ///
->                                 repositories_p100k ///
->                                 developers_p100k
-
-. 
-. foreach var of varlist `outcomes'{
-  2. 
-.         local l`v' : variable label `var'
-  3. 
-. 
-. eststo `var'_did: sdid `var' iso2_code year_quarter_num gpt_treat, ///
->         vce(bootstrap) reps(100) seed(1234) method(did) graph g1on /// 
->         g1_opt(xtitle("") scheme(plotplainblind)) ///
->         g2_opt(ytitle("`l`v''")scheme(plotplainblind) ///
->         xtitle("Quarters since 2020Q1") xlabel(1 "2020-Q1" 2 "2020-Q2" 3 "2020-Q3" 4 "2020-Q4"  ///
->         5 "2021-Q1" 6 "2021-Q2" 7 "2021-Q3" 8 "2021-Q4" ///
->         9 "2022-Q1" 10 "2022-Q2" 11 "2022-Q3" 12 "2022-Q4" ///
->         13 "2023-Q1" 14 "2023-Q2" 15 "2023-Q3" 16 "2023-Q4", labsize(small) angle(45)) ///
->         ) graph_export("$path/output/figures/`var'_did_", .png )
-  4.         // graph save "$path/output/figures/`var'_did.gph"
-. }
-Bootstrap replications (100). This may take some time.
-----+--- 1 ---+--- 2 ---+--- 3 ---+--- 4 ---+--- 5
-..................................................     50
-..................................................     100
-
-
-Difference-in-Differences Estimator
-
------------------------------------------------------------------------------
-pushes_p100k |     ATT     Std. Err.     t      P>|t|    [95% Conf. Interval]
--------------+---------------------------------------------------------------
-   gpt_treat | 899.26770  147.39530     6.10    0.000   610.37822    1.19e+03
------------------------------------------------------------------------------
-95% CIs and p-values are based on Large-Sample approximations.
-
-(file C:/Users/Alexander/Documents/GitHub/GPT-Impact-GitHub/output/figures/pushes_p100k_did_weights12.png written in PNG format)
-(file C:/Users/Alexander/Documents/GitHub/GPT-Impact-GitHub/output/figures/pushes_p100k_did_trends12.png written in PNG format)
-Bootstrap replications (100). This may take some time.
-----+--- 1 ---+--- 2 ---+--- 3 ---+--- 4 ---+--- 5
-..................................................     50
-..................................................     100
-
-
-Difference-in-Differences Estimator
-
------------------------------------------------------------------------------
-reposit~100k |     ATT     Std. Err.     t      P>|t|    [95% Conf. Interval]
--------------+---------------------------------------------------------------
-   gpt_treat |  1.66e+03  342.45280     4.84    0.000   985.94585    2.33e+03
------------------------------------------------------------------------------
-95% CIs and p-values are based on Large-Sample approximations.
-
-(file C:/Users/Alexander/Documents/GitHub/GPT-Impact-GitHub/output/figures/repositories_p100k_did_weights12.png written in PNG format)
-(file C:/Users/Alexander/Documents/GitHub/GPT-Impact-GitHub/output/figures/repositories_p100k_did_trends12.png written in PNG format)
-Bootstrap replications (100). This may take some time.
-----+--- 1 ---+--- 2 ---+--- 3 ---+--- 4 ---+--- 5
-..................................................     50
-..................................................     100
-
-
-Difference-in-Differences Estimator
-
------------------------------------------------------------------------------
-develop~100k |     ATT     Std. Err.     t      P>|t|    [95% Conf. Interval]
--------------+---------------------------------------------------------------
-   gpt_treat | 578.91240  109.39790     5.29    0.000   364.49646   793.32834
------------------------------------------------------------------------------
-95% CIs and p-values are based on Large-Sample approximations.
-
-(file C:/Users/Alexander/Documents/GitHub/GPT-Impact-GitHub/output/figures/developers_p100k_did_weights12.png written in PNG format)
-(file C:/Users/Alexander/Documents/GitHub/GPT-Impact-GitHub/output/figures/developers_p100k_did_trends12.png written in PNG format)
-
-. x
-command x is unrecognized
-r(199);
-
-end of do-file
-
-r(199);
-
-. do "c:\users\alexan~1\appdata\local\temp\st_stata_temp.tmp"
-
-. // cd "$path/output/figures" 
-. 
-. import delimited "output/data/pushes.csv", clear
-(17 vars, 2,368 obs)
-
-. 
-. sort iso2_code year quarter year_quarter_num
-
-. 
-. drop if iso2_code == "HK"
-(16 observations deleted)
-
-. 
-. 
-. gen pushes_p100k = pushes_pc * 100000
-
-. gen developers_p100k = developers_pc * 100000
-
-. gen repositories_p100k = repositories_pc * 100000
-
-. 
-. 
-. label var pushes_p100k "Num. Pushes per 100k inhabitants"
-
-. label var repositories_p100k "Num. Repositories per 100k inhabitants"
-
-. label var developers_p100k "Num. Developers per 100k inhabitants"
-
-. 
-. 
-. 
-. 
-. // bysort iso2_code : gen quarter_int = _n
-. 
-. drop post_1 post_2
-
-. * Generate post variable
-. gen post_1 =  year_quarter_num >= 12
-
-. gen post_2 =  year_quarter_num >= 13
-
-. 
-. * Treatment
-. gen gpt_treat = post_1 * gpt_available
-
-. label var gpt_treat "Chat GPT Available"
-
-. 
-. local outcomes  pushes_p100k ///
->                                 repositories_p100k ///
->                                 developers_p100k
-
-. 
-. foreach var of varlist `outcomes'{
-  2. 
-.         local l`v' : variable label `var'
-  3. 
-. 
-. eststo `var'_did: sdid `var' iso2_code year_quarter_num gpt_treat, ///
->         vce(bootstrap) reps(100) seed(1234) method(did) graph g1on /// 
->         g1_opt(xtitle("") scheme(plotplainblind)) ///
->         g2_opt(ytitle("`l`v''")scheme(plotplainblind) ///
->         xtitle("Quarters since 2020Q1") xlabel(1 "2020-Q1" 2 "2020-Q2" 3 "2020-Q3" 4 "2020-Q4"  ///
->         5 "2021-Q1" 6 "2021-Q2" 7 "2021-Q3" 8 "2021-Q4" ///
->         9 "2022-Q1" 10 "2022-Q2" 11 "2022-Q3" 12 "2022-Q4" ///
->         13 "2023-Q1" 14 "2023-Q2" 15 "2023-Q3" 16 "2023-Q4", labsize(small) angle(45)) ///
->         ) graph_export("$path/output/figures/`var'_did_", .png )
-  4.         // graph save "$path/output/figures/`var'_did.gph"
-. 
-.         sum  `var'  if  gpt_available==0 & year_quarter_num<12
-  5.         estadd scalar control_mean `r(mean)'
-  6. 
-. eststo `var'_sc: sdid `var' iso2_code year_quarter_num gpt_treat, ///
->         vce(bootstrap) reps(100) seed(1234) method(sc) graph g1on /// 
->         g1_opt(xtitle("") scheme(plotplainblind)) ///
->         g2_opt(ytitle("`l`v''")scheme(plotplainblind) ///
->         xtitle("Quarters since 2020Q1")xlabel(1 "2020-Q1" 2 "2020-Q2" 3 "2020-Q3" 4 "2020-Q4"  ///
->         5 "2021-Q1" 6 "2021-Q2" 7 "2021-Q3" 8 "2021-Q4" ///
->         9 "2022-Q1" 10 "2022-Q2" 11 "2022-Q3" 12 "2022-Q4" ///
->         13 "2023-Q1" 14 "2023-Q2" 15 "2023-Q3" 16 "2023-Q4") ///
->         ) graph_export("$path/output/figures/`var'_sc_", .png)
-  7. 
-.         sum  `var'  if  gpt_available==0 & year_quarter_num<12
-  8.         estadd scalar control_mean `r(mean)'
-  9. 
-. eststo `var'_sdid: sdid `var' iso2_code year_quarter_num gpt_treat, ///
->         vce(bootstrap) reps(100) seed(1234) method(sdid) graph g1on /// 
->         g1_opt(xtitle("") scheme(plotplainblind)) ///
->         g2_opt(ytitle("`l`v''") scheme(plotplainblind) ///
->         xtitle("Quarters since 2020Q1") xlabel(1 "2020-Q1" 2 "2020-Q2" 3 "2020-Q3" 4 "2020-Q4"  ///
->         5 "2021-Q1" 6 "2021-Q2" 7 "2021-Q3" 8 "2021-Q4" ///
->         9 "2022-Q1" 10 "2022-Q2" 11 "2022-Q3" 12 "2022-Q4" ///
->         13 "2023-Q1" 14 "2023-Q2" 15 "2023-Q3" 16 "2023-Q4") ///
->         ) graph_export("$path/output/figures/`var'_sdid_", .png)
- 10. 
-.         sum  `var'  if  gpt_available==0 & year_quarter_num<12
- 11.         estadd scalar control_mean `r(mean)'
- 12. 
-. }
-Bootstrap replications (100). This may take some time.
-----+--- 1 ---+--- 2 ---+--- 3 ---+--- 4 ---+--- 5
-..................................................     50
-..................................................     100
-
-
-Difference-in-Differences Estimator
-
------------------------------------------------------------------------------
-pushes_p100k |     ATT     Std. Err.     t      P>|t|    [95% Conf. Interval]
--------------+---------------------------------------------------------------
-   gpt_treat | 899.26770  147.39530     6.10    0.000   610.37822    1.19e+03
------------------------------------------------------------------------------
-95% CIs and p-values are based on Large-Sample approximations.
-
-(file C:/Users/Alexander/Documents/GitHub/GPT-Impact-GitHub/output/figures/pushes_p100k_did_weights12.png written in PNG format)
-(file C:/Users/Alexander/Documents/GitHub/GPT-Impact-GitHub/output/figures/pushes_p100k_did_trends12.png written in PNG format)
-
-    Variable |        Obs        Mean    Std. Dev.       Min        Max
--------------+---------------------------------------------------------
-pushes_p100k |        308    741.5322    1183.849   6.317763   7016.939
-
-added scalar:
-       e(control_mean) =  741.5322
-Bootstrap replications (100). This may take some time.
-----+--- 1 ---+--- 2 ---+--- 3 ---+--- 4 ---+--- 5
-..................................................     50
-..................................................     100
-
-
-Synthetic Control
-
------------------------------------------------------------------------------
-pushes_p100k |     ATT     Std. Err.     t      P>|t|    [95% Conf. Interval]
--------------+---------------------------------------------------------------
-   gpt_treat | 595.05880  437.06130     1.36    0.173   -2.62e+02    1.45e+03
------------------------------------------------------------------------------
-95% CIs and p-values are based on Large-Sample approximations.
-
-(file C:/Users/Alexander/Documents/GitHub/GPT-Impact-GitHub/output/figures/pushes_p100k_sc_weights12.png written in PNG format)
-(file C:/Users/Alexander/Documents/GitHub/GPT-Impact-GitHub/output/figures/pushes_p100k_sc_trends12.png written in PNG format)
-
-    Variable |        Obs        Mean    Std. Dev.       Min        Max
--------------+---------------------------------------------------------
-pushes_p100k |        308    741.5322    1183.849   6.317763   7016.939
-
-added scalar:
-       e(control_mean) =  741.5322
-Bootstrap replications (100). This may take some time.
-----+--- 1 ---+--- 2 ---+--- 3 ---+--- 4 ---+--- 5
-.............--Break--
-r(1);
-
-end of do-file
-
---Break--
-r(1);
-
-. do "c:\users\alexan~1\appdata\local\temp\st_stata_temp.tmp"
-
-. // cd "$path/output/figures" 
-. 
-. import delimited "output/data/pushes.csv", clear
-(17 vars, 2,368 obs)
-
-. 
-. sort iso2_code year quarter year_quarter_num
-
-. 
-. drop if iso2_code == "HK"
-(16 observations deleted)
-
-. 
-. 
-. gen pushes_p100k = pushes_pc * 100000
-
-. gen developers_p100k = developers_pc * 100000
-
-. gen repositories_p100k = repositories_pc * 100000
-
-. 
-. 
-. label var pushes_p100k "Num. Pushes per 100k inhabitants"
-
-. label var repositories_p100k "Num. Repositories per 100k inhabitants"
-
-. label var developers_p100k "Num. Developers per 100k inhabitants"
-
-. 
-. 
-. 
-. 
-. // bysort iso2_code : gen quarter_int = _n
+. //--------------------------------------------------------
+> --------------------//
+. // main
+. //--------------------------------------------------------
+> --------------------//
 . 
-. drop post_1 post_2
+. // regressions
+. do "code/sub/analysis_per_lang.do"
 
-. * Generate post variable
-. gen post_1 =  year_quarter_num >= 12
-
-. gen post_2 =  year_quarter_num >= 13
-
-. 
-. * Treatment
-. gen gpt_treat = post_1 * gpt_available
-
-. label var gpt_treat "Chat GPT Available"
-
-. 
-. local outcomes  pushes_p100k ///
->                                 repositories_p100k ///
->                                 developers_p100k
-
-. 
-. foreach var of varlist `outcomes'{
-  2. 
-.         local l`v' : variable label `var'
-  3. 
-. 
-. eststo `var'_did: sdid `var' iso2_code year_quarter_num gpt_treat, ///
->         vce(bootstrap) reps(100) seed(1234) method(did) graph g1on /// 
->         g1_opt(xtitle("") scheme(plotplainblind)) ///
->         g2_opt(ytitle("`l`v''")scheme(plotplainblind) ///
->         xtitle("Quarters since 2020Q1") xlabel(1 "2020-Q1" 2 "2020-Q2" 3 "2020-Q3" 4 "2020-Q4"  ///
->         5 "2021-Q1" 6 "2021-Q2" 7 "2021-Q3" 8 "2021-Q4" ///
->         9 "2022-Q1" 10 "2022-Q2" 11 "2022-Q3" 12 "2022-Q4" ///
->         13 "2023-Q1" 14 "2023-Q2" 15 "2023-Q3" 16 "2023-Q4", labsize(small) angle(45) ) ///
->         ) graph_export("$path/output/figures/`var'_did_", .png )
-  4.         // graph save "$path/output/figures/`var'_did.gph"
-. 
-.         sum  `var'  if  gpt_available==0 & year_quarter_num<12
-  5.         estadd scalar control_mean `r(mean)'
-  6. 
-. eststo `var'_sc: sdid `var' iso2_code year_quarter_num gpt_treat, ///
->         vce(bootstrap) reps(100) seed(1234) method(sc) graph g1on /// 
->         g1_opt(xtitle("") scheme(plotplainblind)) ///
->         g2_opt(ytitle("`l`v''")scheme(plotplainblind) ///
->         xtitle("Quarters since 2020Q1")xlabel(1 "2020-Q1" 2 "2020-Q2" 3 "2020-Q3" 4 "2020-Q4"  ///
->         5 "2021-Q1" 6 "2021-Q2" 7 "2021-Q3" 8 "2021-Q4" ///
->         9 "2022-Q1" 10 "2022-Q2" 11 "2022-Q3" 12 "2022-Q4" ///
->         13 "2023-Q1" 14 "2023-Q2" 15 "2023-Q3" 16 "2023-Q4", labsize(small) angle(45) ) ///
->         ) graph_export("$path/output/figures/`var'_sc_", .png)
-  7. 
-.         sum  `var'  if  gpt_available==0 & year_quarter_num<12
-  8.         estadd scalar control_mean `r(mean)'
-  9. 
-. eststo `var'_sdid: sdid `var' iso2_code year_quarter_num gpt_treat, ///
->         vce(bootstrap) reps(100) seed(1234) method(sdid) graph g1on /// 
->         g1_opt(xtitle("") scheme(plotplainblind)) ///
->         g2_opt(ytitle("`l`v''") scheme(plotplainblind) ///
->         xtitle("Quarters since 2020Q1") xlabel(1 "2020-Q1" 2 "2020-Q2" 3 "2020-Q3" 4 "2020-Q4"  ///
->         5 "2021-Q1" 6 "2021-Q2" 7 "2021-Q3" 8 "2021-Q4" ///
->         9 "2022-Q1" 10 "2022-Q2" 11 "2022-Q3" 12 "2022-Q4" ///
->         13 "2023-Q1" 14 "2023-Q2" 15 "2023-Q3" 16 "2023-Q4", labsize(small) angle(45) ) ///
->         ) graph_export("$path/output/figures/`var'_sdid_", .png)
- 10. 
-.         sum  `var'  if  gpt_available==0 & year_quarter_num<12
- 11.         estadd scalar control_mean `r(mean)'
- 12. 
-. }
-Bootstrap replications (100). This may take some time.
-----+--- 1 ---+--- 2 ---+--- 3 ---+--- 4 ---+--- 5
-..................................................     50
-..................................................     100
-
-
-Difference-in-Differences Estimator
-
------------------------------------------------------------------------------
-pushes_p100k |     ATT     Std. Err.     t      P>|t|    [95% Conf. Interval]
--------------+---------------------------------------------------------------
-   gpt_treat | 899.26770  147.39530     6.10    0.000   610.37822    1.19e+03
------------------------------------------------------------------------------
-95% CIs and p-values are based on Large-Sample approximations.
-
-(file C:/Users/Alexander/Documents/GitHub/GPT-Impact-GitHub/output/figures/pushes_p100k_did_weights12.png written in PNG format)
-(file C:/Users/Alexander/Documents/GitHub/GPT-Impact-GitHub/output/figures/pushes_p100k_did_trends12.png written in PNG format)
-
-    Variable |        Obs        Mean    Std. Dev.       Min        Max
--------------+---------------------------------------------------------
-pushes_p100k |        308    741.5322    1183.849   6.317763   7016.939
-
-added scalar:
-       e(control_mean) =  741.5322
-Bootstrap replications (100). This may take some time.
-----+--- 1 ---+--- 2 ---+--- 3 ---+--- 4 ---+--- 5
-..................................................     50
-.--Break--
-r(1);
-
-end of do-file
-
---Break--
-r(1);
-
-. do "c:\users\alexan~1\appdata\local\temp\st_stata_temp.tmp"
-
-. // cd "$path/output/figures" 
-. 
-. import delimited "output/data/pushes.csv", clear
-(17 vars, 2,368 obs)
-
-. 
-. sort iso2_code year quarter year_quarter_num
-
-. 
-. drop if iso2_code == "HK"
-(16 observations deleted)
-
-. 
+. //--------------------------------------------------------
+> --------------------//
+. //
+. // project:
+. //
+. // do.file: analysis_regressions
+. //
+. // author(s):
+. //
+. //--------------------------------------------------------
+> --------------------//
 . 
-. gen pushes_p100k = pushes_pc * 100000
-
-. gen developers_p100k = developers_pc * 100000
-
-. gen repositories_p100k = repositories_pc * 100000
-
-. 
-. 
-. label var pushes_p100k "Num. Pushes per 100k inhabitants"
-
-. label var repositories_p100k "Num. Repositories per 100k inhabitants"
-
-. label var developers_p100k "Num. Developers per 100k inhabitants"
-
-. 
-. 
-. 
-. 
-. // bysort iso2_code : gen quarter_int = _n
-. 
-. drop post_1 post_2
-
-. * Generate post variable
-. gen post_1 =  year_quarter_num >= 12
-
-. gen post_2 =  year_quarter_num >= 13
-
+. // local languages "Python Java R Julia Swift"
 . 
-. * Treatment
-. gen gpt_treat = post_1 * gpt_available
-
-. label var gpt_treat "Chat GPT Available"
-
+. // foreach lang of local languages {
 . 
-. local outcomes  pushes_p100k ///
->                                 repositories_p100k ///
->                                 developers_p100k
-
+. //         preserve
 . 
-. foreach var of varlist `outcomes'{
-  2. 
-.         local l`v' : variable label `var'
-  3. 
+. //         cd "$path/output/figures"
 . 
-. eststo `var'_did: sdid `var' iso2_code year_quarter_num gpt_treat, ///
->         vce(bootstrap) reps(100) seed(1234) method(did) graph g1on /// 
->         g1_opt(xtitle("") scheme(plotplainblind)) ///
->         g2_opt(ytitle("`l`v''")scheme(plotplainblind) ///
->         xtitle("Quarter") xlabel(1 "2020-Q1" 2 "2020-Q2" 3 "2020-Q3" 4 "2020-Q4"  ///
->         5 "2021-Q1" 6 "2021-Q2" 7 "2021-Q3" 8 "2021-Q4" ///
->         9 "2022-Q1" 10 "2022-Q2" 11 "2022-Q3" 12 "2022-Q4" ///
->         13 "2023-Q1" 14 "2023-Q2" 15 "2023-Q3" 16 "2023-Q4", labsize(small) angle(45) ) ///
->         ) graph_export("$path/output/figures/`var'_did_", .png )
-  4.         // graph save "$path/output/figures/`var'_did.gph"
+. //         keep if language == "`lang'"
 . 
-.         sum  `var'  if  gpt_available==0 & year_quarter_num<12
-  5.         estadd scalar control_mean `r(mean)'
-  6. 
-. eststo `var'_sc: sdid `var' iso2_code year_quarter_num gpt_treat, ///
->         vce(bootstrap) reps(100) seed(1234) method(sc) graph g1on /// 
->         g1_opt(xtitle("") scheme(plotplainblind)) ///
->         g2_opt(ytitle("`l`v''")scheme(plotplainblind) ///
->         xtitle("Quarter")xlabel(1 "2020-Q1" 2 "2020-Q2" 3 "2020-Q3" 4 "2020-Q4"  ///
->         5 "2021-Q1" 6 "2021-Q2" 7 "2021-Q3" 8 "2021-Q4" ///
->         9 "2022-Q1" 10 "2022-Q2" 11 "2022-Q3" 12 "2022-Q4" ///
->         13 "2023-Q1" 14 "2023-Q2" 15 "2023-Q3" 16 "2023-Q4", labsize(small) angle(45) ) ///
->         ) graph_export("$path/output/figures/`var'_sc_", .png)
-  7. 
-.         sum  `var'  if  gpt_available==0 & year_quarter_num<12
-  8.         estadd scalar control_mean `r(mean)'
-  9. 
-. eststo `var'_sdid: sdid `var' iso2_code year_quarter_num gpt_treat, ///
->         vce(bootstrap) reps(100) seed(1234) method(sdid) graph g1on /// 
->         g1_opt(xtitle("") scheme(plotplainblind)) ///
->         g2_opt(ytitle("`l`v''") scheme(plotplainblind) ///
->         xtitle("Quarter") xlabel(1 "2020-Q1" 2 "2020-Q2" 3 "2020-Q3" 4 "2020-Q4"  ///
->         5 "2021-Q1" 6 "2021-Q2" 7 "2021-Q3" 8 "2021-Q4" ///
->         9 "2022-Q1" 10 "2022-Q2" 11 "2022-Q3" 12 "2022-Q4" ///
->         13 "2023-Q1" 14 "2023-Q2" 15 "2023-Q3" 16 "2023-Q4", labsize(small) angle(45) ) ///
->         ) graph_export("$path/output/figures/`var'_sdid_", .png)
- 10. 
-.         sum  `var'  if  gpt_available==0 & year_quarter_num<12
- 11.         estadd scalar control_mean `r(mean)'
- 12. 
-. }
-Bootstrap replications (100). This may take some time.
-----+--- 1 ---+--- 2 ---+--- 3 ---+--- 4 ---+--- 5
-..................................................     50
-..................................................     100
-
-
-Difference-in-Differences Estimator
-
------------------------------------------------------------------------------
-pushes_p100k |     ATT     Std. Err.     t      P>|t|    [95% Conf. Interval]
--------------+---------------------------------------------------------------
-   gpt_treat | 899.26770  147.39530     6.10    0.000   610.37822    1.19e+03
------------------------------------------------------------------------------
-95% CIs and p-values are based on Large-Sample approximations.
-
-(file C:/Users/Alexander/Documents/GitHub/GPT-Impact-GitHub/output/figures/pushes_p100k_did_weights12.png written in PNG format)
-(file C:/Users/Alexander/Documents/GitHub/GPT-Impact-GitHub/output/figures/pushes_p100k_did_trends12.png written in PNG format)
-
-    Variable |        Obs        Mean    Std. Dev.       Min        Max
--------------+---------------------------------------------------------
-pushes_p100k |        308    741.5322    1183.849   6.317763   7016.939
-
-added scalar:
-       e(control_mean) =  741.5322
-Bootstrap replications (100). This may take some time.
-----+--- 1 ---+--- 2 ---+--- 3 ---+--- 4 ---+--- 5
-..................................................     50
-..................................................     100
-
-
-Synthetic Control
-
------------------------------------------------------------------------------
-pushes_p100k |     ATT     Std. Err.     t      P>|t|    [95% Conf. Interval]
--------------+---------------------------------------------------------------
-   gpt_treat | 595.05880  437.06130     1.36    0.173   -2.62e+02    1.45e+03
------------------------------------------------------------------------------
-95% CIs and p-values are based on Large-Sample approximations.
-
-(file C:/Users/Alexander/Documents/GitHub/GPT-Impact-GitHub/output/figures/pushes_p100k_sc_weights12.png written in PNG format)
-(file C:/Users/Alexander/Documents/GitHub/GPT-Impact-GitHub/output/figures/pushes_p100k_sc_trends12.png written in PNG format)
-
-    Variable |        Obs        Mean    Std. Dev.       Min        Max
--------------+---------------------------------------------------------
-pushes_p100k |        308    741.5322    1183.849   6.317763   7016.939
-
-added scalar:
-       e(control_mean) =  741.5322
-Bootstrap replications (100). This may take some time.
-----+--- 1 ---+--- 2 ---+--- 3 ---+--- 4 ---+--- 5
-..................................................     50
-..................................................     100
-
-
-Synthetic Difference-in-Differences Estimator
-
------------------------------------------------------------------------------
-pushes_p100k |     ATT     Std. Err.     t      P>|t|    [95% Conf. Interval]
--------------+---------------------------------------------------------------
-   gpt_treat | 645.62310  146.44510     4.41    0.000   358.59598   932.65022
------------------------------------------------------------------------------
-95% CIs and p-values are based on Large-Sample approximations.
-Refer to Arkhangelsky et al., (2020) for theoretical derivations.
-(file C:/Users/Alexander/Documents/GitHub/GPT-Impact-GitHub/output/figures/pushes_p100k_sdid_weights12.png written in PNG format)
-(file C:/Users/Alexander/Documents/GitHub/GPT-Impact-GitHub/output/figures/pushes_p100k_sdid_trends12.png written in PNG format)
-
-    Variable |        Obs        Mean    Std. Dev.       Min        Max
--------------+---------------------------------------------------------
-pushes_p100k |        308    741.5322    1183.849   6.317763   7016.939
-
-added scalar:
-       e(control_mean) =  741.5322
-Bootstrap replications (100). This may take some time.
-----+--- 1 ---+--- 2 ---+--- 3 ---+--- 4 ---+--- 5
-..................................................     50
-..................................................     100
-
-
-Difference-in-Differences Estimator
-
------------------------------------------------------------------------------
-reposit~100k |     ATT     Std. Err.     t      P>|t|    [95% Conf. Interval]
--------------+---------------------------------------------------------------
-   gpt_treat |  1.66e+03  342.45280     4.84    0.000   985.94585    2.33e+03
------------------------------------------------------------------------------
-95% CIs and p-values are based on Large-Sample approximations.
-
-(file C:/Users/Alexander/Documents/GitHub/GPT-Impact-GitHub/output/figures/repositories_p100k_did_weights12.png written in PNG format)
-(file C:/Users/Alexander/Documents/GitHub/GPT-Impact-GitHub/output/figures/repositories_p100k_did_trends12.png written in PNG format)
-
-    Variable |        Obs        Mean    Std. Dev.       Min        Max
--------------+---------------------------------------------------------
-reposit~100k |        308    1097.787    1509.025   11.97232   7913.004
-
-added scalar:
-       e(control_mean) =  1097.7869
-Bootstrap replications (100). This may take some time.
-----+--- 1 ---+--- 2 ---+--- 3 ---+--- 4 ---+--- 5
-..................................................     50
-..................................................     100
-
-
-Synthetic Control
-
------------------------------------------------------------------------------
-reposit~100k |     ATT     Std. Err.     t      P>|t|    [95% Conf. Interval]
--------------+---------------------------------------------------------------
-   gpt_treat | 464.73490  620.58080     0.75    0.454   -7.52e+02    1.68e+03
------------------------------------------------------------------------------
-95% CIs and p-values are based on Large-Sample approximations.
-
-(file C:/Users/Alexander/Documents/GitHub/GPT-Impact-GitHub/output/figures/repositories_p100k_sc_weights12.png written in PNG format)
-(file C:/Users/Alexander/Documents/GitHub/GPT-Impact-GitHub/output/figures/repositories_p100k_sc_trends12.png written in PNG format)
-
-    Variable |        Obs        Mean    Std. Dev.       Min        Max
--------------+---------------------------------------------------------
-reposit~100k |        308    1097.787    1509.025   11.97232   7913.004
-
-added scalar:
-       e(control_mean) =  1097.7869
-Bootstrap replications (100). This may take some time.
-----+--- 1 ---+--- 2 ---+--- 3 ---+--- 4 ---+--- 5
-..................................................     50
-..................................................     100
-
-
-Synthetic Difference-in-Differences Estimator
-
------------------------------------------------------------------------------
-reposit~100k |     ATT     Std. Err.     t      P>|t|    [95% Conf. Interval]
--------------+---------------------------------------------------------------
-   gpt_treat | 204.73390  133.85620     1.53    0.126   -57.61943   467.08723
------------------------------------------------------------------------------
-95% CIs and p-values are based on Large-Sample approximations.
-Refer to Arkhangelsky et al., (2020) for theoretical derivations.
-(file C:/Users/Alexander/Documents/GitHub/GPT-Impact-GitHub/output/figures/repositories_p100k_sdid_weights12.png written in PNG format)
-(file C:/Users/Alexander/Documents/GitHub/GPT-Impact-GitHub/output/figures/repositories_p100k_sdid_trends12.png written in PNG format)
-
-    Variable |        Obs        Mean    Std. Dev.       Min        Max
--------------+---------------------------------------------------------
-reposit~100k |        308    1097.787    1509.025   11.97232   7913.004
-
-added scalar:
-       e(control_mean) =  1097.7869
-Bootstrap replications (100). This may take some time.
-----+--- 1 ---+--- 2 ---+--- 3 ---+--- 4 ---+--- 5
-..................................................     50
-..................................................     100
-
-
-Difference-in-Differences Estimator
-
------------------------------------------------------------------------------
-develop~100k |     ATT     Std. Err.     t      P>|t|    [95% Conf. Interval]
--------------+---------------------------------------------------------------
-   gpt_treat | 578.91240  109.39790     5.29    0.000   364.49646   793.32834
------------------------------------------------------------------------------
-95% CIs and p-values are based on Large-Sample approximations.
-
-(file C:/Users/Alexander/Documents/GitHub/GPT-Impact-GitHub/output/figures/developers_p100k_did_weights12.png written in PNG format)
-(file C:/Users/Alexander/Documents/GitHub/GPT-Impact-GitHub/output/figures/developers_p100k_did_trends12.png written in PNG format)
-
-    Variable |        Obs        Mean    Std. Dev.       Min        Max
--------------+---------------------------------------------------------
-develop~100k |        308    527.4466    592.7606   7.794118   2777.417
-
-added scalar:
-       e(control_mean) =  527.44659
-Bootstrap replications (100). This may take some time.
-----+--- 1 ---+--- 2 ---+--- 3 ---+--- 4 ---+--- 5
-..................................................     50
-..................................................     100
-
-
-Synthetic Control
-
------------------------------------------------------------------------------
-develop~100k |     ATT     Std. Err.     t      P>|t|    [95% Conf. Interval]
--------------+---------------------------------------------------------------
-   gpt_treat |  13.75245  204.40550     0.07    0.946   -3.87e+02   414.37987
------------------------------------------------------------------------------
-95% CIs and p-values are based on Large-Sample approximations.
-
-(file C:/Users/Alexander/Documents/GitHub/GPT-Impact-GitHub/output/figures/developers_p100k_sc_weights12.png written in PNG format)
-(file C:/Users/Alexander/Documents/GitHub/GPT-Impact-GitHub/output/figures/developers_p100k_sc_trends12.png written in PNG format)
-
-    Variable |        Obs        Mean    Std. Dev.       Min        Max
--------------+---------------------------------------------------------
-develop~100k |        308    527.4466    592.7606   7.794118   2777.417
-
-added scalar:
-       e(control_mean) =  527.44659
-Bootstrap replications (100). This may take some time.
-----+--- 1 ---+--- 2 ---+--- 3 ---+--- 4 ---+--- 5
-..................................................     50
-..................................................     100
-
-
-Synthetic Difference-in-Differences Estimator
-
------------------------------------------------------------------------------
-develop~100k |     ATT     Std. Err.     t      P>|t|    [95% Conf. Interval]
--------------+---------------------------------------------------------------
-   gpt_treat |  51.69258   45.91805     1.13    0.260   -38.30514   141.69030
------------------------------------------------------------------------------
-95% CIs and p-values are based on Large-Sample approximations.
-Refer to Arkhangelsky et al., (2020) for theoretical derivations.
-(file C:/Users/Alexander/Documents/GitHub/GPT-Impact-GitHub/output/figures/developers_p100k_sdid_weights12.png written in PNG format)
-(file C:/Users/Alexander/Documents/GitHub/GPT-Impact-GitHub/output/figures/developers_p100k_sdid_trends12.png written in PNG format)
-
-    Variable |        Obs        Mean    Std. Dev.       Min        Max
--------------+---------------------------------------------------------
-develop~100k |        308    527.4466    592.7606   7.794118   2777.417
-
-added scalar:
-       e(control_mean) =  527.44659
-
+. //         eststo est_sdid: sdid num_pushers_pc iso2_code 
+> quarter treatment, ///
+. //                 vce(bootstrap) reps(100) seed(1234) met
+> hod(sdid) graph g1on ///
+. //                 g1_opt(xtitle("") scheme(sj)) ///
+. //                 g2_opt(ytitle("`lang' pushers per 100k 
+> inhabitants") scheme(sj) ///
+. //                 xtitle("Quarters since 2020Q1")) graph_
+> export(`lang'_sdid_, .png)
 . 
-. x
-command x is unrecognized
-r(199);
-
-end of do-file
-
-r(199);
-
-. do "c:\users\alexan~1\appdata\local\temp\st_stata_temp.tmp"
-
-. local high_level "Python JavaScript Ruby PHP TypeScript"
-
-. local statically "Java C# Go Swift"
-
-. local dsl "TSQL PLpgSQL HTML CSS MATLAB R"
-
+. //         cd "$path/output/tables"
 . 
+. //         esttab est_sdid using `lang'_sdid.tex, replace
 . 
-. foreach lang of local high_level {
-  2. 
-.         local l`v' : variable label num_pushers_pc
-  3. 
-. eststo `lang'_sdid:  sdid num_pushers_pc iso2_code quarter gpt_available_post1 if language == "`lang'", ///
->         vce(bootstrap) reps(100) seed(1234) method(sdid) graph g1on /// 
->                 xtitle("Quarter") xlabel(1 "2020-Q1" 2 "2020-Q2" 3 "2020-Q3" 4 "2020-Q4"  ///
->         5 "2021-Q1" 6 "2021-Q2" 7 "2021-Q3" 8 "2021-Q4" ///
->         9 "2022-Q1" 10 "2022-Q2" 11 "2022-Q3" 12 "2022-Q4" ///
->         13 "2023-Q1" 14 "2023-Q2" 15 "2023-Q3" 16 "2023-Q4", labsize(small) angle(45) ) ///
->         )  graph_export("$path/output/figures/`lang'_sdid_", .png)
-  4. 
-.         sum  num_pushers_pc  if  gpt_available==0 & quarter<12 & language == "`lang'"
-  5.         estadd scalar control_mean `r(mean)'
-  6. 
-. }
-variable num_pushers_pc not found
-r(111);
-
-end of do-file
-
-r(111);
-
-. do "c:\users\alexan~1\appdata\local\temp\st_stata_temp.tmp"
-
-. // cd "$path/output/figures" 
+. //         restore
+. // }
 . 
-. import delimited "output/csv/all_languages_panel.csv", clear
+. import delimited "output/csv/all_languages_panel.csv", cle
+> ar
+(encoding automatically selected: ISO-8859-1)
 (20 vars, 136,208 obs)
 
 . 
@@ -823,127 +86,94 @@ r(111);
 . rename quarter_int quarter
 
 . 
-. 
-. // categories = {
-. //     'High-Level, General-Purpose Languages': [
-. //         'Python', 'JavaScript', 'Ruby', 'PHP', 'TypeScript'
-. //     ],
-. //     'Low-Level and Systems Programming Languages': [
-. //         'C', 'C++', 'Rust', 'Assembly'
-. //     ],
-. //     'Statically Typed, Compiled Languages': [
-. //         'Java', 'C#', 'Go', 'Swift'
-. //     ],
-. //     'Functional Programming Languages': [
-. //         'Haskell', 'Scala', 'F#', 'Elixir'
-. //     ],
-. //     'Domain-Specific Languages (DSLs)': [
-. //         'SQL', 'HTML', 'CSS', 'MATLAB', 'TeX', 'Gnuplot'
-. //     ],
-. //     'Emerging and Niche Languages': [
-. //         'Julia', 'Kotlin', 'Dart', 'Crystal', 'Rust', 'Haskell', 'Lua', 'Racket', 'Vim Script', 'Scala', 'Elixir'
-. //     ],
-. //     'Shell Scripting Languages': [
-. //         'Bash', 'Zsh', 'Ksh', 'Tcsh'
-. //     ],
-. //     'Other Scripting and Automation Languages': [
-. //         'Perl', 'PowerShell', 'Groovy', 'Lua', 'Ruby', 'Node.js'
-. //     ]
-. // }
-. 
-. 
-. local high_level "Python JavaScript Ruby PHP TypeScript"
+. **************************
+. // Se realizo un cambio de nombres de etiquetas
+. ************************
+. replace language = "C_hashtag" if language == "C#"
+(1,744 real changes made)
 
-. local statically "Java C# Go Swift"
-
-. local dsl "TSQL PLpgSQL HTML CSS MATLAB R"
+. replace language = "C_plus" if language == "C++"
+(1,856 real changes made)
 
 . 
-. 
-end of do-file
-
-. do "c:\users\alexan~1\appdata\local\temp\st_stata_temp.tmp"
-
-. local high_level "Python JavaScript Ruby PHP TypeScript"
-
-. local statically "Java C# Go Swift"
-
-. local dsl "TSQL PLpgSQL HTML CSS MATLAB R"
+. ***********************************************
+. // Aqui comienzo a editar // Tesis_DataScience 
+. ***********************************************
+. local DataScience "C C_hashtag C_plus Go Java JavaScript P
+> HP Python Ruby TypeScript"
 
 . 
-. 
-. foreach lang of local high_level {
+. foreach lang of local DataScience {
   2. 
 .         local l`v' : variable label num_pushers_pc
   3. 
-. eststo `lang'_sdid:  sdid num_pushers_pc iso2_code quarter gpt_available_post1 if language == "`lang'", ///
->         vce(bootstrap) reps(100) seed(1234) method(sdid) graph g1on /// 
->                 xtitle("Quarter") xlabel(1 "2020-Q1" 2 "2020-Q2" 3 "2020-Q3" 4 "2020-Q4"  ///
->         5 "2021-Q1" 6 "2021-Q2" 7 "2021-Q3" 8 "2021-Q4" ///
->         9 "2022-Q1" 10 "2022-Q2" 11 "2022-Q3" 12 "2022-Q4" ///
->         13 "2023-Q1" 14 "2023-Q2" 15 "2023-Q3" 16 "2023-Q4", labsize(small) angle(45) ) ///
->         )  graph_export("$path/output/figures/`lang'_sdid_", .png)
+. 
+. eststo `lang'_did: sdid num_pushers_pc iso2_code quarter g
+> pt_available_post1 if language == "`lang'", ///
+>         vce(bootstrap) reps(100) seed(1234) method(did) gr
+> aph g1on /// 
+>         g1_opt(xtitle("") scheme(plotplainblind)) ///
+>         g2_opt(ytitle("`l`v''-`lang'")scheme(plotplainblin
+> d) ///
+>                 xtitle("Quarter") xlabel(1 "2020-Q1" 2 "20
+> 20-Q2" 3 "2020-Q3" 4 "2020-Q4"  ///
+>         5 "2021-Q1" 6 "2021-Q2" 7 "2021-Q3" 8 "2021-Q4" //
+> /
+>         9 "2022-Q1" 10 "2022-Q2" 11 "2022-Q3" 12 "2022-Q4"
+>  ///
+>         13 "2023-Q1" 14 "2023-Q2" 15 "2023-Q3" 16 "2023-Q4
+> ", labsize(small) angle(45) ) ///
+>         )   graph_export("$path/output/figures/`lang'_did_
+> ", .png )
   4. 
-.         sum  num_pushers_pc  if  gpt_available==0 & quarter<12 & language == "`lang'"
+.         sum  num_pushers_pc  if  gpt_available==0 & quarte
+> r<12 & language == "`lang'"
   5.         estadd scalar control_mean `r(mean)'
   6. 
-. }
-option xtitle() not allowed
-r(198);
-
-end of do-file
-
-r(198);
-
-. do "c:\users\alexan~1\appdata\local\temp\st_stata_temp.tmp"
-
-. local high_level "Python JavaScript Ruby PHP TypeScript"
-
-. local statically "Java C# Go Swift"
-
-. local dsl "TSQL PLpgSQL HTML CSS MATLAB R"
-
-. 
-. 
-. foreach lang of local high_level {
-  2. 
-.         local l`v' : variable label num_pushers_pc
-  3. 
-. eststo `lang'_sdid:  sdid num_pushers_pc iso2_code quarter gpt_available_post1 if language == "`lang'", ///
->         vce(bootstrap) reps(100) seed(1234) method(sdid) graph g1on ///
->         )  graph_export("$path/output/figures/`lang'_sdid_", .png)
-  4. 
-.         sum  num_pushers_pc  if  gpt_available==0 & quarter<12 & language == "`lang'"
-  5.         estadd scalar control_mean `r(mean)'
-  6. 
-. }
-option ) not allowed
-r(198);
-
-end of do-file
-
-r(198);
-
-. do "c:\users\alexan~1\appdata\local\temp\st_stata_temp.tmp"
-
-. local high_level "Python JavaScript Ruby PHP TypeScript"
-
-. local statically "Java C# Go Swift"
-
-. local dsl "TSQL PLpgSQL HTML CSS MATLAB R"
-
-. 
-. 
-. foreach lang of local high_level {
-  2. 
-.         local l`v' : variable label num_pushers_pc
-  3. 
-. eststo `lang'_sdid:  sdid num_pushers_pc iso2_code quarter gpt_available_post1 if language == "`lang'", ///
->         vce(bootstrap) reps(100) seed(1234) method(sdid) graph g1on ///
-> 
-  4.         sum  num_pushers_pc  if  gpt_available==0 & quarter<12 & language == "`lang'"
-  5.         estadd scalar control_mean `r(mean)'
-  6. 
+. eststo `lang'_sc:  sdid num_pushers_pc iso2_code quarter g
+> pt_available_post1 if language == "`lang'", ///
+>         vce(bootstrap) reps(100) seed(1234) method(sc) gra
+> ph g1on /// 
+>         g1_opt(xtitle("") scheme(plotplainblind)) ///
+>         g2_opt(ytitle("`l`v''-`lang'")scheme(plotplainblin
+> d) ///
+>                 xtitle("Quarter") xlabel(1 "2020-Q1" 2 "20
+> 20-Q2" 3 "2020-Q3" 4 "2020-Q4"  ///
+>         5 "2021-Q1" 6 "2021-Q2" 7 "2021-Q3" 8 "2021-Q4" //
+> /
+>         9 "2022-Q1" 10 "2022-Q2" 11 "2022-Q3" 12 "2022-Q4"
+>  ///
+>         13 "2023-Q1" 14 "2023-Q2" 15 "2023-Q3" 16 "2023-Q4
+> ", labsize(small) angle(45) ) ///
+>         )  graph_export("$path/output/figures/`lang'_sc_",
+>  .png)
+  7. 
+.         sum  num_pushers_pc  if  gpt_available==0 & quarte
+> r<12 & language == "`lang'"
+  8.         estadd scalar control_mean `r(mean)'
+  9. 
+. eststo `lang'_sdid:  sdid num_pushers_pc iso2_code quarter
+>  gpt_available_post1 if language == "`lang'", ///
+>         vce(bootstrap) reps(100) seed(1234) method(sdid) g
+> raph g1on /// 
+>         g1_opt(xtitle("") scheme(plotplainblind)) ///
+>         g2_opt(ytitle("`l`v''-`lang'")scheme(plotplainblin
+> d) ///
+>                 xtitle("Quarter") xlabel(1 "2020-Q1" 2 "20
+> 20-Q2" 3 "2020-Q3" 4 "2020-Q4"  ///
+>         5 "2021-Q1" 6 "2021-Q2" 7 "2021-Q3" 8 "2021-Q4" //
+> /
+>         9 "2022-Q1" 10 "2022-Q2" 11 "2022-Q3" 12 "2022-Q4"
+>  ///
+>         13 "2023-Q1" 14 "2023-Q2" 15 "2023-Q3" 16 "2023-Q4
+> ", labsize(small) angle(45) ) ///
+>         )  graph_export("$path/output/figures/`lang'_sdid_
+> ", .png)
+ 10. 
+.         sum  num_pushers_pc  if  gpt_available==0 & quarte
+> r<12 & language == "`lang'"
+ 11.         estadd scalar control_mean `r(mean)'
+ 12. 
 . }
 Bootstrap replications (100). This may take some time.
 ----+--- 1 ---+--- 2 ---+--- 3 ---+--- 4 ---+--- 5
@@ -951,22 +181,661 @@ Bootstrap replications (100). This may take some time.
 ..................................................     100
 
 
-Synthetic Difference-in-Differences Estimator
+Difference-in-Differences Estimator
 
------------------------------------------------------------------------------
-num_pusher~c |     ATT     Std. Err.     t      P>|t|    [95% Conf. Interval]
--------------+---------------------------------------------------------------
-gpt_availa~1 |   5.23072    1.35092     3.87    0.000     2.58297     7.87847
------------------------------------------------------------------------------
-95% CIs and p-values are based on Large-Sample approximations.
-Refer to Arkhangelsky et al., (2020) for theoretical derivations.
+------------------------------------------------------------
+> -----------------
+num_pusher~c |     ATT     Std. Err.     t      P>|t|    [95
+> % Conf. Interval]
+-------------+----------------------------------------------
+> -----------------
+gpt_availa~1 |   3.00526    0.79415     3.78    0.000     1.
+> 44875     4.56176
+------------------------------------------------------------
+> -----------------
+95% CIs and p-values are based on Large-Sample approximation
+> s.
 
-    Variable |        Obs        Mean    Std. Dev.       Min        Max
--------------+---------------------------------------------------------
-num_pusher~c |        286    6.136882    9.223599          0   41.96262
+(note: scheme plotplainblind not found, using s2color)
+(file
+    C:/Users/ronco/Desktop/Tesis_Nicho_Janampa/GPT-Impact-
+    > GitHub/output/figures/C_did_weights12.png not found)
+file
+    C:/Users/ronco/Desktop/Tesis_Nicho_Janampa/GPT-Impact-
+    > GitHub/output/figures/C_did_weights12.png saved as
+    PNG format
+(note: scheme plotplainblind not found, using s2color)
+(file
+    C:/Users/ronco/Desktop/Tesis_Nicho_Janampa/GPT-Impact-
+    > GitHub/output/figures/C_did_trends12.png not found)
+file
+    C:/Users/ronco/Desktop/Tesis_Nicho_Janampa/GPT-Impact-
+    > GitHub/output/figures/C_did_trends12.png saved as
+    PNG format
+
+    Variable |        Obs        Mean    Std. dev.       Min
+>         Max
+-------------+----------------------------------------------
+> -----------
+num_pusher~c |        209     2.04345    3.343251          0
+>    13.69906
 
 added scalar:
-       e(control_mean) =  6.1368821
+       e(control_mean) =  2.0434503
+Bootstrap replications (100). This may take some time.
+----+--- 1 ---+--- 2 ---+--- 3 ---+--- 4 ---+--- 5
+..................................................     50
+..................................................     100
+
+
+Synthetic Control
+
+------------------------------------------------------------
+> -----------------
+num_pusher~c |     ATT     Std. Err.     t      P>|t|    [95
+> % Conf. Interval]
+-------------+----------------------------------------------
+> -----------------
+gpt_availa~1 |   3.46921    1.36069     2.55    0.011     0.
+> 80230     6.13612
+------------------------------------------------------------
+> -----------------
+95% CIs and p-values are based on Large-Sample approximation
+> s.
+
+(note: scheme plotplainblind not found, using s2color)
+(file
+    C:/Users/ronco/Desktop/Tesis_Nicho_Janampa/GPT-Impact-
+    > GitHub/output/figures/C_sc_weights12.png not found)
+file
+    C:/Users/ronco/Desktop/Tesis_Nicho_Janampa/GPT-Impact-
+    > GitHub/output/figures/C_sc_weights12.png saved as
+    PNG format
+(note: scheme plotplainblind not found, using s2color)
+(file
+    C:/Users/ronco/Desktop/Tesis_Nicho_Janampa/GPT-Impact-
+    > GitHub/output/figures/C_sc_trends12.png not found)
+file
+    C:/Users/ronco/Desktop/Tesis_Nicho_Janampa/GPT-Impact-
+    > GitHub/output/figures/C_sc_trends12.png saved as PNG
+    format
+
+    Variable |        Obs        Mean    Std. dev.       Min
+>         Max
+-------------+----------------------------------------------
+> -----------
+num_pusher~c |        209     2.04345    3.343251          0
+>    13.69906
+
+added scalar:
+       e(control_mean) =  2.0434503
+Bootstrap replications (100). This may take some time.
+----+--- 1 ---+--- 2 ---+--- 3 ---+--- 4 ---+--- 5
+..................................................     50
+..................................................     100
+
+
+Synthetic Difference-in-Differences Estimator
+
+------------------------------------------------------------
+> -----------------
+num_pusher~c |     ATT     Std. Err.     t      P>|t|    [95
+> % Conf. Interval]
+-------------+----------------------------------------------
+> -----------------
+gpt_availa~1 |   1.69038    0.56374     3.00    0.003     0.
+> 58546     2.79529
+------------------------------------------------------------
+> -----------------
+95% CIs and p-values are based on Large-Sample approximation
+> s.
+Refer to Arkhangelsky et al., (2020) for theoretical derivat
+> ions.
+(note: scheme plotplainblind not found, using s2color)
+(file
+    C:/Users/ronco/Desktop/Tesis_Nicho_Janampa/GPT-Impact-
+    > GitHub/output/figures/C_sdid_weights12.png not
+    found)
+file
+    C:/Users/ronco/Desktop/Tesis_Nicho_Janampa/GPT-Impact-
+    > GitHub/output/figures/C_sdid_weights12.png saved as
+    PNG format
+(note: scheme plotplainblind not found, using s2color)
+(file
+    C:/Users/ronco/Desktop/Tesis_Nicho_Janampa/GPT-Impact-
+    > GitHub/output/figures/C_sdid_trends12.png not found)
+file
+    C:/Users/ronco/Desktop/Tesis_Nicho_Janampa/GPT-Impact-
+    > GitHub/output/figures/C_sdid_trends12.png saved as
+    PNG format
+
+    Variable |        Obs        Mean    Std. dev.       Min
+>         Max
+-------------+----------------------------------------------
+> -----------
+num_pusher~c |        209     2.04345    3.343251          0
+>    13.69906
+
+added scalar:
+       e(control_mean) =  2.0434503
+Bootstrap replications (100). This may take some time.
+----+--- 1 ---+--- 2 ---+--- 3 ---+--- 4 ---+--- 5
+..................................................     50
+..................................................     100
+
+
+Difference-in-Differences Estimator
+
+------------------------------------------------------------
+> -----------------
+num_pusher~c |     ATT     Std. Err.     t      P>|t|    [95
+> % Conf. Interval]
+-------------+----------------------------------------------
+> -----------------
+gpt_availa~1 |   1.89191    0.57253     3.30    0.001     0.
+> 76977     3.01404
+------------------------------------------------------------
+> -----------------
+95% CIs and p-values are based on Large-Sample approximation
+> s.
+
+(note: scheme plotplainblind not found, using s2color)
+(file
+    C:/Users/ronco/Desktop/Tesis_Nicho_Janampa/GPT-Impact-
+    > GitHub/output/figures/C_hashtag_did_weights12.png
+    not found)
+file
+    C:/Users/ronco/Desktop/Tesis_Nicho_Janampa/GPT-Impact-
+    > GitHub/output/figures/C_hashtag_did_weights12.png
+    saved as PNG format
+(note: scheme plotplainblind not found, using s2color)
+(file
+    C:/Users/ronco/Desktop/Tesis_Nicho_Janampa/GPT-Impact-
+    > GitHub/output/figures/C_hashtag_did_trends12.png not
+    found)
+file
+    C:/Users/ronco/Desktop/Tesis_Nicho_Janampa/GPT-Impact-
+    > GitHub/output/figures/C_hashtag_did_trends12.png
+    saved as PNG format
+
+    Variable |        Obs        Mean    Std. dev.       Min
+>         Max
+-------------+----------------------------------------------
+> -----------
+num_pusher~c |        187    3.466207    6.516462          0
+>    29.20286
+
+added scalar:
+       e(control_mean) =  3.466207
+Bootstrap replications (100). This may take some time.
+----+--- 1 ---+--- 2 ---+--- 3 ---+--- 4 ---+--- 5
+..................................................     50
+..................................................     100
+
+
+Synthetic Control
+
+------------------------------------------------------------
+> -----------------
+num_pusher~c |     ATT     Std. Err.     t      P>|t|    [95
+> % Conf. Interval]
+-------------+----------------------------------------------
+> -----------------
+gpt_availa~1 |   1.45892    2.08046     0.70    0.483    -2.
+> 61869     5.53654
+------------------------------------------------------------
+> -----------------
+95% CIs and p-values are based on Large-Sample approximation
+> s.
+
+(note: scheme plotplainblind not found, using s2color)
+(file
+    C:/Users/ronco/Desktop/Tesis_Nicho_Janampa/GPT-Impact-
+    > GitHub/output/figures/C_hashtag_sc_weights12.png not
+    found)
+file
+    C:/Users/ronco/Desktop/Tesis_Nicho_Janampa/GPT-Impact-
+    > GitHub/output/figures/C_hashtag_sc_weights12.png
+    saved as PNG format
+(note: scheme plotplainblind not found, using s2color)
+(file
+    C:/Users/ronco/Desktop/Tesis_Nicho_Janampa/GPT-Impact-
+    > GitHub/output/figures/C_hashtag_sc_trends12.png not
+    found)
+file
+    C:/Users/ronco/Desktop/Tesis_Nicho_Janampa/GPT-Impact-
+    > GitHub/output/figures/C_hashtag_sc_trends12.png
+    saved as PNG format
+
+    Variable |        Obs        Mean    Std. dev.       Min
+>         Max
+-------------+----------------------------------------------
+> -----------
+num_pusher~c |        187    3.466207    6.516462          0
+>    29.20286
+
+added scalar:
+       e(control_mean) =  3.466207
+Bootstrap replications (100). This may take some time.
+----+--- 1 ---+--- 2 ---+--- 3 ---+--- 4 ---+--- 5
+..................................................     50
+..................................................     100
+
+
+Synthetic Difference-in-Differences Estimator
+
+------------------------------------------------------------
+> -----------------
+num_pusher~c |     ATT     Std. Err.     t      P>|t|    [95
+> % Conf. Interval]
+-------------+----------------------------------------------
+> -----------------
+gpt_availa~1 |   0.57575    0.69770     0.83    0.409    -0.
+> 79172     1.94322
+------------------------------------------------------------
+> -----------------
+95% CIs and p-values are based on Large-Sample approximation
+> s.
+Refer to Arkhangelsky et al., (2020) for theoretical derivat
+> ions.
+(note: scheme plotplainblind not found, using s2color)
+(file
+    C:/Users/ronco/Desktop/Tesis_Nicho_Janampa/GPT-Impact-
+    > GitHub/output/figures/C_hashtag_sdid_weights12.png
+    not found)
+file
+    C:/Users/ronco/Desktop/Tesis_Nicho_Janampa/GPT-Impact-
+    > GitHub/output/figures/C_hashtag_sdid_weights12.png
+    saved as PNG format
+(note: scheme plotplainblind not found, using s2color)
+(file
+    C:/Users/ronco/Desktop/Tesis_Nicho_Janampa/GPT-Impact-
+    > GitHub/output/figures/C_hashtag_sdid_trends12.png
+    not found)
+file
+    C:/Users/ronco/Desktop/Tesis_Nicho_Janampa/GPT-Impact-
+    > GitHub/output/figures/C_hashtag_sdid_trends12.png
+    saved as PNG format
+
+    Variable |        Obs        Mean    Std. dev.       Min
+>         Max
+-------------+----------------------------------------------
+> -----------
+num_pusher~c |        187    3.466207    6.516462          0
+>    29.20286
+
+added scalar:
+       e(control_mean) =  3.466207
+Bootstrap replications (100). This may take some time.
+----+--- 1 ---+--- 2 ---+--- 3 ---+--- 4 ---+--- 5
+..................................................     50
+..................................................     100
+
+
+Difference-in-Differences Estimator
+
+------------------------------------------------------------
+> -----------------
+num_pusher~c |     ATT     Std. Err.     t      P>|t|    [95
+> % Conf. Interval]
+-------------+----------------------------------------------
+> -----------------
+gpt_availa~1 |   2.68060    0.67265     3.99    0.000     1.
+> 36223     3.99897
+------------------------------------------------------------
+> -----------------
+95% CIs and p-values are based on Large-Sample approximation
+> s.
+
+(note: scheme plotplainblind not found, using s2color)
+(file
+    C:/Users/ronco/Desktop/Tesis_Nicho_Janampa/GPT-Impact-
+    > GitHub/output/figures/C_plus_did_weights12.png not
+    found)
+file
+    C:/Users/ronco/Desktop/Tesis_Nicho_Janampa/GPT-Impact-
+    > GitHub/output/figures/C_plus_did_weights12.png saved
+    as PNG format
+(note: scheme plotplainblind not found, using s2color)
+(file
+    C:/Users/ronco/Desktop/Tesis_Nicho_Janampa/GPT-Impact-
+    > GitHub/output/figures/C_plus_did_trends12.png not
+    found)
+file
+    C:/Users/ronco/Desktop/Tesis_Nicho_Janampa/GPT-Impact-
+    > GitHub/output/figures/C_plus_did_trends12.png saved
+    as PNG format
+
+    Variable |        Obs        Mean    Std. dev.       Min
+>         Max
+-------------+----------------------------------------------
+> -----------
+num_pusher~c |        198    2.684079     4.68772          0
+>    22.14225
+
+added scalar:
+       e(control_mean) =  2.684079
+Bootstrap replications (100). This may take some time.
+----+--- 1 ---+--- 2 ---+--- 3 ---+--- 4 ---+--- 5
+..................................................     50
+..................................................     100
+
+
+Synthetic Control
+
+------------------------------------------------------------
+> -----------------
+num_pusher~c |     ATT     Std. Err.     t      P>|t|    [95
+> % Conf. Interval]
+-------------+----------------------------------------------
+> -----------------
+gpt_availa~1 |   1.98266    1.69207     1.17    0.241    -1.
+> 33373     5.29905
+------------------------------------------------------------
+> -----------------
+95% CIs and p-values are based on Large-Sample approximation
+> s.
+
+(note: scheme plotplainblind not found, using s2color)
+(file
+    C:/Users/ronco/Desktop/Tesis_Nicho_Janampa/GPT-Impact-
+    > GitHub/output/figures/C_plus_sc_weights12.png not
+    found)
+file
+    C:/Users/ronco/Desktop/Tesis_Nicho_Janampa/GPT-Impact-
+    > GitHub/output/figures/C_plus_sc_weights12.png saved
+    as PNG format
+(note: scheme plotplainblind not found, using s2color)
+(file
+    C:/Users/ronco/Desktop/Tesis_Nicho_Janampa/GPT-Impact-
+    > GitHub/output/figures/C_plus_sc_trends12.png not
+    found)
+file
+    C:/Users/ronco/Desktop/Tesis_Nicho_Janampa/GPT-Impact-
+    > GitHub/output/figures/C_plus_sc_trends12.png saved
+    as PNG format
+
+    Variable |        Obs        Mean    Std. dev.       Min
+>         Max
+-------------+----------------------------------------------
+> -----------
+num_pusher~c |        198    2.684079     4.68772          0
+>    22.14225
+
+added scalar:
+       e(control_mean) =  2.684079
+Bootstrap replications (100). This may take some time.
+----+--- 1 ---+--- 2 ---+--- 3 ---+--- 4 ---+--- 5
+..................................................     50
+..................................................     100
+
+
+Synthetic Difference-in-Differences Estimator
+
+------------------------------------------------------------
+> -----------------
+num_pusher~c |     ATT     Std. Err.     t      P>|t|    [95
+> % Conf. Interval]
+-------------+----------------------------------------------
+> -----------------
+gpt_availa~1 |   1.46617    0.52112     2.81    0.005     0.
+> 44481     2.48754
+------------------------------------------------------------
+> -----------------
+95% CIs and p-values are based on Large-Sample approximation
+> s.
+Refer to Arkhangelsky et al., (2020) for theoretical derivat
+> ions.
+(note: scheme plotplainblind not found, using s2color)
+(file
+    C:/Users/ronco/Desktop/Tesis_Nicho_Janampa/GPT-Impact-
+    > GitHub/output/figures/C_plus_sdid_weights12.png not
+    found)
+file
+    C:/Users/ronco/Desktop/Tesis_Nicho_Janampa/GPT-Impact-
+    > GitHub/output/figures/C_plus_sdid_weights12.png
+    saved as PNG format
+(note: scheme plotplainblind not found, using s2color)
+(file
+    C:/Users/ronco/Desktop/Tesis_Nicho_Janampa/GPT-Impact-
+    > GitHub/output/figures/C_plus_sdid_trends12.png not
+    found)
+file
+    C:/Users/ronco/Desktop/Tesis_Nicho_Janampa/GPT-Impact-
+    > GitHub/output/figures/C_plus_sdid_trends12.png saved
+    as PNG format
+
+    Variable |        Obs        Mean    Std. dev.       Min
+>         Max
+-------------+----------------------------------------------
+> -----------
+num_pusher~c |        198    2.684079     4.68772          0
+>    22.14225
+
+added scalar:
+       e(control_mean) =  2.684079
+Bootstrap replications (100). This may take some time.
+----+--- 1 ---+--- 2 ---+--- 3 ---+--- 4 ---+--- 5
+..................................................     50
+..................................................     100
+
+
+Difference-in-Differences Estimator
+
+------------------------------------------------------------
+> -----------------
+num_pusher~c |     ATT     Std. Err.     t      P>|t|    [95
+> % Conf. Interval]
+-------------+----------------------------------------------
+> -----------------
+gpt_availa~1 |   2.49012    0.52960     4.70    0.000     1.
+> 45212     3.52812
+------------------------------------------------------------
+> -----------------
+95% CIs and p-values are based on Large-Sample approximation
+> s.
+
+(note: scheme plotplainblind not found, using s2color)
+(file
+    C:/Users/ronco/Desktop/Tesis_Nicho_Janampa/GPT-Impact-
+    > GitHub/output/figures/Go_did_weights12.png not
+    found)
+file
+    C:/Users/ronco/Desktop/Tesis_Nicho_Janampa/GPT-Impact-
+    > GitHub/output/figures/Go_did_weights12.png saved as
+    PNG format
+(note: scheme plotplainblind not found, using s2color)
+(file
+    C:/Users/ronco/Desktop/Tesis_Nicho_Janampa/GPT-Impact-
+    > GitHub/output/figures/Go_did_trends12.png not found)
+file
+    C:/Users/ronco/Desktop/Tesis_Nicho_Janampa/GPT-Impact-
+    > GitHub/output/figures/Go_did_trends12.png saved as
+    PNG format
+
+    Variable |        Obs        Mean    Std. dev.       Min
+>         Max
+-------------+----------------------------------------------
+> -----------
+num_pusher~c |        121    1.234592    1.563576          0
+>    5.583055
+
+added scalar:
+       e(control_mean) =  1.2345922
+Bootstrap replications (100). This may take some time.
+----+--- 1 ---+--- 2 ---+--- 3 ---+--- 4 ---+--- 5
+..................................................     50
+..................................................     100
+
+
+Synthetic Control
+
+------------------------------------------------------------
+> -----------------
+num_pusher~c |     ATT     Std. Err.     t      P>|t|    [95
+> % Conf. Interval]
+-------------+----------------------------------------------
+> -----------------
+gpt_availa~1 |   3.30311    1.27108     2.60    0.009     0.
+> 81184     5.79438
+------------------------------------------------------------
+> -----------------
+95% CIs and p-values are based on Large-Sample approximation
+> s.
+
+(note: scheme plotplainblind not found, using s2color)
+(file
+    C:/Users/ronco/Desktop/Tesis_Nicho_Janampa/GPT-Impact-
+    > GitHub/output/figures/Go_sc_weights12.png not found)
+file
+    C:/Users/ronco/Desktop/Tesis_Nicho_Janampa/GPT-Impact-
+    > GitHub/output/figures/Go_sc_weights12.png saved as
+    PNG format
+(note: scheme plotplainblind not found, using s2color)
+(file
+    C:/Users/ronco/Desktop/Tesis_Nicho_Janampa/GPT-Impact-
+    > GitHub/output/figures/Go_sc_trends12.png not found)
+file
+    C:/Users/ronco/Desktop/Tesis_Nicho_Janampa/GPT-Impact-
+    > GitHub/output/figures/Go_sc_trends12.png saved as
+    PNG format
+
+    Variable |        Obs        Mean    Std. dev.       Min
+>         Max
+-------------+----------------------------------------------
+> -----------
+num_pusher~c |        121    1.234592    1.563576          0
+>    5.583055
+
+added scalar:
+       e(control_mean) =  1.2345922
+Bootstrap replications (100). This may take some time.
+----+--- 1 ---+--- 2 ---+--- 3 ---+--- 4 ---+--- 5
+..................................................     50
+..................................................     100
+
+
+Synthetic Difference-in-Differences Estimator
+
+------------------------------------------------------------
+> -----------------
+num_pusher~c |     ATT     Std. Err.     t      P>|t|    [95
+> % Conf. Interval]
+-------------+----------------------------------------------
+> -----------------
+gpt_availa~1 |   1.41212    0.47956     2.94    0.003     0.
+> 47220     2.35205
+------------------------------------------------------------
+> -----------------
+95% CIs and p-values are based on Large-Sample approximation
+> s.
+Refer to Arkhangelsky et al., (2020) for theoretical derivat
+> ions.
+(note: scheme plotplainblind not found, using s2color)
+(file
+    C:/Users/ronco/Desktop/Tesis_Nicho_Janampa/GPT-Impact-
+    > GitHub/output/figures/Go_sdid_weights12.png not
+    found)
+file
+    C:/Users/ronco/Desktop/Tesis_Nicho_Janampa/GPT-Impact-
+    > GitHub/output/figures/Go_sdid_weights12.png saved as
+    PNG format
+(note: scheme plotplainblind not found, using s2color)
+(file
+    C:/Users/ronco/Desktop/Tesis_Nicho_Janampa/GPT-Impact-
+    > GitHub/output/figures/Go_sdid_trends12.png not
+    found)
+file
+    C:/Users/ronco/Desktop/Tesis_Nicho_Janampa/GPT-Impact-
+    > GitHub/output/figures/Go_sdid_trends12.png saved as
+    PNG format
+
+    Variable |        Obs        Mean    Std. dev.       Min
+>         Max
+-------------+----------------------------------------------
+> -----------
+num_pusher~c |        121    1.234592    1.563576          0
+>    5.583055
+
+added scalar:
+       e(control_mean) =  1.2345922
+Bootstrap replications (100). This may take some time.
+----+--- 1 ---+--- 2 ---+--- 3 ---+--- 4 ---+--- 5
+..................................................     50
+..................................................     100
+
+
+Difference-in-Differences Estimator
+
+------------------------------------------------------------
+> -----------------
+num_pusher~c |     ATT     Std. Err.     t      P>|t|    [95
+> % Conf. Interval]
+-------------+----------------------------------------------
+> -----------------
+gpt_availa~1 |   3.19384    0.93041     3.43    0.001     1.
+> 37027     5.01741
+------------------------------------------------------------
+> -----------------
+95% CIs and p-values are based on Large-Sample approximation
+> s.
+
+(note: scheme plotplainblind not found, using s2color)
+(file
+    C:/Users/ronco/Desktop/Tesis_Nicho_Janampa/GPT-Impact-
+    > GitHub/output/figures/Java_did_weights12.png not
+    found)
+file
+    C:/Users/ronco/Desktop/Tesis_Nicho_Janampa/GPT-Impact-
+    > GitHub/output/figures/Java_did_weights12.png saved
+    as PNG format
+(note: scheme plotplainblind not found, using s2color)
+(file
+    C:/Users/ronco/Desktop/Tesis_Nicho_Janampa/GPT-Impact-
+    > GitHub/output/figures/Java_did_trends12.png not
+    found)
+file
+    C:/Users/ronco/Desktop/Tesis_Nicho_Janampa/GPT-Impact-
+    > GitHub/output/figures/Java_did_trends12.png saved as
+    PNG format
+
+    Variable |        Obs        Mean    Std. dev.       Min
+>         Max
+-------------+----------------------------------------------
+> -----------
+num_pusher~c |        209    5.600129    10.39761          0
+>    50.04697
+
+added scalar:
+       e(control_mean) =  5.6001294
+Bootstrap replications (100). This may take some time.
+----+--- 1 ---+--- 2 ---+--- 3 ---+--- 4 ---+--- 5
+..................................................     50
+..................................................     100
+
+
+Synthetic Control
+
+-----------------------------------------------------------------------------
+num_pusher~c |     ATT     Std. Err.     t      P>|t|    [95% Conf. Interval]
+-------------+---------------------------------------------------------------
+gpt_availa~1 |   2.65787    2.17026     1.22    0.221    -1.59575     6.91149
+-----------------------------------------------------------------------------
+95% CIs and p-values are based on Large-Sample approximations.
+
+(note: scheme plotplainblind not found, using s2color)
+(file C:/Users/ronco/Desktop/Tesis_Nicho_Janampa/GPT-Impact-GitHub/output/figures/Java_sc_weights12.png not found)
+file C:/Users/ronco/Desktop/Tesis_Nicho_Janampa/GPT-Impact-GitHub/output/figures/Java_sc_weights12.png saved as PNG format
+(note: scheme plotplainblind not found, using s2color)
+(file C:/Users/ronco/Desktop/Tesis_Nicho_Janampa/GPT-Impact-GitHub/output/figures/Java_sc_trends12.png not found)
+file C:/Users/ronco/Desktop/Tesis_Nicho_Janampa/GPT-Impact-GitHub/output/figures/Java_sc_trends12.png saved as PNG format
+
+    Variable |        Obs        Mean    Std. dev.       Min        Max
+-------------+---------------------------------------------------------
+num_pusher~c |        209    5.600129    10.39761          0   50.04697
+
+added scalar:
+       e(control_mean) =  5.6001294
 Bootstrap replications (100). This may take some time.
 ----+--- 1 ---+--- 2 ---+--- 3 ---+--- 4 ---+--- 5
 ..................................................     50
@@ -978,12 +847,74 @@ Synthetic Difference-in-Differences Estimator
 -----------------------------------------------------------------------------
 num_pusher~c |     ATT     Std. Err.     t      P>|t|    [95% Conf. Interval]
 -------------+---------------------------------------------------------------
-gpt_availa~1 |   8.25660    2.77557     2.97    0.003     2.81657    13.69662
+gpt_availa~1 |   2.10371    1.09567     1.92    0.055    -0.04375     4.25118
 -----------------------------------------------------------------------------
 95% CIs and p-values are based on Large-Sample approximations.
 Refer to Arkhangelsky et al., (2020) for theoretical derivations.
+(note: scheme plotplainblind not found, using s2color)
+(file C:/Users/ronco/Desktop/Tesis_Nicho_Janampa/GPT-Impact-GitHub/output/figures/Java_sdid_weights12.png not found)
+file C:/Users/ronco/Desktop/Tesis_Nicho_Janampa/GPT-Impact-GitHub/output/figures/Java_sdid_weights12.png saved as PNG format
+(note: scheme plotplainblind not found, using s2color)
+(file C:/Users/ronco/Desktop/Tesis_Nicho_Janampa/GPT-Impact-GitHub/output/figures/Java_sdid_trends12.png not found)
+file C:/Users/ronco/Desktop/Tesis_Nicho_Janampa/GPT-Impact-GitHub/output/figures/Java_sdid_trends12.png saved as PNG format
 
-    Variable |        Obs        Mean    Std. Dev.       Min        Max
+    Variable |        Obs        Mean    Std. dev.       Min        Max
+-------------+---------------------------------------------------------
+num_pusher~c |        209    5.600129    10.39761          0   50.04697
+
+added scalar:
+       e(control_mean) =  5.6001294
+Bootstrap replications (100). This may take some time.
+----+--- 1 ---+--- 2 ---+--- 3 ---+--- 4 ---+--- 5
+..................................................     50
+..................................................     100
+
+
+Difference-in-Differences Estimator
+
+-----------------------------------------------------------------------------
+num_pusher~c |     ATT     Std. Err.     t      P>|t|    [95% Conf. Interval]
+-------------+---------------------------------------------------------------
+gpt_availa~1 |  13.56793    2.53566     5.35    0.000     8.59813    18.53773
+-----------------------------------------------------------------------------
+95% CIs and p-values are based on Large-Sample approximations.
+
+(note: scheme plotplainblind not found, using s2color)
+(file C:/Users/ronco/Desktop/Tesis_Nicho_Janampa/GPT-Impact-GitHub/output/figures/JavaScript_did_weights12.png not found)
+file C:/Users/ronco/Desktop/Tesis_Nicho_Janampa/GPT-Impact-GitHub/output/figures/JavaScript_did_weights12.png saved as PNG format
+(note: scheme plotplainblind not found, using s2color)
+(file C:/Users/ronco/Desktop/Tesis_Nicho_Janampa/GPT-Impact-GitHub/output/figures/JavaScript_did_trends12.png not found)
+file C:/Users/ronco/Desktop/Tesis_Nicho_Janampa/GPT-Impact-GitHub/output/figures/JavaScript_did_trends12.png saved as PNG format
+
+    Variable |        Obs        Mean    Std. dev.       Min        Max
+-------------+---------------------------------------------------------
+num_pusher~c |        319     12.6522    20.73705          0   115.1122
+
+added scalar:
+       e(control_mean) =  12.652195
+Bootstrap replications (100). This may take some time.
+----+--- 1 ---+--- 2 ---+--- 3 ---+--- 4 ---+--- 5
+..................................................     50
+..................................................     100
+
+
+Synthetic Control
+
+-----------------------------------------------------------------------------
+num_pusher~c |     ATT     Std. Err.     t      P>|t|    [95% Conf. Interval]
+-------------+---------------------------------------------------------------
+gpt_availa~1 |   9.48436    4.73505     2.00    0.045     0.20383    18.76488
+-----------------------------------------------------------------------------
+95% CIs and p-values are based on Large-Sample approximations.
+
+(note: scheme plotplainblind not found, using s2color)
+(file C:/Users/ronco/Desktop/Tesis_Nicho_Janampa/GPT-Impact-GitHub/output/figures/JavaScript_sc_weights12.png not found)
+file C:/Users/ronco/Desktop/Tesis_Nicho_Janampa/GPT-Impact-GitHub/output/figures/JavaScript_sc_weights12.png saved as PNG format
+(note: scheme plotplainblind not found, using s2color)
+(file C:/Users/ronco/Desktop/Tesis_Nicho_Janampa/GPT-Impact-GitHub/output/figures/JavaScript_sc_trends12.png not found)
+file C:/Users/ronco/Desktop/Tesis_Nicho_Janampa/GPT-Impact-GitHub/output/figures/JavaScript_sc_trends12.png saved as PNG format
+
+    Variable |        Obs        Mean    Std. dev.       Min        Max
 -------------+---------------------------------------------------------
 num_pusher~c |        319     12.6522    20.73705          0   115.1122
 
@@ -1000,34 +931,74 @@ Synthetic Difference-in-Differences Estimator
 -----------------------------------------------------------------------------
 num_pusher~c |     ATT     Std. Err.     t      P>|t|    [95% Conf. Interval]
 -------------+---------------------------------------------------------------
-gpt_availa~1 |   1.01930    0.28672     3.56    0.000     0.45734     1.58126
+gpt_availa~1 |   8.25660    2.77557     2.97    0.003     2.81657    13.69662
 -----------------------------------------------------------------------------
 95% CIs and p-values are based on Large-Sample approximations.
 Refer to Arkhangelsky et al., (2020) for theoretical derivations.
+(note: scheme plotplainblind not found, using s2color)
+(file C:/Users/ronco/Desktop/Tesis_Nicho_Janampa/GPT-Impact-GitHub/output/figures/JavaScript_sdid_weights12.png not found)
+file C:/Users/ronco/Desktop/Tesis_Nicho_Janampa/GPT-Impact-GitHub/output/figures/JavaScript_sdid_weights12.png saved as PNG format
+(note: scheme plotplainblind not found, using s2color)
+(file C:/Users/ronco/Desktop/Tesis_Nicho_Janampa/GPT-Impact-GitHub/output/figures/JavaScript_sdid_trends12.png not found)
+file C:/Users/ronco/Desktop/Tesis_Nicho_Janampa/GPT-Impact-GitHub/output/figures/JavaScript_sdid_trends12.png saved as PNG format
 
-    Variable |        Obs        Mean    Std. Dev.       Min        Max
+    Variable |        Obs        Mean    Std. dev.       Min        Max
 -------------+---------------------------------------------------------
-num_pusher~c |        154    2.830668    3.354391          0   15.37715
+num_pusher~c |        319     12.6522    20.73705          0   115.1122
 
 added scalar:
-       e(control_mean) =  2.8306679
+       e(control_mean) =  12.652195
 Bootstrap replications (100). This may take some time.
 ----+--- 1 ---+--- 2 ---+--- 3 ---+--- 4 ---+--- 5
 ..................................................     50
 ..................................................     100
 
 
-Synthetic Difference-in-Differences Estimator
+Difference-in-Differences Estimator
 
 -----------------------------------------------------------------------------
 num_pusher~c |     ATT     Std. Err.     t      P>|t|    [95% Conf. Interval]
 -------------+---------------------------------------------------------------
-gpt_availa~1 |   1.04479    0.49737     2.10    0.036     0.06996     2.01961
+gpt_availa~1 |   1.05967    0.48140     2.20    0.028     0.11614     2.00319
 -----------------------------------------------------------------------------
 95% CIs and p-values are based on Large-Sample approximations.
-Refer to Arkhangelsky et al., (2020) for theoretical derivations.
 
-    Variable |        Obs        Mean    Std. Dev.       Min        Max
+(note: scheme plotplainblind not found, using s2color)
+(file C:/Users/ronco/Desktop/Tesis_Nicho_Janampa/GPT-Impact-GitHub/output/figures/PHP_did_weights12.png not found)
+file C:/Users/ronco/Desktop/Tesis_Nicho_Janampa/GPT-Impact-GitHub/output/figures/PHP_did_weights12.png saved as PNG format
+(note: scheme plotplainblind not found, using s2color)
+(file C:/Users/ronco/Desktop/Tesis_Nicho_Janampa/GPT-Impact-GitHub/output/figures/PHP_did_trends12.png not found)
+file C:/Users/ronco/Desktop/Tesis_Nicho_Janampa/GPT-Impact-GitHub/output/figures/PHP_did_trends12.png saved as PNG format
+
+    Variable |        Obs        Mean    Std. dev.       Min        Max
+-------------+---------------------------------------------------------
+num_pusher~c |        253    2.576931    3.709226          0   14.62781
+
+added scalar:
+       e(control_mean) =  2.5769305
+Bootstrap replications (100). This may take some time.
+----+--- 1 ---+--- 2 ---+--- 3 ---+--- 4 ---+--- 5
+..................................................     50
+..................................................     100
+
+
+Synthetic Control
+
+-----------------------------------------------------------------------------
+num_pusher~c |     ATT     Std. Err.     t      P>|t|    [95% Conf. Interval]
+-------------+---------------------------------------------------------------
+gpt_availa~1 |   1.28483    1.36273     0.94    0.346    -1.38607     3.95573
+-----------------------------------------------------------------------------
+95% CIs and p-values are based on Large-Sample approximations.
+
+(note: scheme plotplainblind not found, using s2color)
+(file C:/Users/ronco/Desktop/Tesis_Nicho_Janampa/GPT-Impact-GitHub/output/figures/PHP_sc_weights12.png not found)
+file C:/Users/ronco/Desktop/Tesis_Nicho_Janampa/GPT-Impact-GitHub/output/figures/PHP_sc_weights12.png saved as PNG format
+(note: scheme plotplainblind not found, using s2color)
+(file C:/Users/ronco/Desktop/Tesis_Nicho_Janampa/GPT-Impact-GitHub/output/figures/PHP_sc_trends12.png not found)
+file C:/Users/ronco/Desktop/Tesis_Nicho_Janampa/GPT-Impact-GitHub/output/figures/PHP_sc_trends12.png saved as PNG format
+
+    Variable |        Obs        Mean    Std. dev.       Min        Max
 -------------+---------------------------------------------------------
 num_pusher~c |        253    2.576931    3.709226          0   14.62781
 
@@ -1044,12 +1015,270 @@ Synthetic Difference-in-Differences Estimator
 -----------------------------------------------------------------------------
 num_pusher~c |     ATT     Std. Err.     t      P>|t|    [95% Conf. Interval]
 -------------+---------------------------------------------------------------
+gpt_availa~1 |   1.04479    0.49737     2.10    0.036     0.06996     2.01961
+-----------------------------------------------------------------------------
+95% CIs and p-values are based on Large-Sample approximations.
+Refer to Arkhangelsky et al., (2020) for theoretical derivations.
+(note: scheme plotplainblind not found, using s2color)
+(file C:/Users/ronco/Desktop/Tesis_Nicho_Janampa/GPT-Impact-GitHub/output/figures/PHP_sdid_weights12.png not found)
+file C:/Users/ronco/Desktop/Tesis_Nicho_Janampa/GPT-Impact-GitHub/output/figures/PHP_sdid_weights12.png saved as PNG format
+(note: scheme plotplainblind not found, using s2color)
+(file C:/Users/ronco/Desktop/Tesis_Nicho_Janampa/GPT-Impact-GitHub/output/figures/PHP_sdid_trends12.png not found)
+file C:/Users/ronco/Desktop/Tesis_Nicho_Janampa/GPT-Impact-GitHub/output/figures/PHP_sdid_trends12.png saved as PNG format
+
+    Variable |        Obs        Mean    Std. dev.       Min        Max
+-------------+---------------------------------------------------------
+num_pusher~c |        253    2.576931    3.709226          0   14.62781
+
+added scalar:
+       e(control_mean) =  2.5769305
+Bootstrap replications (100). This may take some time.
+----+--- 1 ---+--- 2 ---+--- 3 ---+--- 4 ---+--- 5
+..................................................     50
+..................................................     100
+
+
+Difference-in-Differences Estimator
+
+-----------------------------------------------------------------------------
+num_pusher~c |     ATT     Std. Err.     t      P>|t|    [95% Conf. Interval]
+-------------+---------------------------------------------------------------
+gpt_availa~1 |   8.75388    1.63615     5.35    0.000     5.54708    11.96068
+-----------------------------------------------------------------------------
+95% CIs and p-values are based on Large-Sample approximations.
+
+(note: scheme plotplainblind not found, using s2color)
+(file C:/Users/ronco/Desktop/Tesis_Nicho_Janampa/GPT-Impact-GitHub/output/figures/Python_did_weights12.png not found)
+file C:/Users/ronco/Desktop/Tesis_Nicho_Janampa/GPT-Impact-GitHub/output/figures/Python_did_weights12.png saved as PNG format
+(note: scheme plotplainblind not found, using s2color)
+(file C:/Users/ronco/Desktop/Tesis_Nicho_Janampa/GPT-Impact-GitHub/output/figures/Python_did_trends12.png not found)
+file C:/Users/ronco/Desktop/Tesis_Nicho_Janampa/GPT-Impact-GitHub/output/figures/Python_did_trends12.png saved as PNG format
+
+    Variable |        Obs        Mean    Std. dev.       Min        Max
+-------------+---------------------------------------------------------
+num_pusher~c |        286    6.136882    9.223599          0   41.96262
+
+added scalar:
+       e(control_mean) =  6.1368821
+Bootstrap replications (100). This may take some time.
+----+--- 1 ---+--- 2 ---+--- 3 ---+--- 4 ---+--- 5
+..................................................     50
+..................................................     100
+
+
+Synthetic Control
+
+-----------------------------------------------------------------------------
+num_pusher~c |     ATT     Std. Err.     t      P>|t|    [95% Conf. Interval]
+-------------+---------------------------------------------------------------
+gpt_availa~1 |   1.58611    5.38653     0.29    0.768    -8.97130    12.14351
+-----------------------------------------------------------------------------
+95% CIs and p-values are based on Large-Sample approximations.
+
+(note: scheme plotplainblind not found, using s2color)
+(file C:/Users/ronco/Desktop/Tesis_Nicho_Janampa/GPT-Impact-GitHub/output/figures/Python_sc_weights12.png not found)
+file C:/Users/ronco/Desktop/Tesis_Nicho_Janampa/GPT-Impact-GitHub/output/figures/Python_sc_weights12.png saved as PNG format
+(note: scheme plotplainblind not found, using s2color)
+(file C:/Users/ronco/Desktop/Tesis_Nicho_Janampa/GPT-Impact-GitHub/output/figures/Python_sc_trends12.png not found)
+file C:/Users/ronco/Desktop/Tesis_Nicho_Janampa/GPT-Impact-GitHub/output/figures/Python_sc_trends12.png saved as PNG format
+
+    Variable |        Obs        Mean    Std. dev.       Min        Max
+-------------+---------------------------------------------------------
+num_pusher~c |        286    6.136882    9.223599          0   41.96262
+
+added scalar:
+       e(control_mean) =  6.1368821
+Bootstrap replications (100). This may take some time.
+----+--- 1 ---+--- 2 ---+--- 3 ---+--- 4 ---+--- 5
+..................................................     50
+..................................................     100
+
+
+Synthetic Difference-in-Differences Estimator
+
+-----------------------------------------------------------------------------
+num_pusher~c |     ATT     Std. Err.     t      P>|t|    [95% Conf. Interval]
+-------------+---------------------------------------------------------------
+gpt_availa~1 |   5.23072    1.35092     3.87    0.000     2.58297     7.87847
+-----------------------------------------------------------------------------
+95% CIs and p-values are based on Large-Sample approximations.
+Refer to Arkhangelsky et al., (2020) for theoretical derivations.
+(note: scheme plotplainblind not found, using s2color)
+(file C:/Users/ronco/Desktop/Tesis_Nicho_Janampa/GPT-Impact-GitHub/output/figures/Python_sdid_weights12.png not found)
+file C:/Users/ronco/Desktop/Tesis_Nicho_Janampa/GPT-Impact-GitHub/output/figures/Python_sdid_weights12.png saved as PNG format
+(note: scheme plotplainblind not found, using s2color)
+(file C:/Users/ronco/Desktop/Tesis_Nicho_Janampa/GPT-Impact-GitHub/output/figures/Python_sdid_trends12.png not found)
+file C:/Users/ronco/Desktop/Tesis_Nicho_Janampa/GPT-Impact-GitHub/output/figures/Python_sdid_trends12.png saved as PNG format
+
+    Variable |        Obs        Mean    Std. dev.       Min        Max
+-------------+---------------------------------------------------------
+num_pusher~c |        286    6.136882    9.223599          0   41.96262
+
+added scalar:
+       e(control_mean) =  6.1368821
+Bootstrap replications (100). This may take some time.
+----+--- 1 ---+--- 2 ---+--- 3 ---+--- 4 ---+--- 5
+..................................................     50
+..................................................     100
+
+
+Difference-in-Differences Estimator
+
+-----------------------------------------------------------------------------
+num_pusher~c |     ATT     Std. Err.     t      P>|t|    [95% Conf. Interval]
+-------------+---------------------------------------------------------------
+gpt_availa~1 |   0.63077    0.52512     1.20    0.230    -0.39845     1.65998
+-----------------------------------------------------------------------------
+95% CIs and p-values are based on Large-Sample approximations.
+
+(note: scheme plotplainblind not found, using s2color)
+(file C:/Users/ronco/Desktop/Tesis_Nicho_Janampa/GPT-Impact-GitHub/output/figures/Ruby_did_weights12.png not found)
+file C:/Users/ronco/Desktop/Tesis_Nicho_Janampa/GPT-Impact-GitHub/output/figures/Ruby_did_weights12.png saved as PNG format
+(note: scheme plotplainblind not found, using s2color)
+(file C:/Users/ronco/Desktop/Tesis_Nicho_Janampa/GPT-Impact-GitHub/output/figures/Ruby_did_trends12.png not found)
+file C:/Users/ronco/Desktop/Tesis_Nicho_Janampa/GPT-Impact-GitHub/output/figures/Ruby_did_trends12.png saved as PNG format
+
+    Variable |        Obs        Mean    Std. dev.       Min        Max
+-------------+---------------------------------------------------------
+num_pusher~c |        154    2.830668    3.354391          0   15.37715
+
+added scalar:
+       e(control_mean) =  2.8306679
+Bootstrap replications (100). This may take some time.
+----+--- 1 ---+--- 2 ---+--- 3 ---+--- 4 ---+--- 5
+..................................................     50
+..................................................     100
+
+
+Synthetic Control
+
+-----------------------------------------------------------------------------
+num_pusher~c |     ATT     Std. Err.     t      P>|t|    [95% Conf. Interval]
+-------------+---------------------------------------------------------------
+gpt_availa~1 |   2.46030    1.23421     1.99    0.046     0.04129     4.87930
+-----------------------------------------------------------------------------
+95% CIs and p-values are based on Large-Sample approximations.
+
+(note: scheme plotplainblind not found, using s2color)
+(file C:/Users/ronco/Desktop/Tesis_Nicho_Janampa/GPT-Impact-GitHub/output/figures/Ruby_sc_weights12.png not found)
+file C:/Users/ronco/Desktop/Tesis_Nicho_Janampa/GPT-Impact-GitHub/output/figures/Ruby_sc_weights12.png saved as PNG format
+(note: scheme plotplainblind not found, using s2color)
+(file C:/Users/ronco/Desktop/Tesis_Nicho_Janampa/GPT-Impact-GitHub/output/figures/Ruby_sc_trends12.png not found)
+file C:/Users/ronco/Desktop/Tesis_Nicho_Janampa/GPT-Impact-GitHub/output/figures/Ruby_sc_trends12.png saved as PNG format
+
+    Variable |        Obs        Mean    Std. dev.       Min        Max
+-------------+---------------------------------------------------------
+num_pusher~c |        154    2.830668    3.354391          0   15.37715
+
+added scalar:
+       e(control_mean) =  2.8306679
+Bootstrap replications (100). This may take some time.
+----+--- 1 ---+--- 2 ---+--- 3 ---+--- 4 ---+--- 5
+..................................................     50
+..................................................     100
+
+
+Synthetic Difference-in-Differences Estimator
+
+-----------------------------------------------------------------------------
+num_pusher~c |     ATT     Std. Err.     t      P>|t|    [95% Conf. Interval]
+-------------+---------------------------------------------------------------
+gpt_availa~1 |   1.01930    0.28672     3.56    0.000     0.45734     1.58126
+-----------------------------------------------------------------------------
+95% CIs and p-values are based on Large-Sample approximations.
+Refer to Arkhangelsky et al., (2020) for theoretical derivations.
+(note: scheme plotplainblind not found, using s2color)
+(file C:/Users/ronco/Desktop/Tesis_Nicho_Janampa/GPT-Impact-GitHub/output/figures/Ruby_sdid_weights12.png not found)
+file C:/Users/ronco/Desktop/Tesis_Nicho_Janampa/GPT-Impact-GitHub/output/figures/Ruby_sdid_weights12.png saved as PNG format
+(note: scheme plotplainblind not found, using s2color)
+(file C:/Users/ronco/Desktop/Tesis_Nicho_Janampa/GPT-Impact-GitHub/output/figures/Ruby_sdid_trends12.png not found)
+file C:/Users/ronco/Desktop/Tesis_Nicho_Janampa/GPT-Impact-GitHub/output/figures/Ruby_sdid_trends12.png saved as PNG format
+
+    Variable |        Obs        Mean    Std. dev.       Min        Max
+-------------+---------------------------------------------------------
+num_pusher~c |        154    2.830668    3.354391          0   15.37715
+
+added scalar:
+       e(control_mean) =  2.8306679
+Bootstrap replications (100). This may take some time.
+----+--- 1 ---+--- 2 ---+--- 3 ---+--- 4 ---+--- 5
+..................................................     50
+..................................................     100
+
+
+Difference-in-Differences Estimator
+
+-----------------------------------------------------------------------------
+num_pusher~c |     ATT     Std. Err.     t      P>|t|    [95% Conf. Interval]
+-------------+---------------------------------------------------------------
+gpt_availa~1 |   8.42118    1.59099     5.29    0.000     5.30289    11.53947
+-----------------------------------------------------------------------------
+95% CIs and p-values are based on Large-Sample approximations.
+
+(note: scheme plotplainblind not found, using s2color)
+(file C:/Users/ronco/Desktop/Tesis_Nicho_Janampa/GPT-Impact-GitHub/output/figures/TypeScript_did_weights12.png not found)
+file C:/Users/ronco/Desktop/Tesis_Nicho_Janampa/GPT-Impact-GitHub/output/figures/TypeScript_did_weights12.png saved as PNG format
+(note: scheme plotplainblind not found, using s2color)
+(file C:/Users/ronco/Desktop/Tesis_Nicho_Janampa/GPT-Impact-GitHub/output/figures/TypeScript_did_trends12.png not found)
+file C:/Users/ronco/Desktop/Tesis_Nicho_Janampa/GPT-Impact-GitHub/output/figures/TypeScript_did_trends12.png saved as PNG format
+
+    Variable |        Obs        Mean    Std. dev.       Min        Max
+-------------+---------------------------------------------------------
+num_pusher~c |        242    2.710053     5.64365          0   34.52206
+
+added scalar:
+       e(control_mean) =  2.7100529
+Bootstrap replications (100). This may take some time.
+----+--- 1 ---+--- 2 ---+--- 3 ---+--- 4 ---+--- 5
+..................................................     50
+..................................................     100
+
+
+Synthetic Control
+
+-----------------------------------------------------------------------------
+num_pusher~c |     ATT     Std. Err.     t      P>|t|    [95% Conf. Interval]
+-------------+---------------------------------------------------------------
+gpt_availa~1 |   3.88699    2.77640     1.40    0.162    -1.55464     9.32863
+-----------------------------------------------------------------------------
+95% CIs and p-values are based on Large-Sample approximations.
+
+(note: scheme plotplainblind not found, using s2color)
+(file C:/Users/ronco/Desktop/Tesis_Nicho_Janampa/GPT-Impact-GitHub/output/figures/TypeScript_sc_weights12.png not found)
+file C:/Users/ronco/Desktop/Tesis_Nicho_Janampa/GPT-Impact-GitHub/output/figures/TypeScript_sc_weights12.png saved as PNG format
+(note: scheme plotplainblind not found, using s2color)
+(file C:/Users/ronco/Desktop/Tesis_Nicho_Janampa/GPT-Impact-GitHub/output/figures/TypeScript_sc_trends12.png not found)
+file C:/Users/ronco/Desktop/Tesis_Nicho_Janampa/GPT-Impact-GitHub/output/figures/TypeScript_sc_trends12.png saved as PNG format
+
+    Variable |        Obs        Mean    Std. dev.       Min        Max
+-------------+---------------------------------------------------------
+num_pusher~c |        242    2.710053     5.64365          0   34.52206
+
+added scalar:
+       e(control_mean) =  2.7100529
+Bootstrap replications (100). This may take some time.
+----+--- 1 ---+--- 2 ---+--- 3 ---+--- 4 ---+--- 5
+..................................................     50
+..................................................     100
+
+
+Synthetic Difference-in-Differences Estimator
+
+-----------------------------------------------------------------------------
+num_pusher~c |     ATT     Std. Err.     t      P>|t|    [95% Conf. Interval]
+-------------+---------------------------------------------------------------
 gpt_availa~1 |   3.86292    0.98241     3.93    0.000     1.93743     5.78841
 -----------------------------------------------------------------------------
 95% CIs and p-values are based on Large-Sample approximations.
 Refer to Arkhangelsky et al., (2020) for theoretical derivations.
+(note: scheme plotplainblind not found, using s2color)
+(file C:/Users/ronco/Desktop/Tesis_Nicho_Janampa/GPT-Impact-GitHub/output/figures/TypeScript_sdid_weights12.png not found)
+file C:/Users/ronco/Desktop/Tesis_Nicho_Janampa/GPT-Impact-GitHub/output/figures/TypeScript_sdid_weights12.png saved as PNG format
+(note: scheme plotplainblind not found, using s2color)
+(file C:/Users/ronco/Desktop/Tesis_Nicho_Janampa/GPT-Impact-GitHub/output/figures/TypeScript_sdid_trends12.png not found)
+file C:/Users/ronco/Desktop/Tesis_Nicho_Janampa/GPT-Impact-GitHub/output/figures/TypeScript_sdid_trends12.png saved as PNG format
 
-    Variable |        Obs        Mean    Std. Dev.       Min        Max
+    Variable |        Obs        Mean    Std. dev.       Min        Max
 -------------+---------------------------------------------------------
 num_pusher~c |        242    2.710053     5.64365          0   34.52206
 
@@ -1059,2198 +1288,194 @@ added scalar:
 . 
 . 
 . 
-. 
-. 
-. 
-end of do-file
-
-. do "c:\users\alexan~1\appdata\local\temp\st_stata_temp.tmp"
-
-. coefplot  (Python_sdid, msym(O) mcol("97 156 255") msize(*1.2)                          ///
->                    ciopt(lcol("97 156 255") lw(*1.35)))
-
-.            (Javascript_sdid, msym(O) mcol("97 156 255") msize(*1.2)                             ///
->                    ciopt(lcol("97 156 255") lw(*1.35)))
-( is not a valid command name
-r(199);
-
-end of do-file
-
-r(199);
-
-. do "c:\users\alexan~1\appdata\local\temp\st_stata_temp.tmp"
-
-. coefplot  (Python_sdid, msym(O) mcol("97 156 255") msize(*1.2)                          ///
->                    ciopt(lcol("97 156 255") lw(*1.35))) ///
->            (Javascript_sdid, msym(O) mcol("97 156 255") msize(*1.2)                             ///
->                    ciopt(lcol("97 156 255") lw(*1.35))) ///
->          , drop(_cons) xline(0) msymbol(S)
-estimation result Javascript_sdid not found
-r(111);
-
-end of do-file
-
-r(111);
-
-. do "c:\users\alexan~1\appdata\local\temp\st_stata_temp.tmp"
-
-. coefplot  (Python_sdid, msym(O) mcol("97 156 255") msize(*1.2)                          ///
->                    ciopt(lcol("97 156 255") lw(*1.35))) ///
->            (JavaScript_sdid, msym(O) mcol("97 156 255") msize(*1.2)                             ///
->                    ciopt(lcol("97 156 255") lw(*1.35))) ///
->          , drop(_cons) xline(0) msymbol(S)
-
-. 
-end of do-file
-
-. do "c:\users\alexan~1\appdata\local\temp\st_stata_temp.tmp"
-
-. coefplot (Python_sdid, msym(O) mcol("97 156 255") msize(*1.2)                           ///
->                    ciopt(lcol("97 156 255") lw(*1.35))) ///
->          (JavaScript_sdid, msym(O) mcol("97 156 255") msize(*1.2)                               ///
->                    ciopt(lcol("97 156 255") lw(*1.35))) ///
->          (Ruby_sdid, msym(O) mcol("97 156 255") msize(*1.2)                             ///
->                    ciopt(lcol("97 156 255") lw(*1.35))) ///
->          (PHP_sdid, msym(O) mcol("97 156 255") msize(*1.2)                              ///
->                    ciopt(lcol("97 156 255") lw(*1.35))) ///
->          (TypeScript_sdid, msym(O) mcol("97 156 255") msize(*1.2)                               ///
->                    ciopt(lcol("97 156 255") lw(*1.35))) ///
->          , drop(_cons) xline(0) msymbol(S)
-
-. 
-end of do-file
-
-. do "c:\users\alexan~1\appdata\local\temp\st_stata_temp.tmp"
-
-. coefplot (JavaScript_sdid, msym(O) mcol("97 156 255") msize(*1.2)                               ///
->                    ciopt(lcol("97 156 255") lw(*1.35))) ///
->                 (Python_sdid, msym(O) mcol("97 156 255") msize(*1.2)                            ///
->                    ciopt(lcol("97 156 255") lw(*1.35))) ///
->          (TypeScript_sdid, msym(O) mcol("97 156 255") msize(*1.2)                               ///
->                    ciopt(lcol("97 156 255") lw(*1.35))) ///
->          (PHP_sdid, msym(O) mcol("97 156 255") msize(*1.2)                              ///
->                    ciopt(lcol("97 156 255") lw(*1.35))) ///
->                         (Ruby_sdid, msym(O) mcol("97 156 255") msize(*1.2)                              ///
->                    ciopt(lcol("97 156 255") lw(*1.35))) ///
->          , drop(_cons) xline(0) msymbol(S)
-
-. 
-. 
-end of do-file
-
-. do "c:\users\alexan~1\appdata\local\temp\st_stata_temp.tmp"
-
-. coefplot (Python_sdid , msym(O) mcol("97 156 255") msize(*1.2)                          ///
->                    ciopt(lcol("97 156 255") lw(*1.35))) ///
->                 (JavaScript_sdid, msym(O) mcol("97 156 255") msize(*1.2)                                ///
->                    ciopt(lcol("97 156 255") lw(*1.35))) ///
->          (TypeScript_sdid, msym(O) mcol("97 156 255") msize(*1.2)                               ///
->                    ciopt(lcol("97 156 255") lw(*1.35))) ///
->          (PHP_sdid, msym(O) mcol("97 156 255") msize(*1.2)                              ///
->                    ciopt(lcol("97 156 255") lw(*1.35))) ///
->                         (Ruby_sdid, msym(O) mcol("97 156 255") msize(*1.2)                              ///
->                    ciopt(lcol("97 156 255") lw(*1.35))) ///
->          , sort drop(_cons) xline(0) msymbol(S)
-
-. 
-. 
-end of do-file
-
-. do "c:\users\alexan~1\appdata\local\temp\st_stata_temp.tmp"
-
-. coefplot (Python_sdid , msym(O) mcol("97 156 255") msize(*1.2)                          ///
->                    ciopt(lcol("97 156 255") lw(*1.35))) ///
->                 (JavaScript_sdid, msym(O) mcol("97 156 255") msize(*1.2)                                ///
->                    ciopt(lcol("97 156 255") lw(*1.35))) ///
->          (TypeScript_sdid, msym(O) mcol("97 156 255") msize(*1.2)                               ///
->                    ciopt(lcol("97 156 255") lw(*1.35))) ///
->          (PHP_sdid, msym(O) mcol("97 156 255") msize(*1.2)                              ///
->                    ciopt(lcol("97 156 255") lw(*1.35))) ///
->                         (Ruby_sdid, msym(O) mcol("97 156 255") msize(*1.2)                              ///
->                    ciopt(lcol("97 156 255") lw(*1.35))) ///
->          , keep(gpt_available_post1) sort drop(_cons) xline(0) msymbol(S)
-
-. 
-. 
-end of do-file
-
-. do "c:\users\alexan~1\appdata\local\temp\st_stata_temp.tmp"
-
-. coefplot JavaScript_sdid Python_sdid TypeScript_sdid ///
-> PHP_sdid, keep(gpt_available_post1) sort ylab("") ytitle("mpg", orient(horiz))
-
-. 
-. 
-. 
-. 
-end of do-file
-
-. do "c:\users\alexan~1\appdata\local\temp\st_stata_temp.tmp"
-
-. coefplot JavaScript_sdid Python_sdid TypeScript_sdid ///
-> PHP_sdid, keep(gpt_available_post1) sort ylab("") ytitle("Estimate", orient(horiz)) 
-
-. 
-end of do-file
-
-. do "c:\users\alexan~1\appdata\local\temp\st_stata_temp.tmp"
-
-. coefplot JavaScript_sdid Python_sdid TypeScript_sdid ///
-> PHP_sdid, keep(gpt_available_post1) sort ylab(1 "Python") ytitle("Estimate", orient(horiz)) 
-
-. 
-. 
-end of do-file
-
-. do "c:\users\alexan~1\appdata\local\temp\st_stata_temp.tmp"
-
-. coefplot JavaScript_sdid Python_sdid TypeScript_sdid ///
-> PHP_sdid, keep(gpt_available_post1) sort ylab(1 "Python" 2 "Python") ytitle("Estimate", orient(horiz)) 
-
-. 
-. 
-end of do-file
-
-. do "c:\users\alexan~1\appdata\local\temp\st_stata_temp.tmp"
-
-. coefplot JavaScript_sdid Python_sdid TypeScript_sdid ///
-> PHP_sdid, keep(gpt_available_post1) sort ylab("") ytitle("Estimate", orient(horiz))
-
-. 
-. 
-. 
-end of do-file
-
-. do "c:\users\alexan~1\appdata\local\temp\st_stata_temp.tmp"
-
-. coefplot JavaScript_sdid Python_sdid TypeScript_sdid ///
-> PHP_sdid, keep(gpt_available_post1) sort ylab("") ytitle("Estimate", orient(horiz)) xline(0) msymbol(S)
-
-. 
-. 
-. 
-. 
-end of do-file
-
-. do "c:\users\alexan~1\appdata\local\temp\st_stata_temp.tmp"
-
-. coefplot JavaScript_sdid Python_sdid TypeScript_sdid ///
-> PHP_sdid, keep(gpt_available_post1) sort ylab("Coefficients") ytitle("", orient(horiz)) xline(0) msymbol(S)
-invalid label specifier, :  "Coefficients":
-r(198);
-
-end of do-file
-
-r(198);
-
-. do "c:\users\alexan~1\appdata\local\temp\st_stata_temp.tmp"
-
-. coefplot JavaScript_sdid Python_sdid TypeScript_sdid ///
-> PHP_sdid, keep(gpt_available_post1) sort ylab("") ytitle("", orient(horiz)) xline(0) msymbol(S)
-
-. 
-. 
-. 
-end of do-file
-
-. do "c:\users\alexan~1\appdata\local\temp\st_stata_temp.tmp"
-
-. coefplot JavaScript_sdid Python_sdid TypeScript_sdid ///
-> PHP_sdid, keep(gpt_available_post1) sort ylab("") ytitle("", orient(horiz)) xline(0) msymbol(S) ///
-> eqlabels("Equation 1" "Equation 2" "Equation 3")
-
-. 
-end of do-file
-
-. do "c:\users\alexan~1\appdata\local\temp\st_stata_temp.tmp"
-
-. coefplot JavaScript_sdid Python_sdid TypeScript_sdid ///
-> PHP_sdid, keep(gpt_available_post1) sort ylab("") ytitle("", orient(horiz)) xline(0) msymbol(S) ///
-> eqlabels("Equation 1" "Equation 2" "Equation 3")
-
-. 
-. 
-. 
-. 
-end of do-file
-
-. do "c:\users\alexan~1\appdata\local\temp\st_stata_temp.tmp"
-
-. coefplot (JavaScript_sdid, label(Chinese Style Restaurants)) ///
-> (Python_sdid, label(Japanese Style Restaurants)) ///
-> (TypeScript_sdid, label(Western Style Restaurants)) ///
-> (PHP_sdid, label(Cafeterias)), keep(gpt_available_post1) sort ylab("") ytitle("", orient(horiz)) xline(0) msymbol(S)
-
-. 
-. 
-. 
-end of do-file
-
-. do "c:\users\alexan~1\appdata\local\temp\st_stata_temp.tmp"
-
-. coefplot (JavaScript_sdid, label("JavaScript")) ///
-> (Python_sdid, label("Python")) ///
-> (TypeScript_sdid, label("TypeScript")) ///
-> (PHP_sdid, label("PHP")), keep(gpt_available_post1) sort ylab("") ytitle("", orient(horiz)) xline(0) msymbol(S)
-
-. 
-. 
-. 
-. 
-end of do-file
-
-. do "c:\users\alexan~1\appdata\local\temp\st_stata_temp.tmp"
-
-. coefplot (JavaScript_sdid, label("JavaScript")) ///
-> (Python_sdid, label("Python")) ///
-> (TypeScript_sdid, label("TypeScript")) ///
-> (PHP_sdid, label("PHP")), keep(gpt_available_post1) ///
-> sort ylab("") ytitle("", orient(horiz)) xline(0) msymbol(S) scheme(s1color)
-
-. 
-. 
-. 
-end of do-file
-
-. do "c:\users\alexan~1\appdata\local\temp\st_stata_temp.tmp"
-
-. coefplot (JavaScript_sdid, label("JavaScript")) ///
-> (Python_sdid, label("Python")) ///
-> (TypeScript_sdid, label("TypeScript")) ///
-> (PHP_sdid, label("PHP")), keep(gpt_available_post1) ///
-> sort ylab("") ytitle("", orient(horiz)) xline(0) msymbol(S)  scheme(plotplainblind)
-
-. 
-. 
-end of do-file
-
-. do "c:\users\alexan~1\appdata\local\temp\st_stata_temp.tmp"
-
-. 
-. coefplot (JavaScript_sdid, label("JavaScript")) ///
-> (Python_sdid, label("Python")) ///
-> (TypeScript_sdid, label("TypeScript")) ///
-> (PHP_sdid, label("PHP")), keep(gpt_available_post1) ///
-> sort ylab("") ytitle("High-Level, General-Purpose Languages", orient(horiz)) xline(0) msymbol(S)  scheme(plotplainblind)
-
-. 
-. 
-end of do-file
-
-. do "c:\users\alexan~1\appdata\local\temp\st_stata_temp.tmp"
-
-. coefplot (JavaScript_sdid, label("JavaScript")) ///
-> (Python_sdid, label("Python")) ///
-> (TypeScript_sdid, label("TypeScript")) ///
-> (PHP_sdid, label("PHP")), keep(gpt_available_post1) ///
-> sort ylab("") title("High-Level, General-Purpose Languages", orient(horiz)) xline(0) msymbol(S)  scheme(plotplainblind)
-
-. 
-. 
-end of do-file
-
-. do "c:\users\alexan~1\appdata\local\temp\st_stata_temp.tmp"
-
-. coefplot (JavaScript_sdid, label("JavaScript")) ///
-> (Python_sdid, label("Python")) ///
-> (TypeScript_sdid, label("TypeScript")) ///
-> (PHP_sdid, label("PHP")), keep(gpt_available_post1) ///
-> sort ylab("") title("High-Level, General-Purpose Languages", orient(horiz)) xline(0) msymbol(S)  scheme(plotplainblind)
-
-. 
-. 
-end of do-file
-
-. do "c:\users\alexan~1\appdata\local\temp\st_stata_temp.tmp"
-
-. local high_level "Python JavaScript Ruby PHP TypeScript"
-
-. // local statically "Java C# Go Swift"
-. local shell_scripting "Shell Batchfile PowerShell"
-
-. local dsl "TSQL PLpgSQL HTML CSS MATLAB R"
-
-. local low_level "C Rust Assembly"
-
-. 
-. 
-. foreach lang of local high_level low_level shell_scripting dsl {
-  2. 
-.         local l`v' : variable label num_pushers_pc
-  3. 
-. eststo `lang'_sdid:  sdid num_pushers_pc iso2_code quarter gpt_available_post1 if language == "`lang'", ///
->         vce(bootstrap) reps(100) seed(1234) method(sdid) graph g1on ///
-> 
-  4.         sum  num_pushers_pc  if  gpt_available==0 & quarter<12 & language == "`lang'"
-  5.         estadd scalar control_mean `r(mean)'
-  6. 
-. }
-{ required
-r(100);
-
-end of do-file
-
-r(100);
-
-. do "c:\users\alexan~1\appdata\local\temp\st_stata_temp.tmp"
-
-. foreach lang of local low_level{
-  2. 
-.         local l`v' : variable label num_pushers_pc
-  3. 
-. eststo `lang'_sdid:  sdid num_pushers_pc iso2_code quarter gpt_available_post1 if language == "`lang'", ///
->         vce(bootstrap) reps(100) seed(1234) method(sdid) graph g1on ///
-> 
-  4.         sum  num_pushers_pc  if  gpt_available==0 & quarter<12 & language == "`lang'"
-  5.         estadd scalar control_mean `r(mean)'
-  6. 
-. }
-
-. 
-. 
-end of do-file
-
-. do "c:\users\alexan~1\appdata\local\temp\st_stata_temp.tmp"
-
-. local high_level "Python JavaScript Ruby PHP TypeScript"
-
-. // local statically "Java C# Go Swift"
-. local shell_scripting "Shell Batchfile PowerShell"
-
-. local dsl "TSQL PLpgSQL HTML CSS MATLAB R"
-
-. local low_level "C Rust Assembly"
-
-. 
-. 
-. foreach lang of local low_level{
-  2. 
-.         local l`v' : variable label num_pushers_pc
-  3. 
-. eststo `lang'_sdid:  sdid num_pushers_pc iso2_code quarter gpt_available_post1 if language == "`lang'", ///
->         vce(bootstrap) reps(100) seed(1234) method(sdid) graph g1on ///
-> 
-  4.         sum  num_pushers_pc  if  gpt_available==0 & quarter<12 & language == "`lang'"
-  5.         estadd scalar control_mean `r(mean)'
-  6. 
-. }
-Bootstrap replications (100). This may take some time.
-----+--- 1 ---+--- 2 ---+--- 3 ---+--- 4 ---+--- 5
-..................................................     50
-..................................................     100
-
-
-Synthetic Difference-in-Differences Estimator
-
------------------------------------------------------------------------------
-num_pusher~c |     ATT     Std. Err.     t      P>|t|    [95% Conf. Interval]
--------------+---------------------------------------------------------------
-gpt_availa~1 |   1.69038    0.56374     3.00    0.003     0.58546     2.79529
------------------------------------------------------------------------------
-95% CIs and p-values are based on Large-Sample approximations.
-Refer to Arkhangelsky et al., (2020) for theoretical derivations.
-
-    Variable |        Obs        Mean    Std. Dev.       Min        Max
--------------+---------------------------------------------------------
-num_pusher~c |        209     2.04345    3.343251          0   13.69906
-
-added scalar:
-       e(control_mean) =  2.0434503
-Bootstrap replications (100). This may take some time.
-----+--- 1 ---+--- 2 ---+--- 3 ---+--- 4 ---+--- 5
-..................................................     50
-..................................................     100
-
-
-Synthetic Difference-in-Differences Estimator
-
------------------------------------------------------------------------------
-num_pusher~c |     ATT     Std. Err.     t      P>|t|    [95% Conf. Interval]
--------------+---------------------------------------------------------------
-gpt_availa~1 |   1.72825    0.55252     3.13    0.002     0.64533     2.81117
------------------------------------------------------------------------------
-95% CIs and p-values are based on Large-Sample approximations.
-Refer to Arkhangelsky et al., (2020) for theoretical derivations.
-
-    Variable |        Obs        Mean    Std. Dev.       Min        Max
--------------+---------------------------------------------------------
-num_pusher~c |         77    .4021929    .4593448          0   1.503081
-
-added scalar:
-       e(control_mean) =  .40219287
-Bootstrap replications (100). This may take some time.
-----+--- 1 ---+--- 2 ---+--- 3 ---+--- 4 ---+--- 5
-..................................................     50
-..................................................     100
-
-
-Synthetic Difference-in-Differences Estimator
-
------------------------------------------------------------------------------
-num_pusher~c |     ATT     Std. Err.     t      P>|t|    [95% Conf. Interval]
--------------+---------------------------------------------------------------
-gpt_availa~1 |   0.64336    0.18066     3.56    0.000     0.28927     0.99746
------------------------------------------------------------------------------
-95% CIs and p-values are based on Large-Sample approximations.
-Refer to Arkhangelsky et al., (2020) for theoretical derivations.
-
-    Variable |        Obs        Mean    Std. Dev.       Min        Max
--------------+---------------------------------------------------------
-num_pusher~c |        121    .6740833     .852314          0   4.211037
-
-added scalar:
-       e(control_mean) =  .67408331
-
-. 
-end of do-file
-
-. do "c:\users\alexan~1\appdata\local\temp\st_stata_temp.tmp"
-
-. eststo cpp_sdid:  sdid num_pushers_pc iso2_code quarter gpt_available_post1 if language == "C++", ///
->         vce(bootstrap) reps(100) seed(1234) method(sdid) graph g1on /// 
->         g1_opt(xtitle("") scheme(plotplainblind)) ///
->         g2_opt(ytitle("`l`v''-`lang'")scheme(plotplainblind) ///
->         xtitle("Quarters since 2020Q1")) graph_export("$path/output/figures/`lang'_sdid_", .png)
-Bootstrap replications (100). This may take some time.
-----+--- 1 ---+--- 2 ---+--- 3 ---+--- 4 ---+--- 5
-..................................................     50
-..................................................     100
-
-
-Synthetic Difference-in-Differences Estimator
-
------------------------------------------------------------------------------
-num_pusher~c |     ATT     Std. Err.     t      P>|t|    [95% Conf. Interval]
--------------+---------------------------------------------------------------
-gpt_availa~1 |   1.46617    0.52112     2.81    0.005     0.44481     2.48754
------------------------------------------------------------------------------
-95% CIs and p-values are based on Large-Sample approximations.
-Refer to Arkhangelsky et al., (2020) for theoretical derivations.
-(file C:/Users/Alexander/Documents/GitHub/GPT-Impact-GitHub/output/figures/_sdid_weights12.png written in PNG format)
-(file C:/Users/Alexander/Documents/GitHub/GPT-Impact-GitHub/output/figures/_sdid_trends12.png written in PNG format)
-
-. 
-.         sum  num_pushers_pc  if  gpt_available==0 & quarter<12 & language == "C++"
-
-    Variable |        Obs        Mean    Std. Dev.       Min        Max
--------------+---------------------------------------------------------
-num_pusher~c |        198    2.684079     4.68772          0   22.14225
-
-.         estadd scalar control_mean `r(mean)'
-
-added scalar:
-       e(control_mean) =  2.684079
-
-. 
-. 
-. 
-. 
-end of do-file
-
-. do "c:\users\alexan~1\appdata\local\temp\st_stata_temp.tmp"
-
-. coefplot (C_sdid, label("C")) ///
-> (Rust_sdid, label("Rust")) ///
-> (cpp_sdid, label("C++")) ///
-> (Assembly_sdid, label("Assembly")), keep(gpt_available_post1) ///
-> sort ylab("") title("Low-Level, Systems Programming Languages", orient(horiz)) xline(0) msymbol(S)  scheme(plotplainblind)
-
-. 
-. 
-. 
-end of do-file
-
-. do "c:\users\alexan~1\appdata\local\temp\st_stata_temp.tmp"
-
-. coefplot (JavaScript_sdid, label("JavaScript")) ///
-> (Python_sdid, label("Python")) ///
-> (TypeScript_sdid, label("TypeScript")) ///
-> (PHP_sdid, label("PHP")) ///
-> (C_sdid, label("C")) ///
-> (Rust_sdid, label("Rust")) ///
-> (cpp_sdid, label("C++")) ///
-> (Assembly_sdid, label("Assembly")), keep(gpt_available_post1) ///
-> sort ylab("") title("High-Level, General-Purpose Languages", orient(horiz)) xline(0) msymbol(S)  scheme(plotplainblind)
-
-. 
-. 
-. 
-end of do-file
-
-. do "c:\users\alexan~1\appdata\local\temp\st_stata_temp.tmp"
-
-. coefplot (JavaScript_sdid, label("JavaScript")) ///
-> (Python_sdid, label("Python")) ///
-> (TypeScript_sdid, label("TypeScript")) ///
-> (C_sdid, label("C")) ///
-> (Rust_sdid, label("Rust")) ///
-> (cpp_sdid, label("C++")) ///
-> (Assembly_sdid, label("Assembly")), keep(gpt_available_post1) ///
-> sort ylab("") title("High-Level, General-Purpose Languages", orient(horiz)) xline(0) msymbol(S)  scheme(plotplainblind)
-
-. 
-. 
-end of do-file
-
-. do "c:\users\alexan~1\appdata\local\temp\st_stata_temp.tmp"
-
-. foreach lang of local shell_scripting{
-  2. 
-.         local l`v' : variable label num_pushers_pc
-  3. 
-. eststo `lang'_sdid:  sdid num_pushers_pc iso2_code quarter gpt_available_post1 if language == "`lang'", ///
->         vce(bootstrap) reps(100) seed(1234) method(sdid) graph g1on ///
-> 
-  4.         sum  num_pushers_pc  if  gpt_available==0 & quarter<12 & language == "`lang'"
-  5.         estadd scalar control_mean `r(mean)'
-  6. 
-. }
-
-. 
-end of do-file
-
-. do "c:\users\alexan~1\appdata\local\temp\st_stata_temp.tmp"
-
-. local high_level "Python JavaScript Ruby PHP TypeScript"
-
-. // local statically "Java C# Go Swift"
-. local shell_scripting "Shell Batchfile PowerShell"
-
-. local dsl "TSQL PLpgSQL HTML CSS MATLAB R"
-
-. local low_level "C Rust Assembly"
-
-. 
-. 
-. foreach lang of local shell_scripting{
-  2. 
-.         local l`v' : variable label num_pushers_pc
-  3. 
-. eststo `lang'_sdid:  sdid num_pushers_pc iso2_code quarter gpt_available_post1 if language == "`lang'", ///
->         vce(bootstrap) reps(100) seed(1234) method(sdid) graph g1on ///
-> 
-  4.         sum  num_pushers_pc  if  gpt_available==0 & quarter<12 & language == "`lang'"
-  5.         estadd scalar control_mean `r(mean)'
-  6. 
-. }
-Bootstrap replications (100). This may take some time.
-----+--- 1 ---+--- 2 ---+--- 3 ---+--- 4 ---+--- 5
-..................................................     50
-..................................................     100
-
-
-Synthetic Difference-in-Differences Estimator
-
------------------------------------------------------------------------------
-num_pusher~c |     ATT     Std. Err.     t      P>|t|    [95% Conf. Interval]
--------------+---------------------------------------------------------------
-gpt_availa~1 |   4.97391    1.50558     3.30    0.001     2.02304     7.92479
------------------------------------------------------------------------------
-95% CIs and p-values are based on Large-Sample approximations.
-Refer to Arkhangelsky et al., (2020) for theoretical derivations.
-
-    Variable |        Obs        Mean    Std. Dev.       Min        Max
--------------+---------------------------------------------------------
-num_pusher~c |        286    5.663934    8.056527          0   39.30302
-
-added scalar:
-       e(control_mean) =  5.6639337
-Bootstrap replications (100). This may take some time.
-----+--- 1 ---+--- 2 ---+--- 3 ---+--- 4 ---+--- 5
-..................................................     50
-..................................................     100
-
-
-Synthetic Difference-in-Differences Estimator
-
------------------------------------------------------------------------------
-num_pusher~c |     ATT     Std. Err.     t      P>|t|    [95% Conf. Interval]
--------------+---------------------------------------------------------------
-gpt_availa~1 |   1.21784    0.25394     4.80    0.000     0.72013     1.71555
------------------------------------------------------------------------------
-95% CIs and p-values are based on Large-Sample approximations.
-Refer to Arkhangelsky et al., (2020) for theoretical derivations.
-
-    Variable |        Obs        Mean    Std. Dev.       Min        Max
--------------+---------------------------------------------------------
-num_pusher~c |        143    1.752476    2.568586          0   9.561904
-
-added scalar:
-       e(control_mean) =  1.7524755
-Bootstrap replications (100). This may take some time.
-----+--- 1 ---+--- 2 ---+--- 3 ---+--- 4 ---+--- 5
-..................................................     50
-..................................................     100
-
-
-Synthetic Difference-in-Differences Estimator
-
------------------------------------------------------------------------------
-num_pusher~c |     ATT     Std. Err.     t      P>|t|    [95% Conf. Interval]
--------------+---------------------------------------------------------------
-gpt_availa~1 |   0.84124    0.18409     4.57    0.000     0.48043     1.20204
------------------------------------------------------------------------------
-95% CIs and p-values are based on Large-Sample approximations.
-Refer to Arkhangelsky et al., (2020) for theoretical derivations.
-
-    Variable |        Obs        Mean    Std. Dev.       Min        Max
--------------+---------------------------------------------------------
-num_pusher~c |        110    .9749355    1.195338          0   4.548765
-
-added scalar:
-       e(control_mean) =  .97493547
-
-. 
-end of do-file
-
-. do "c:\users\alexan~1\appdata\local\temp\st_stata_temp.tmp"
-
-. 
-. coefplot (JavaScript_sdid, label("JavaScript")) ///
-> (Python_sdid, label("Python")) ///
-> (TypeScript_sdid, label("TypeScript")) ///
-> (C_sdid, label("C")) ///
-> (Rust_sdid, label("Rust")) ///
-> (cpp_sdid, label("C++")) ///
-> (Assembly_sdid, label("Assembly")) ///
-> (Shell_sdid, label("Shell")) ///
-> (Batchfile_sdid, label("Batchfile")) ///
-> (PowerShell_sdid, label("PowerShell")) ///
-> , keep(gpt_available_post1) ///
-> sort ylab("") title("High-Level, General-Purpose Languages", orient(horiz)) xline(0) msymbol(S)  scheme(plotplainblind)
-
-. 
-. 
-. 
-end of do-file
-
-. do "c:\users\alexan~1\appdata\local\temp\st_stata_temp.tmp"
-
-. local high_level "Python JavaScript Ruby PHP TypeScript"
-
-. // local statically "Java C# Go Swift"
-. local shell_scripting "Shell Batchfile PowerShell"
-
-. local dsl "TSQL PLpgSQL HTML CSS MATLAB R"
-
-. local low_level "C Rust Assembly"
-
-. 
-. 
-. foreach lang of local dsl{
-  2. 
-.         local l`v' : variable label num_pushers_pc
-  3. 
-. eststo `lang'_sdid:  sdid num_pushers_pc iso2_code quarter gpt_available_post1 if language == "`lang'", ///
->         vce(bootstrap) reps(100) seed(1234) method(sdid) graph g1on ///
-> 
-  4.         sum  num_pushers_pc  if  gpt_available==0 & quarter<12 & language == "`lang'"
-  5.         estadd scalar control_mean `r(mean)'
-  6. 
-. }
-Bootstrap replications (100). This may take some time.
-----+--- 1 ---+--- 2 ---+--- 3 ---+--- 4 ---+--- 5
-..................................................     50
-..................................................     100
-
-
-Synthetic Difference-in-Differences Estimator
-
------------------------------------------------------------------------------
-num_pusher~c |     ATT     Std. Err.     t      P>|t|    [95% Conf. Interval]
--------------+---------------------------------------------------------------
-gpt_availa~1 |   0.05253    0.40012     0.13    0.896    -0.73170     0.83675
------------------------------------------------------------------------------
-95% CIs and p-values are based on Large-Sample approximations.
-Refer to Arkhangelsky et al., (2020) for theoretical derivations.
-
-    Variable |        Obs        Mean    Std. Dev.       Min        Max
--------------+---------------------------------------------------------
-num_pusher~c |        121    .8362828    1.539058          0    10.2057
-
-added scalar:
-       e(control_mean) =  .83628278
-Bootstrap replications (100). This may take some time.
-----+--- 1 ---+--- 2 ---+--- 3 ---+--- 4 ---+--- 5
-..................................................     50
-..................................................     100
-
-
-Synthetic Difference-in-Differences Estimator
-
------------------------------------------------------------------------------
-num_pusher~c |     ATT     Std. Err.     t      P>|t|    [95% Conf. Interval]
--------------+---------------------------------------------------------------
-gpt_availa~1 |   0.27008    0.08541     3.16    0.002     0.10267     0.43749
------------------------------------------------------------------------------
-95% CIs and p-values are based on Large-Sample approximations.
-Refer to Arkhangelsky et al., (2020) for theoretical derivations.
-
-    Variable |        Obs        Mean    Std. Dev.       Min        Max
--------------+---------------------------------------------------------
-num_pusher~c |         77    .2778112    .3467227          0   1.319247
-
-added scalar:
-       e(control_mean) =  .27781118
-Bootstrap replications (100). This may take some time.
-----+--- 1 ---+--- 2 ---+--- 3 ---+--- 4 ---+--- 5
-..................................................     50
-..................................................     100
-
-
-Synthetic Difference-in-Differences Estimator
-
------------------------------------------------------------------------------
-num_pusher~c |     ATT     Std. Err.     t      P>|t|    [95% Conf. Interval]
--------------+---------------------------------------------------------------
-gpt_availa~1 |   7.98056    2.35240     3.39    0.001     3.36994    12.59117
------------------------------------------------------------------------------
-95% CIs and p-values are based on Large-Sample approximations.
-Refer to Arkhangelsky et al., (2020) for theoretical derivations.
-
-    Variable |        Obs        Mean    Std. Dev.       Min        Max
--------------+---------------------------------------------------------
-num_pusher~c |        319    15.43516    24.24127          0   135.9141
-
-added scalar:
-       e(control_mean) =  15.435164
-Bootstrap replications (100). This may take some time.
-----+--- 1 ---+--- 2 ---+--- 3 ---+--- 4 ---+--- 5
-..................................................     50
-..................................................     100
-
-
-Synthetic Difference-in-Differences Estimator
-
------------------------------------------------------------------------------
-num_pusher~c |     ATT     Std. Err.     t      P>|t|    [95% Conf. Interval]
--------------+---------------------------------------------------------------
-gpt_availa~1 |   7.77450    2.10092     3.70    0.000     3.65678    11.89222
------------------------------------------------------------------------------
-95% CIs and p-values are based on Large-Sample approximations.
-Refer to Arkhangelsky et al., (2020) for theoretical derivations.
-
-    Variable |        Obs        Mean    Std. Dev.       Min        Max
--------------+---------------------------------------------------------
-num_pusher~c |        319     11.7223    18.87129          0   108.3999
-
-added scalar:
-       e(control_mean) =  11.722297
-Bootstrap replications (100). This may take some time.
-----+--- 1 ---+--- 2 ---+--- 3 ---+--- 4 ---+--- 5
-..................................................     50
-..................................................     100
-
-
-Synthetic Difference-in-Differences Estimator
-
------------------------------------------------------------------------------
-num_pusher~c |     ATT     Std. Err.     t      P>|t|    [95% Conf. Interval]
--------------+---------------------------------------------------------------
-gpt_availa~1 |   0.18998    0.10109     1.88    0.060    -0.00816     0.38811
------------------------------------------------------------------------------
-95% CIs and p-values are based on Large-Sample approximations.
-Refer to Arkhangelsky et al., (2020) for theoretical derivations.
-
-    Variable |        Obs        Mean    Std. Dev.       Min        Max
--------------+---------------------------------------------------------
-num_pusher~c |         77    .2918822    .1817224          0   .6873806
-
-added scalar:
-       e(control_mean) =  .29188222
-Bootstrap replications (100). This may take some time.
-----+--- 1 ---+--- 2 ---+--- 3 ---+--- 4 ---+--- 5
-..................................................     50
-..................................................     100
-
-
-Synthetic Difference-in-Differences Estimator
-
------------------------------------------------------------------------------
-num_pusher~c |     ATT     Std. Err.     t      P>|t|    [95% Conf. Interval]
--------------+---------------------------------------------------------------
-gpt_availa~1 |   0.36553    0.14073     2.60    0.009     0.08970     0.64136
------------------------------------------------------------------------------
-95% CIs and p-values are based on Large-Sample approximations.
-Refer to Arkhangelsky et al., (2020) for theoretical derivations.
-
-    Variable |        Obs        Mean    Std. Dev.       Min        Max
--------------+---------------------------------------------------------
-num_pusher~c |         66    .2513186    .1961768          0   .6872594
-
-added scalar:
-       e(control_mean) =  .25131859
-
-. 
-end of do-file
-
-. do "c:\users\alexan~1\appdata\local\temp\st_stata_temp.tmp"
-
-. 
-. 
-. 
-. coefplot (JavaScript_sdid, label("JavaScript")) ///
-> (Python_sdid, label("Python")) ///
-> (TypeScript_sdid, label("TypeScript")) ///
-> (C_sdid, label("C")) ///
-> (Rust_sdid, label("Rust")) ///
-> (cpp_sdid, label("C++")) ///
-> (Assembly_sdid, label("Assembly")) ///
-> (Shell_sdid, label("Shell")) ///
-> (Batchfile_sdid, label("Batchfile")) ///
-> (PowerShell_sdid, label("PowerShell")) ///
-> (PLpgSQL_sdid, label("PLpgSQL")) ///
-> (HTML_sdid, label("HTML")) ///
-> (CSS_sdid, label("CSS")) ///
-> (MATLAB_sdid, label("MATLAB")) ///
-> (R_sdid, label("R")) ///
-> , keep(gpt_available_post1) ///
-> sort ylab("") title("High-Level, General-Purpose Languages", orient(horiz)) xline(0) msymbol(S)  scheme(plotplainblind)
-
-. 
-. 
-end of do-file
-
-. do "c:\users\alexan~1\appdata\local\temp\st_stata_temp.tmp"
-
-. 
-. coefplot (C_sdid, label("C")) ///
-> (Rust_sdid, label("Rust")) ///
-> (cpp_sdid, label("C++")) ///
-> (Assembly_sdid, label("Assembly")), keep(gpt_available_post1) ///
-> sort ylab("") title("Low-Level, Systems Programming Languages", orient(horiz)) xline(0) msymbol(S)  scheme(plotplainblind)
-
-. 
-. 
-end of do-file
-
-. do "c:\users\alexan~1\appdata\local\temp\st_stata_temp.tmp"
-
-. coefplot JavaScript_sdid Python_sdid TypeScript_sdid ///
-> PHP_sdid, keep(gpt_available_post1) sort ylab("") ytitle("", orient(horiz)) xline(0) msymbol(S) ///
-> eqlabels("Equation 1" "Equation 2" "Equation 3")
-
-. 
-. 
-end of do-file
-
-. do "c:\users\alexan~1\appdata\local\temp\st_stata_temp.tmp"
-
-. coefplot (JavaScript_sdid, label("JavaScript")) ///
-> (Python_sdid, label("Python")) ///
-> (TypeScript_sdid, label("TypeScript")) ///
-> (C_sdid, label("C")) ///
-> (Rust_sdid, label("Rust")) ///
-> (cpp_sdid, label("C++")) ///
-> (Assembly_sdid, label("Assembly")) ///
-> (Shell_sdid, label("Shell")) ///
-> (Batchfile_sdid, label("Batchfile")) ///
-> (PowerShell_sdid, label("PowerShell")) ///
-> (PLpgSQL_sdid, label("PLpgSQL")) ///
-> (HTML_sdid, label("HTML")) ///
-> (CSS_sdid, label("CSS")) ///
-> (MATLAB_sdid, label("MATLAB")) ///
-> (R_sdid, label("R")) ///
-> , keep(gpt_available_post1) ///
-> sort ylab("") ytitle("", orient(horiz)) xline(0) msymbol(S)  scheme(plotplainblind)
-
-. 
-. 
-end of do-file
-
-. do "c:\users\alexan~1\appdata\local\temp\st_stata_temp.tmp"
-
-. coefplot (JavaScript_sdid, label("JavaScript")) ///
-> (Python_sdid, label("Python")) ///
-> (TypeScript_sdid, label("TypeScript")) ///
-> (C_sdid, label("C")) ///
-> (Rust_sdid, label("Rust")) ///
-> (cpp_sdid, label("C++")) ///
-> (Assembly_sdid, label("Assembly")) ///
-> (Shell_sdid, label("Shell")) ///
-> (Batchfile_sdid, label("Batchfile")) ///
-> (PowerShell_sdid, label("PowerShell")) ///
-> (PLpgSQL_sdid, label("PLpgSQL")) ///
-> (HTML_sdid, label("HTML")) ///
-> (CSS_sdid, label("CSS")) ///
-> (MATLAB_sdid, label("MATLAB")) ///
-> (R_sdid, label("R")) ///
-> , keep(gpt_available_post1) ///
-> sort ylab("") ytitle("", orient(horiz)) xline(0) msymbol(S)  scheme(plotplainblind)
-
-. 
-. 
-. coefplot (C_sdid, label("C")) ///
-
-end of do-file
-
-. do "c:\users\alexan~1\appdata\local\temp\st_stata_temp.tmp"
-
-. coefplot (JavaScript_sdid, label("JavaScript")) ///
-> (Python_sdid, label("Python")) ///
-> (TypeScript_sdid, label("TypeScript")) ///
-> (C_sdid, label("C")) ///
-> (Rust_sdid, label("Rust")) ///
-> (cpp_sdid, label("C++")) ///
-> (Assembly_sdid, label("Assembly")) ///
-> (Shell_sdid, label("Shell")) ///
-> (Batchfile_sdid, label("Batchfile")) ///
-> (PowerShell_sdid, label("PowerShell")) ///
-> (PLpgSQL_sdid, label("PLpgSQL")) ///
-> (HTML_sdid, label("HTML")) ///
-> (CSS_sdid, label("CSS")) ///
-> (MATLAB_sdid, label("MATLAB")) ///
-> (R_sdid, label("R")) ///
-> , keep(gpt_available_post1) ///
-> sort ylab("") ytitle("", orient(horiz)) xline(0) msymbol(S)  scheme(plotplainblind)
-
-. 
-. 
-end of do-file
-
-. do "c:\users\alexan~1\appdata\local\temp\st_stata_temp.tmp"
-
-. coefplot (C_sdid, label("C")) ///
-> (Rust_sdid, label("Rust")) ///
-> (cpp_sdid, label("C++")) ///
-> (Assembly_sdid, label("Assembly")), keep(gpt_available_post1) ///
-> sort ylab("") title("Low-Level, Systems Programming Languages", orient(horiz)) xline(0) msymbol(S)  scheme(plotplainblind)
-
-. 
-. 
-end of do-file
-
-. do "c:\users\alexan~1\appdata\local\temp\st_stata_temp.tmp"
-
-. 
-. coefplot Python_sdid JavaScript_sdid  TypeScript_sdid ///
-> PHP_sdid, keep(gpt_available_post1) sort ylab("") ytitle("", orient(horiz)) xline(0) msymbol(S) ///
-> eqlabels("Equation 1" "Equation 2" "Equation 3")
-
-. 
-. 
-end of do-file
-
-. do "c:\users\alexan~1\appdata\local\temp\st_stata_temp.tmp"
-
-. coefplot Python_sdid JavaScript_sdid  TypeScript_sdid ///
-> PHP_sdid, keep(gpt_available_post1) sort ylab("") ytitle("", orient(horiz)) xline(0) msymbol(S) ///
-> eqlabels("Equation 1" "Equation 2" "Equation 3")
-
-. 
-. 
-. 
-end of do-file
-
-. do "c:\users\alexan~1\appdata\local\temp\st_stata_temp.tmp"
-
-. coefplot (C_sdid, label("C")) ///
-> (Rust_sdid, label("Rust")) ///
-> (cpp_sdid, label("C++")) ///
-> (Assembly_sdid, label("Assembly")), keep(gpt_available_post1) ///
-> sort ylab("") title("Low-Level, Systems Programming Languages", orient(horiz)) xline(0) msymbol(S)  scheme(plotplainblind)
-
-. 
-. 
-. 
-. 
-end of do-file
-
-. do "c:\users\alexan~1\appdata\local\temp\st_stata_temp.tmp"
-
-. coefplot JavaScript_sdid Python_sdid TypeScript_sdid ///
-> PHP_sdid, keep(gpt_available_post1) sort ylab("") ytitle("", orient(horiz)) xline(0) msymbol(S) ///
-> eqlabels("Equation 1" "Equation 2" "Equation 3")
-
-. 
-. 
-end of do-file
-
-. do "c:\users\alexan~1\appdata\local\temp\st_stata_temp.tmp"
-
-. coefplot (JavaScript_sdid, label("JavaScript")) ///
-> (Python_sdid, label("Python")) ///
-> (TypeScript_sdid, label("TypeScript")) ///
-> (C_sdid, label("C")) /// 
-> , keep(gpt_available_post1) ///
-> sort ylab("") title("Low-Level, Systems Programming Languages", orient(horiz)) xline(0) msymbol(S)  scheme(plotplainblind)
-
-. 
-. 
-. 
-end of do-file
-
-. do "c:\users\alexan~1\appdata\local\temp\st_stata_temp.tmp"
-
-. coefplot (Shell_sdid, label("Shell")) ///
-> (Batchfile_sdid, label("Batchfile")) ///
-> (PowerShell_sdid, label("PowerShell")) ///
-> , keep(gpt_available_post1) ///
-> sort ylab("") title("Low-Level, Systems Programming Languages", orient(horiz)) xline(0) msymbol(S)  scheme(plotplainblind)
-
-. 
-. 
-end of do-file
-
-. do "c:\users\alexan~1\appdata\local\temp\st_stata_temp.tmp"
-
-. (PLpgSQL_sdid, label("PLpgSQL")) ///
-> (HTML_sdid, label("HTML")) ///
-> (CSS_sdid, label("CSS")) ///
-> (MATLAB_sdid, label("MATLAB")) ///
-> (R_sdid, label("MATLAB")) ///
-> , keep(gpt_available_post1) ///
-> sort ylab("") title("Low-Level, Systems Programming Languages", orient(horiz)) xline(0) msymbol(S)  scheme(plotplainblind)
-( is not a valid command name
-r(199);
-
-end of do-file
-
-r(199);
-
-. do "c:\users\alexan~1\appdata\local\temp\st_stata_temp.tmp"
-
-. coefplot (PLpgSQL_sdid, label("PLpgSQL")) ///
-> (HTML_sdid, label("HTML")) ///
-> (CSS_sdid, label("CSS")) ///
-> (MATLAB_sdid, label("MATLAB")) ///
-> (R_sdid, label("MATLAB")) ///
-> , keep(gpt_available_post1) ///
-> sort ylab("") title("Low-Level, Systems Programming Languages", orient(horiz)) xline(0) msymbol(S)  scheme(plotplainblind)
-
-. 
-. 
-end of do-file
-
-. do "c:\users\alexan~1\appdata\local\temp\st_stata_temp.tmp"
-
-. coefplot (PLpgSQL_sdid, label("PLpgSQL")) ///
-> (HTML_sdid, label("HTML")) ///
-> (CSS_sdid, label("CSS")) ///
-> (MATLAB_sdid, label("MATLAB")) ///
-> (R_sdid, label("MATLAB")) ///
-> , keep(gpt_available_post1) ///
-> sort ylab("") title("Low-Level, Systems Programming Languages", orient(horiz)) xline(0) msymbol(S)  scheme(plotplainblind)
-
-. 
-. 
-. 
-. 
-. 
-. 
-end of do-file
-
-. do "c:\users\alexan~1\appdata\local\temp\st_stata_temp.tmp"
-
-. coefplot (PLpgSQL_sdid, label("PLpgSQL")) ///
-> (HTML_sdid, label("HTML")) ///
-> (CSS_sdid, label("CSS")) ///
-> (MATLAB_sdid, label("MATLAB")) ///
-> (R_sdid, label("R")) ///
-> , keep(gpt_available_post1) ///
-> sort ylab("") title("Low-Level, Systems Programming Languages", orient(horiz)) xline(0) msymbol(S)  scheme(plotplainblind)
-
-. 
-. 
-. 
-end of do-file
-
-. do "c:\users\alexan~1\appdata\local\temp\st_stata_temp.tmp"
-
-. coefplot (Shell_sdid, label("Shell")) ///
-> (Batchfile_sdid, label("Batchfile")) ///
-> (PowerShell_sdid, label("PowerShell")) ///
-> , keep(gpt_available_post1) ///
-> sort ylab("") title("Low-Level, Systems Programming Languages", orient(horiz)) xline(0) msymbol(S)  scheme(plotplainblind)
-
-. 
-. 
-end of do-file
-
-. do "c:\users\alexan~1\appdata\local\temp\st_stata_temp.tmp"
-
-. coefplot (PLpgSQL_sdid, label("PLpgSQL")) ///
-> (HTML_sdid, label("HTML")) ///
-> (CSS_sdid, label("CSS")) ///
-> (MATLAB_sdid, label("MATLAB")) ///
-> (R_sdid, label("R")) ///
-> , keep(gpt_available_post1) ///
-> sort ylab("") title("Low-Level, Systems Programming Languages", orient(horiz)) xline(0) msymbol(S)  scheme(plotplainblind)
-
-. 
-. 
-. 
-. 
-. 
-. 
-end of do-file
-
-. do "c:\users\alexan~1\appdata\local\temp\st_stata_temp.tmp"
-
-. coefplot (PLpgSQL_sdid, label("PLpgSQL")) ///
-> (HTML_sdid, label("HTML")) ///
-> (CSS_sdid, label("CSS")) ///
-> (MATLAB_sdid, label("MATLAB")) ///
-> (R_sdid, label("R")) , keep(gpt_available_post1) ///
-> sort ylab("") title("Low-Level, Systems Programming Languages", orient(horiz)) xline(0) msymbol(S)  scheme(plotplainblind)
-
-. 
-. 
-end of do-file
-
-. do "c:\users\alexan~1\appdata\local\temp\st_stata_temp.tmp"
-
-. coefplot  ///
-> (HTML_sdid, label("HTML")) ///
-> (CSS_sdid, label("CSS")) ///
-> (R_sdid, label("R")) , keep(gpt_available_post1) ///
-> (MATLAB_sdid, label("MATLAB")) ///
-> (PLpgSQL_sdid, label("PLpgSQL"))
-invalid 'label' 
-r(198);
-
-end of do-file
-
-r(198);
-
-. do "c:\users\alexan~1\appdata\local\temp\st_stata_temp.tmp"
-
-. coefplot  ///
-> (HTML_sdid, label("HTML")) ///
-> (CSS_sdid, label("CSS")) ///
-> (R_sdid, label("R"))  ///
-> (MATLAB_sdid, label("MATLAB")) ///
-> (PLpgSQL_sdid, label("PLpgSQL")) , keep(gpt_available_post1) ///
-> sort ylab("") title("Low-Level, Systems Programming Languages", orient(horiz)) xline(0) msymbol(S)  scheme(plotplainblind)
-
-. 
-. 
-. 
-. 
-end of do-file
-
-. do "c:\users\alexan~1\appdata\local\temp\st_stata_temp.tmp"
-
-. coefplot (JavaScript_sdid, label("JavaScript")) ///
-> (Python_sdid, label("Python")) ///
-> (TypeScript_sdid, label("TypeScript")) ///
-> (C_sdid, label("C")) /// 
-> , keep(gpt_available_post1) ///
-> sort ylab("") title("High-Level, General-Purpose Languages", orient(horiz)) xline(0) msymbol(S)  scheme(plotplainblind)
-
-. 
-. 
-end of do-file
-
-. do "c:\users\alexan~1\appdata\local\temp\st_stata_temp.tmp"
-
-. coefplot (C_sdid, label("C")) ///
-> (Rust_sdid, label("Rust")) ///
-> (cpp_sdid, label("C++")) ///
-> (Assembly_sdid, label("Assembly")), keep(gpt_available_post1) ///
-> sort ylab("") title("Low-Level, Systems Programming Languages", orient(horiz)) xline(0) msymbol(S)  scheme(plotplainblind)
-
-. 
-. graph save "$path/output/figures/low_level_coefplot.gph", replace
-(note: file C:/Users/Alexander/Documents/GitHub/GPT-Impact-GitHub/output/figures/low_level_coefplot.gph not found)
-(file C:/Users/Alexander/Documents/GitHub/GPT-Impact-GitHub/output/figures/low_level_coefplot.gph saved)
-
-. graph export "$path/output/figures/low_level_coefplot.pdf", replace
-(file C:/Users/Alexander/Documents/GitHub/GPT-Impact-GitHub/output/figures/low_level_coefplot.pdf written in PDF format)
-
-. 
-end of do-file
-
-. do "c:\users\alexan~1\appdata\local\temp\st_stata_temp.tmp"
-
-. coefplot (Python_sdid, label("Python")) 
-
-.  (JavaScript_sdid, label("JavaScript")) ///
->  ///
-> (TypeScript_sdid, label("TypeScript")) ///
-> (C_sdid, label("C")) /// 
-> , keep(gpt_available_post1) ///
-> sort ylab("") title("High-Level, General-Purpose Languages", orient(horiz)) xline(0) msymbol(S)  scheme(plotplainblind)
-( is not a valid command name
-r(199);
-
-end of do-file
-
-r(199);
-
-. do "c:\users\alexan~1\appdata\local\temp\st_stata_temp.tmp"
-
-. 
-. coefplot (Python_sdid, label("Python")) ///
->  (JavaScript_sdid, label("JavaScript")) ///
-> (TypeScript_sdid, label("TypeScript")) ///
-> (C_sdid, label("C")) /// 
-> , keep(gpt_available_post1) ///
-> sort ylab("") title("High-Level, General-Purpose Languages", orient(horiz)) xline(0) msymbol(S)  scheme(plotplainblind)
-
-. 
-. graph save "$path/output/figures/high_level_coefplot.gph", replace
-(note: file C:/Users/Alexander/Documents/GitHub/GPT-Impact-GitHub/output/figures/high_level_coefplot.gph not found)
-(file C:/Users/Alexander/Documents/GitHub/GPT-Impact-GitHub/output/figures/high_level_coefplot.gph saved)
-
-. graph export "$path/output/figures/high_level_coefplot.pdf", replace
-(file C:/Users/Alexander/Documents/GitHub/GPT-Impact-GitHub/output/figures/high_level_coefplot.pdf written in PDF format)
-
-. 
-end of do-file
-
-. do "c:\users\alexan~1\appdata\local\temp\st_stata_temp.tmp"
-
-. coefplot (JavaScript_sdid, label("JavaScript")) ///
-> (Python_sdid, label("Python")) ///
-> (TypeScript_sdid, label("TypeScript")) ///
-> (C_sdid, label("C")) /// 
-> , keep(gpt_available_post1) ///
-> sort ylab("") title("High-Level, General-Purpose Languages", orient(horiz)) xline(0) msymbol(S)  scheme(plotplainblind)
-
-. 
-. graph save "$path/output/figures/high_level_coefplot.gph", replace
-(file C:/Users/Alexander/Documents/GitHub/GPT-Impact-GitHub/output/figures/high_level_coefplot.gph saved)
-
-. graph export "$path/output/figures/high_level_coefplot.pdf", replace
-(file C:/Users/Alexander/Documents/GitHub/GPT-Impact-GitHub/output/figures/high_level_coefplot.pdf written in PDF format)
-
-. 
-. 
-end of do-file
-
-. do "c:\users\alexan~1\appdata\local\temp\st_stata_temp.tmp"
-
-. coefplot (C_sdid, label("C")) ///
-> (Rust_sdid, label("Rust")) ///
-> (cpp_sdid, label("C++")) ///
-> (Assembly_sdid, label("Assembly")), keep(gpt_available_post1) ///
-> sort ylab("") title("Low-Level, Systems Programming Languages", orient(horiz)) xline(0) msymbol(S)  scheme(plotplainblind)
-
-. 
-. graph save "$path/output/figures/low_level_coefplot.gph", replace
-(file C:/Users/Alexander/Documents/GitHub/GPT-Impact-GitHub/output/figures/low_level_coefplot.gph saved)
-
-. graph export "$path/output/figures/low_level_coefplot.pdf", replace
-(file C:/Users/Alexander/Documents/GitHub/GPT-Impact-GitHub/output/figures/low_level_coefplot.pdf written in PDF format)
-
-. 
-. 
-end of do-file
-
-. do "c:\users\alexan~1\appdata\local\temp\st_stata_temp.tmp"
-
-. coefplot (Rust_sdid, label("Rust")) ///
-> (C_sdid, label("C")) ///
-> (cpp_sdid, label("C++")) ///
-> (Assembly_sdid, label("Assembly")), keep(gpt_available_post1) ///
-> sort ylab("") title("Low-Level, Systems Programming Languages", orient(horiz)) xline(0) msymbol(S)  scheme(plotplainblind)
-
-. 
-. graph save "$path/output/figures/low_level_coefplot.gph", replace
-(file C:/Users/Alexander/Documents/GitHub/GPT-Impact-GitHub/output/figures/low_level_coefplot.gph saved)
-
-. graph export "$path/output/figures/low_level_coefplot.pdf", replace
-(file C:/Users/Alexander/Documents/GitHub/GPT-Impact-GitHub/output/figures/low_level_coefplot.pdf written in PDF format)
-
-. 
-end of do-file
-
-. do "c:\users\alexan~1\appdata\local\temp\st_stata_temp.tmp"
-
-. coefplot  ///
-> (HTML_sdid, label("HTML")) ///
-> (CSS_sdid, label("CSS")) ///
-> (R_sdid, label("R"))  ///
-> (MATLAB_sdid, label("MATLAB")) ///
-> (PLpgSQL_sdid, label("PLpgSQL")) , keep(gpt_available_post1) ///
-> sort ylab("") title("omain-Specific Languages", orient(horiz)) xline(0) msymbol(S)  scheme(plotplainblind)
-
-. graph save "$path/output/figures/dsl_coefplot.gph", replace
-(note: file C:/Users/Alexander/Documents/GitHub/GPT-Impact-GitHub/output/figures/dsl_coefplot.gph not found)
-(file C:/Users/Alexander/Documents/GitHub/GPT-Impact-GitHub/output/figures/dsl_coefplot.gph saved)
-
-. graph export "$path/output/figures/dsl_coefplot.pdf", replace
-(file C:/Users/Alexander/Documents/GitHub/GPT-Impact-GitHub/output/figures/dsl_coefplot.pdf written in PDF format)
-
-. 
-. 
-end of do-file
-
-. do "c:\users\alexan~1\appdata\local\temp\st_stata_temp.tmp"
-
-. coefplot  ///
-> (HTML_sdid, label("HTML")) ///
-> (CSS_sdid, label("CSS")) ///
-> (R_sdid, label("R"))  ///
-> (MATLAB_sdid, label("MATLAB")) ///
-> (PLpgSQL_sdid, label("PLpgSQL")) , keep(gpt_available_post1) ///
-> sort ylab("") title("Domain-Specific Languages", orient(horiz)) xline(0) msymbol(S)  scheme(plotplainblind)
-
-. graph save "$path/output/figures/dsl_coefplot.gph", replace
-(file C:/Users/Alexander/Documents/GitHub/GPT-Impact-GitHub/output/figures/dsl_coefplot.gph saved)
-
-. graph export "$path/output/figures/dsl_coefplot.pdf", replace
-(file C:/Users/Alexander/Documents/GitHub/GPT-Impact-GitHub/output/figures/dsl_coefplot.pdf written in PDF format)
-
-. 
-end of do-file
-
-. do "c:\users\alexan~1\appdata\local\temp\st_stata_temp.tmp"
-
-. * Gross amount + net + Side payments
-.         grc1leg2  "$path/output/figures/high_level_coefplot.gph"                                ///
->                       "$path/output/figures/low_level_coefplot.gph"                     ///
->                           "$path/output/figures/shell_coefplot.gph" ///
->                           "$path/output/figures/dsl_coefplot.gph", col(2)               
--grc1leg2- working...
-----+--- 1 ---+--- 2 ---+--- 3 ---+--- 4 ---+--- 5 
-..........
-file C:/Users/Alexander/Documents/GitHub/GPT-Impact-GitHub/output/figures/shell_coefplot.gph not found
-r(601);
-
-end of do-file
-
-r(601);
-
-. do "c:\users\alexan~1\appdata\local\temp\st_stata_temp.tmp"
-
-. coefplot (JavaScript_sdid, label("JavaScript")) ///
-> (Python_sdid, label("Python")) ///
-> (TypeScript_sdid, label("TypeScript")) ///
-> (C_sdid, label("C")) /// 
-> , keep(gpt_available_post1) ///
-> sort ylab("") title("High-Level, General-Purpose Languages", orient(horiz)) xline(0) msymbol(S)  scheme(plotplainblind)
-
-. 
-. graph save "$path/output/figures/high_level_coefplot.gph", replace
-(file C:/Users/Alexander/Documents/GitHub/GPT-Impact-GitHub/output/figures/high_level_coefplot.gph saved)
-
-. graph export "$path/output/figures/high_level_coefplot.pdf", replace
-(file C:/Users/Alexander/Documents/GitHub/GPT-Impact-GitHub/output/figures/high_level_coefplot.pdf written in PDF format)
-
-. 
-. 
-. coefplot (Rust_sdid, label("Rust")) ///
-> (C_sdid, label("C")) ///
-> (cpp_sdid, label("C++")) ///
-> (Assembly_sdid, label("Assembly")), keep(gpt_available_post1) ///
-> sort ylab("") title("Low-Level, Systems Programming Languages", orient(horiz)) xline(0) msymbol(S)  scheme(plotplainblind)
-
-. 
-. graph save "$path/output/figures/low_level_coefplot.gph", replace
-(file C:/Users/Alexander/Documents/GitHub/GPT-Impact-GitHub/output/figures/low_level_coefplot.gph saved)
-
-. graph export "$path/output/figures/low_level_coefplot.pdf", replace
-(file C:/Users/Alexander/Documents/GitHub/GPT-Impact-GitHub/output/figures/low_level_coefplot.pdf written in PDF format)
-
-. 
-. 
-. coefplot (Shell_sdid, label("Shell")) ///
-> (Batchfile_sdid, label("Batchfile")) ///
-> (PowerShell_sdid, label("PowerShell")) ///
-> , keep(gpt_available_post1) ///
-> sort ylab("") title("Shell Scripting Languages", orient(horiz)) xline(0) msymbol(S)  scheme(plotplainblind)
-
-. graph save "$path/output/figures/shell_coefplot.gph", replace
-(note: file C:/Users/Alexander/Documents/GitHub/GPT-Impact-GitHub/output/figures/shell_coefplot.gph not found)
-(file C:/Users/Alexander/Documents/GitHub/GPT-Impact-GitHub/output/figures/shell_coefplot.gph saved)
-
-. graph export "$path/output/figures/shell_coefplot.pdf", replace
-(file C:/Users/Alexander/Documents/GitHub/GPT-Impact-GitHub/output/figures/shell_coefplot.pdf written in PDF format)
-
-. 
-. coefplot  ///
-> (HTML_sdid, label("HTML")) ///
-> (CSS_sdid, label("CSS")) ///
-> (R_sdid, label("R"))  ///
-> (MATLAB_sdid, label("MATLAB")) ///
-> (PLpgSQL_sdid, label("PLpgSQL")) , keep(gpt_available_post1) ///
-> sort ylab("") title("Domain-Specific Languages", orient(horiz)) xline(0) msymbol(S)  scheme(plotplainblind)
-
-. graph save "$path/output/figures/dsl_coefplot.gph", replace
-(file C:/Users/Alexander/Documents/GitHub/GPT-Impact-GitHub/output/figures/dsl_coefplot.gph saved)
-
-. graph export "$path/output/figures/dsl_coefplot.pdf", replace
-(file C:/Users/Alexander/Documents/GitHub/GPT-Impact-GitHub/output/figures/dsl_coefplot.pdf written in PDF format)
-
-. 
-. 
-. * Gross amount + net + Side payments
-.         grc1leg2  "$path/output/figures/high_level_coefplot.gph"                                ///
->                       "$path/output/figures/low_level_coefplot.gph"                     ///
->                           "$path/output/figures/shell_coefplot.gph" ///
->                           "$path/output/figures/dsl_coefplot.gph", col(2)               
--grc1leg2- working...
-----+--- 1 ---+--- 2 ---+--- 3 ---+--- 4 ---+--- 5 
-.................................................    50
-..................................................   100
-...............................
-. graph export "$path/output/figures/all_program_lang_coefplot.gph", replace
-output-file suffix "gph" not recognized
-    specify correct suffix or specify as() option
-r(198);
-
-end of do-file
-
-r(198);
-
-. do "c:\users\alexan~1\appdata\local\temp\st_stata_temp.tmp"
-
-. 
-. 
-. coefplot (JavaScript_sdid, label("JavaScript")) ///
-> (Python_sdid, label("Python")) ///
-> (TypeScript_sdid, label("TypeScript")) ///
-> (C_sdid, label("C")) /// 
-> , keep(gpt_available_post1) ///
-> sort ylab("") title("High-Level, General-Purpose Languages", orient(horiz)) xline(0) msymbol(S)  scheme(plotplainblind)
-
-. 
-. graph save "$path/output/figures/high_level_coefplot.gph", replace
-(file C:/Users/Alexander/Documents/GitHub/GPT-Impact-GitHub/output/figures/high_level_coefplot.gph saved)
-
-. graph export "$path/output/figures/high_level_coefplot.pdf", replace
-(file C:/Users/Alexander/Documents/GitHub/GPT-Impact-GitHub/output/figures/high_level_coefplot.pdf written in PDF format)
-
-. 
-. 
-. coefplot (Rust_sdid, label("Rust")) ///
-> (C_sdid, label("C")) ///
-> (cpp_sdid, label("C++")) ///
-> (Assembly_sdid, label("Assembly")), keep(gpt_available_post1) ///
-> sort ylab("") title("Low-Level, Systems Programming Languages", orient(horiz)) xline(0) msymbol(S)  scheme(plotplainblind)
-
-. 
-. graph save "$path/output/figures/low_level_coefplot.gph", replace
-(file C:/Users/Alexander/Documents/GitHub/GPT-Impact-GitHub/output/figures/low_level_coefplot.gph saved)
-
-. graph export "$path/output/figures/low_level_coefplot.pdf", replace
-(file C:/Users/Alexander/Documents/GitHub/GPT-Impact-GitHub/output/figures/low_level_coefplot.pdf written in PDF format)
-
-. 
-. 
-. coefplot (Shell_sdid, label("Shell")) ///
-> (Batchfile_sdid, label("Batchfile")) ///
-> (PowerShell_sdid, label("PowerShell")) ///
-> , keep(gpt_available_post1) ///
-> sort ylab("") title("Shell Scripting Languages", orient(horiz)) xline(0) msymbol(S)  scheme(plotplainblind)
-
-. graph save "$path/output/figures/shell_coefplot.gph", replace
-(file C:/Users/Alexander/Documents/GitHub/GPT-Impact-GitHub/output/figures/shell_coefplot.gph saved)
-
-. graph export "$path/output/figures/shell_coefplot.pdf", replace
-(file C:/Users/Alexander/Documents/GitHub/GPT-Impact-GitHub/output/figures/shell_coefplot.pdf written in PDF format)
-
-. 
-end of do-file
-
-. do "c:\users\alexan~1\appdata\local\temp\st_stata_temp.tmp"
-
-. coefplot  ///
-> (HTML_sdid, label("HTML")) ///
-> (CSS_sdid, label("CSS")) ///
-> (R_sdid, label("R"))  ///
-> (MATLAB_sdid, label("MATLAB")) ///
-> (PLpgSQL_sdid, label("PLpgSQL")) , keep(gpt_available_post1) ///
-> sort ylab("") title("Domain-Specific Languages", orient(horiz)) xline(0) msymbol(S)  scheme(plotplainblind)
-
-. graph save "$path/output/figures/dsl_coefplot.gph", replace
-(file C:/Users/Alexander/Documents/GitHub/GPT-Impact-GitHub/output/figures/dsl_coefplot.gph saved)
-
-. graph export "$path/output/figures/dsl_coefplot.pdf", replace
-(file C:/Users/Alexander/Documents/GitHub/GPT-Impact-GitHub/output/figures/dsl_coefplot.pdf written in PDF format)
-
-. 
-end of do-file
-
-. do "c:\users\alexan~1\appdata\local\temp\st_stata_temp.tmp"
-
-. * Gross amount + net + Side payments
-.         grc1leg2  "$path/output/figures/high_level_coefplot.gph"                                ///
->                       "$path/output/figures/low_level_coefplot.gph"                     ///
->                           "$path/output/figures/shell_coefplot.gph" ///
->                           "$path/output/figures/dsl_coefplot.gph", col(2)               
--grc1leg2- working...
-----+--- 1 ---+--- 2 ---+--- 3 ---+--- 4 ---+--- 5 
-.................................................    50
-..................................................   100
-...............................
-. graph export "$path/output/figures/all_program_lang_coefplot.gph", replace
-output-file suffix "gph" not recognized
-    specify correct suffix or specify as() option
-r(198);
-
-end of do-file
-
-r(198);
-
-. do "c:\users\alexan~1\appdata\local\temp\st_stata_temp.tmp"
-
-. coefplot (JavaScript_sdid, label("JavaScript")) ///
-> (Python_sdid, label("Python")) ///
-> (TypeScript_sdid, label("TypeScript")) ///
-> (C_sdid, label("C")) /// 
-> , keep(gpt_available_post1) ///
-> sort ylab("") title("High-Level, General-Purpose Languages", orient(horiz)) xline(0) msymbol(S)  scheme(plotplainblind)
-
-. 
-. graph save "$path/output/figures/high_level_coefplot.gph", replace
-(file C:/Users/Alexander/Documents/GitHub/GPT-Impact-GitHub/output/figures/high_level_coefplot.gph saved)
-
-. graph export "$path/output/figures/high_level_coefplot.pdf", replace
-(file C:/Users/Alexander/Documents/GitHub/GPT-Impact-GitHub/output/figures/high_level_coefplot.pdf written in PDF format)
-
-. 
-. 
-. coefplot (Rust_sdid, label("Rust")) ///
-> (C_sdid, label("C")) ///
-> (cpp_sdid, label("C++")) ///
-> (Assembly_sdid, label("Assembly")), keep(gpt_available_post1) ///
-> sort ylab("") title("Low-Level, Systems Programming Languages", orient(horiz)) xline(0) msymbol(S)  scheme(plotplainblind)
-
-. 
-. graph save "$path/output/figures/low_level_coefplot.gph", replace
-(file C:/Users/Alexander/Documents/GitHub/GPT-Impact-GitHub/output/figures/low_level_coefplot.gph saved)
-
-. graph export "$path/output/figures/low_level_coefplot.pdf", replace
-(file C:/Users/Alexander/Documents/GitHub/GPT-Impact-GitHub/output/figures/low_level_coefplot.pdf written in PDF format)
-
-. 
-. 
-. coefplot (Shell_sdid, label("Shell")) ///
-> (Batchfile_sdid, label("Batchfile")) ///
-> (PowerShell_sdid, label("PowerShell")) ///
-> , keep(gpt_available_post1) ///
-> sort ylab("") title("Shell Scripting Languages", orient(horiz)) xline(0) msymbol(S)  scheme(plotplainblind)
-
-. graph save "$path/output/figures/shell_coefplot.gph", replace
-(file C:/Users/Alexander/Documents/GitHub/GPT-Impact-GitHub/output/figures/shell_coefplot.gph saved)
-
-. graph export "$path/output/figures/shell_coefplot.pdf", replace
-(file C:/Users/Alexander/Documents/GitHub/GPT-Impact-GitHub/output/figures/shell_coefplot.pdf written in PDF format)
-
-. 
-. coefplot  ///
-> (HTML_sdid, label("HTML")) ///
-> (CSS_sdid, label("CSS")) ///
-> (R_sdid, label("R"))  ///
-> (MATLAB_sdid, label("MATLAB")) ///
-> (PLpgSQL_sdid, label("PLpgSQL")) , keep(gpt_available_post1) ///
-> sort ylab("") title("Domain-Specific Languages", orient(horiz)) xline(0) msymbol(S)  scheme(plotplainblind)
-
-. graph save "$path/output/figures/dsl_coefplot.gph", replace
-(file C:/Users/Alexander/Documents/GitHub/GPT-Impact-GitHub/output/figures/dsl_coefplot.gph saved)
-
-. graph export "$path/output/figures/dsl_coefplot.pdf", replace
-(file C:/Users/Alexander/Documents/GitHub/GPT-Impact-GitHub/output/figures/dsl_coefplot.pdf written in PDF format)
-
-. 
-. 
-. * Gross amount + net + Side payments
-.         grc1leg2  "$path/output/figures/high_level_coefplot.gph"                                ///
->                       "$path/output/figures/low_level_coefplot.gph"                     ///
->                           "$path/output/figures/shell_coefplot.gph" ///
->                           "$path/output/figures/dsl_coefplot.gph", col(2)               
--grc1leg2- working...
-----+--- 1 ---+--- 2 ---+--- 3 ---+--- 4 ---+--- 5 
-.................................................    50
-..................................................   100
-...............................
-. graph export "$path/output/figures/all_program_lang_coefplot.gph", replace
-output-file suffix "gph" not recognized
-    specify correct suffix or specify as() option
-r(198);
-
-end of do-file
-
-r(198);
-
-. do "c:\users\alexan~1\appdata\local\temp\st_stata_temp.tmp"
-
-. graph combine  "$path/output/figures/high_level_coefplot.gph"                           ///
->                       "$path/output/figures/low_level_coefplot.gph"                     ///
->                           "$path/output/figures/shell_coefplot.gph" ///
->                           "$path/output/figures/dsl_coefplot.gph", col(2)               
-
-. graph export "$path/output/figures/all_program_lang_coefplot.gph", replace
-output-file suffix "gph" not recognized
-    specify correct suffix or specify as() option
-r(198);
-
-end of do-file
-
-r(198);
-
-. do "c:\users\alexan~1\appdata\local\temp\st_stata_temp.tmp"
-
-. graph combine  "$path/output/figures/high_level_coefplot.gph"                           ///
->                       "$path/output/figures/low_level_coefplot.gph"                     ///
->                           "$path/output/figures/shell_coefplot.gph" ///
->                           "$path/output/figures/dsl_coefplot.gph", col(2) xcommon               
-
-. graph export "$path/output/figures/all_program_lang_coefplot.gph", replace
-output-file suffix "gph" not recognized
-    specify correct suffix or specify as() option
-r(198);
-
-end of do-file
-
-r(198);
-
-. do "c:\users\alexan~1\appdata\local\temp\st_stata_temp.tmp"
-
-. graph combine  "$path/output/figures/high_level_coefplot.gph"                           ///
->                       "$path/output/figures/low_level_coefplot.gph"                     ///
->                           "$path/output/figures/shell_coefplot.gph" ///
->                           "$path/output/figures/dsl_coefplot.gph", col(2) xcommon               
-
-. graph export "$path/output/figures/all_program_lang_coefplot.gph", replace
-output-file suffix "gph" not recognized
-    specify correct suffix or specify as() option
-r(198);
-
-end of do-file
-
-r(198);
-
-. do "c:\users\alexan~1\appdata\local\temp\st_stata_temp.tmp"
-
-. 
-. graph combine  "$path/output/figures/high_level_coefplot.gph"                           ///
->                       "$path/output/figures/low_level_coefplot.gph"                     ///
->                           "$path/output/figures/shell_coefplot.gph" ///
->                           "$path/output/figures/dsl_coefplot.gph", col(2) xcommon               
-
-. graph export "$path/output/figures/all_program_lang_coefplot.pdf", replace
-(file C:/Users/Alexander/Documents/GitHub/GPT-Impact-GitHub/output/figures/all_program_lang_coefplot.pdf written in PDF format)
-
-. 
-end of do-file
-
-. unique iso2_code if gpt_available == 1
-Number of unique values of iso2_code is  133
-Number of records is  116064
-
-. tab language
-
-                  language |      Freq.     Percent        Cum.
----------------------------+-----------------------------------
-             1C Enterprise |         48        0.04        0.04
-                      ABAP |         80        0.06        0.10
-                AGS Script |         80        0.06        0.16
-                      AIDL |        272        0.20        0.36
-                        AL |         16        0.01        0.37
-                      AMPL |        224        0.17        0.54
-                     ANTLR |        464        0.35        0.89
-             API Blueprint |         32        0.02        0.91
-                       APL |         16        0.01        0.92
-                       ASL |        160        0.12        1.04
-                   ASP.NET |      1,024        0.77        1.81
-              ActionScript |        224        0.17        1.98
-                       Ada |        224        0.17        2.15
-                      Agda |         48        0.04        2.18
-                     Alloy |         32        0.02        2.21
-               AngelScript |         80        0.06        2.27
-                ApacheConf |         16        0.01        2.28
-                      Apex |        160        0.12        2.40
-               AppleScript |        288        0.22        2.61
-                       Arc |         80        0.06        2.67
-                   AspectJ |         64        0.05        2.72
-                  Assembly |      1,248        0.93        3.66
-                     Astro |        672        0.50        4.16
-                 Asymptote |         16        0.01        4.17
-                    Augeas |         16        0.01        4.18
-                AutoHotkey |        256        0.19        4.37
-                    AutoIt |         32        0.02        4.40
-                       Awk |        592        0.44        4.84
-                     BASIC |         96        0.07        4.91
-                 Ballerina |         64        0.05        4.96
-                 Batchfile |      1,584        1.19        6.15
-                      Beef |         16        0.01        6.16
-                   Befunge |         32        0.02        6.18
-                     Berry |         48        0.04        6.22
-                     Bicep |        272        0.20        6.42
-                  Bikeshed |         16        0.01        6.44
-                   BitBake |         48        0.04        6.47
-                     Blade |      1,648        1.23        7.71
-                BlitzBasic |         32        0.02        7.73
-                       Boo |         32        0.02        7.75
-                    Boogie |         64        0.05        7.80
-                 Brainfuck |        288        0.22        8.02
-              Brightscript |         32        0.02        8.04
-                         C |      1,984        1.49        9.53
-                        C# |      1,744        1.31       10.83
-                       C++ |      1,856        1.39       12.22
-                   CAP CDS |         32        0.02       12.25
-                     CLIPS |         48        0.04       12.28
-                     CMake |      1,712        1.28       13.57
-                     COBOL |        160        0.12       13.69
-                       CSS |      2,544        1.91       15.59
-                       CUE |        144        0.11       15.70
-                      CWeb |         32        0.02       15.72
-                   Cadence |         48        0.04       15.76
-                     Cairo |         64        0.05       15.81
-               Cap'n Proto |         96        0.07       15.88
-                  CartoCSS |         32        0.02       15.90
-                    Ceylon |         16        0.01       15.92
-                    Chapel |         48        0.04       15.95
-                     ChucK |         16        0.01       15.96
-                   Clarion |         32        0.02       15.99
-               Classic ASP |        176        0.13       16.12
-                     Clean |         16        0.01       16.13
-                   Clojure |        560        0.42       16.55
-         Closure Templates |         32        0.02       16.57
-                    CodeQL |         48        0.04       16.61
-              CoffeeScript |        800        0.60       17.21
-                ColdFusion |         32        0.02       17.23
-               Common Lisp |        432        0.32       17.56
-  Common Workflow Language |         16        0.01       17.57
-          Component Pascal |         16        0.01       17.58
-                      Cool |         64        0.05       17.63
-                       Coq |        128        0.10       17.73
-                   Crystal |        160        0.12       17.85
-                    Csound |         16        0.01       17.86
-                      Cuda |        496        0.37       18.23
-                   Cycript |         16        0.01       18.24
-                    Cypher |         16        0.01       18.25
-                    Cython |        720        0.54       18.79
-                         D |        320        0.24       19.03
-  DIGITAL Command Language |        304        0.23       19.26
-                        DM |         80        0.06       19.32
-                    DTrace |        192        0.14       19.46
-                     Dafny |         16        0.01       19.48
-                      Dart |      1,552        1.16       20.64
-                 DataWeave |         32        0.02       20.66
-                     Dhall |         32        0.02       20.69
-                Dockerfile |      1,872        1.40       22.09
-                     Dylan |         16        0.01       22.10
-                         E |         32        0.02       22.12
-                       EJS |      1,200        0.90       23.02
-                   Earthly |         32        0.02       23.05
-                    Eiffel |         48        0.04       23.08
-                    Elixir |        464        0.35       23.43
-                       Elm |        192        0.14       23.57
-                    Elvish |         80        0.06       23.63
-                Emacs Lisp |        624        0.47       24.10
-               EmberScript |         64        0.05       24.15
-                    Erlang |        320        0.24       24.39
-                  Euphoria |         48        0.04       24.42
-                        F# |        384        0.29       24.71
-                        F* |         16        0.01       24.72
-                      FLUX |         16        0.01       24.74
-                    Factor |         16        0.01       24.75
-                    Fantom |         16        0.01       24.76
-                     Faust |         16        0.01       24.77
-                    Fennel |         16        0.01       24.78
-             Filebench WML |         16        0.01       24.80
-                    Fluent |        160        0.12       24.92
-                     Forth |        528        0.40       25.31
-                   Fortran |        704        0.53       25.84
-                 FreeBasic |         64        0.05       25.89
-                FreeMarker |        400        0.30       26.19
-                     Frege |         16        0.01       26.20
-                    G-code |        176        0.13       26.33
-                      GAMS |         16        0.01       26.34
-                       GAP |        496        0.37       26.71
-   GCC Machine Description |         16        0.01       26.73
-                       GDB |        448        0.34       27.06
-                  GDScript |        480        0.36       27.42
-                      GLSL |        848        0.64       28.06
-                       GSC |         32        0.02       28.08
-       Game Maker Language |         32        0.02       28.10
-                     Genie |         16        0.01       28.12
-                   Gherkin |        880        0.66       28.78
-                     Gleam |         16        0.01       28.79
-                   Gnuplot |        304        0.23       29.01
-                        Go |      1,312        0.98       30.00
-                      Golo |         16        0.01       30.01
-                     Grace |         16        0.01       30.02
-                    Groovy |        784        0.59       30.61
-                       HCL |        992        0.74       31.35
-                      HLSL |        992        0.74       32.09
-                      HTML |      2,592        1.94       34.04
-                      Hack |      1,568        1.17       35.21
-                      Haml |        144        0.11       35.32
-                Handlebars |      1,040        0.78       36.10
-                   Harbour |         16        0.01       36.11
-                   Haskell |        624        0.47       36.58
-                      Haxe |        160        0.12       36.70
-                    HiveQL |         64        0.05       36.74
-                     HolyC |         16        0.01       36.76
-                        Hy |         48        0.04       36.79
-                     HyPhy |         32        0.02       36.82
-                       IDL |         48        0.04       36.85
-                  IGOR Pro |         16        0.01       36.86
-                     Idris |         48        0.04       36.90
-              ImageJ Macro |         32        0.02       36.92
-                       Ink |         16        0.01       36.94
-                Inno Setup |        336        0.25       37.19
-                        Io |         48        0.04       37.22
-                      Ioke |         16        0.01       37.24
-                  Isabelle |         32        0.02       37.26
-                         J |         16        0.01       37.27
-                      JSON |        128        0.10       37.37
-                    JSONiq |         80        0.06       37.43
-                     Janet |         16        0.01       37.44
-                    Jasmin |        112        0.08       37.52
-                      Java |      2,048        1.53       39.06
-                JavaScript |      2,560        1.92       40.98
-             JetBrains MPS |         64        0.05       41.02
-                     Jinja |        816        0.61       41.63
-                   Jsonnet |        304        0.23       41.86
-                     Julia |        464        0.35       42.21
-          Jupyter Notebook |      1,664        1.25       43.46
-                       KRL |         16        0.01       43.47
-             Kaitai Struct |         16        0.01       43.48
-             KakouneScript |         16        0.01       43.49
-                       Kit |         16        0.01       43.50
-                    Kotlin |      1,760        1.32       44.82
-                      LLVM |        272        0.20       45.03
-                   LOLCODE |         80        0.06       45.09
-                       LSL |         32        0.02       45.11
-                   LabVIEW |         16        0.01       45.12
-                     Lasso |         48        0.04       45.16
-                     Latte |         16        0.01       45.17
-                      Lean |         32        0.02       45.19
-                      Less |      1,360        1.02       46.21
-                       Lex |        656        0.49       46.70
-                  LilyPond |         16        0.01       46.72
-                     Limbo |         96        0.07       46.79
-                    Liquid |        304        0.23       47.02
-                LiveScript |         48        0.04       47.05
-                     Logos |        144        0.11       47.16
-                    LookML |         32        0.02       47.18
-                       Lua |      1,152        0.86       48.05
-                         M |        432        0.32       48.37
-                        M4 |        736        0.55       48.92
-                    MATLAB |        896        0.67       49.59
-                 MAXScript |         48        0.04       49.63
-                      MLIR |         80        0.06       49.69
-                 Macaulay2 |         16        0.01       49.70
-                  Makefile |      1,632        1.22       50.92
-                      Mako |        672        0.50       51.43
-                  Markdown |        256        0.19       51.62
-                     Marko |         32        0.02       51.64
-                      Mask |         16        0.01       51.65
-               Mathematica |        576        0.43       52.09
-                       Max |         80        0.06       52.15
-                   Mercury |         96        0.07       52.22
-                   Mermaid |         80        0.06       52.28
-                     Meson |        528        0.40       52.67
-                     Metal |        144        0.11       52.78
-                  Modelica |         32        0.02       52.80
-                  Modula-2 |         16        0.01       52.82
-                  Modula-3 |         32        0.02       52.84
-  Module Management System |        128        0.10       52.94
-                  Monkey C |         16        0.01       52.95
-                MoonScript |         32        0.02       52.97
-                    Motoko |         32        0.02       53.00
-                      Move |         32        0.02       53.02
-                  Mustache |        720        0.54       53.56
-                      NASL |        384        0.29       53.85
-                       NCL |         16        0.01       53.86
-                      NSIS |        464        0.35       54.21
-                     Nasal |         16        0.01       54.22
-                   Nearley |         16        0.01       54.23
-                   Nemerle |         16        0.01       54.24
-                   NetLogo |         16        0.01       54.25
-                   NewLisp |        112        0.08       54.34
-                  Nextflow |         64        0.05       54.39
-                       Nim |        224        0.17       54.55
-                       Nit |         16        0.01       54.57
-                       Nix |        912        0.68       55.25
-                        Nu |        256        0.19       55.44
-                  Nunjucks |        352        0.26       55.70
-                     OCaml |        288        0.22       55.92
-              ObjectScript |         16        0.01       55.93
-               Objective-C |      1,744        1.31       57.24
-             Objective-C++ |        992        0.74       57.98
-               Objective-J |         48        0.04       58.02
-                      Odin |         32        0.02       58.04
-                   Omgrofl |         16        0.01       58.05
-                       Opa |         32        0.02       58.08
-         Open Policy Agent |        112        0.08       58.16
-              OpenEdge ABL |        192        0.14       58.31
-                  OpenQASM |         16        0.01       58.32
-                  OpenSCAD |        160        0.12       58.44
-                        P4 |         16        0.01       58.45
-                      PDDL |         16        0.01       58.46
-                    PEG.js |         32        0.02       58.49
-                       PHP |      2,128        1.59       60.08
-                     PLSQL |        576        0.43       60.51
-                   PLpgSQL |        928        0.70       61.21
-               POV-Ray SDL |        192        0.14       61.35
-                   Papyrus |         96        0.07       61.42
-                    Pascal |        560        0.42       61.84
-                      Pawn |        320        0.24       62.08
-                      Perl |      1,056        0.79       62.87
-                  PicoLisp |         16        0.01       62.88
-                  PigLatin |         48        0.04       62.92
-                      Pike |         32        0.02       62.94
-                      Pony |         32        0.02       62.97
-                  Portugol |         16        0.01       62.98
-                PostScript |        304        0.23       63.21
-                PowerShell |      1,328        0.99       64.20
-                Processing |        368        0.28       64.48
-                  Procfile |      1,552        1.16       65.64
-                    Prolog |        416        0.31       65.95
-                   Promela |         32        0.02       65.98
-           Protocol Buffer |         16        0.01       65.99
-                       Pug |        880        0.66       66.65
-                    Puppet |        288        0.22       66.86
-                 PureBasic |        480        0.36       67.22
-                PureScript |         96        0.07       67.29
-                    Python |      2,256        1.69       68.98
-                        Q# |         16        0.01       69.00
-                       QML |        336        0.25       69.25
-                     QMake |        672        0.50       69.75
-                 Qt Script |         32        0.02       69.77
-                         R |        976        0.73       70.51
-                      RAML |         48        0.04       70.54
-                      REXX |         32        0.02       70.57
-                       RPC |        112        0.08       70.65
-                    Racket |        176        0.13       70.78
-                     Ragel |        112        0.08       70.87
-                      Raku |        528        0.40       71.26
-                    Rascal |         16        0.01       71.27
-                  ReScript |         80        0.06       71.33
-                    Reason |        112        0.08       71.42
-                     Rebol |        368        0.28       71.69
-                       Red |         48        0.04       71.73
-                    Ren'Py |         32        0.02       71.75
-              RenderScript |        208        0.16       71.91
-          Rich Text Format |        736        0.55       72.46
-                      Ring |         16        0.01       72.47
-            RobotFramework |        240        0.18       72.65
-                      Roff |      1,072        0.80       73.45
-           RouterOS Script |         16        0.01       73.47
-                      Ruby |      1,840        1.38       74.84
-                      Rust |      1,104        0.83       75.67
-                       SAS |        128        0.10       75.77
-                      SCSS |      2,080        1.56       77.33
-                       SMT |         16        0.01       77.34
-                       SQF |         32        0.02       77.36
-                       SQL |         32        0.02       77.38
-                     SQLPL |        400        0.30       77.68
-          SRecode Template |         16        0.01       77.70
-                      SWIG |        352        0.26       77.96
-                      Sage |        192        0.14       78.10
-                 SaltStack |         48        0.04       78.14
-                      Sass |        704        0.53       78.67
-                     Scala |        704        0.53       79.19
-                    Scheme |        528        0.40       79.59
-                    Scilab |        192        0.14       79.73
-                      Self |         32        0.02       79.76
-                 ShaderLab |        976        0.73       80.49
-                     Shell |      2,224        1.67       82.15
-                      Shen |         16        0.01       82.17
-                     Sieve |         32        0.02       82.19
-               Singularity |         16        0.01       82.20
-                     Slash |         16        0.01       82.21
-                      Slim |        112        0.08       82.30
-                      SmPL |        368        0.28       82.57
-                     Smali |         32        0.02       82.60
-                 Smalltalk |        608        0.46       83.05
-                    Smarty |      1,008        0.76       83.81
-                    Smithy |         16        0.01       83.82
-                  Solidity |        928        0.70       84.52
-                SourcePawn |        368        0.28       84.79
-                  Squirrel |         32        0.02       84.82
-                      Stan |         48        0.04       84.85
-               Standard ML |        320        0.24       85.09
-                  Starlark |        896        0.67       85.76
-                     Stata |        144        0.11       85.87
-            StringTemplate |         32        0.02       85.89
-                    Stylus |        384        0.29       86.18
-             SuperCollider |        112        0.08       86.27
-                    Svelte |        784        0.59       86.85
-                     Swift |      1,712        1.28       88.14
-             SystemVerilog |        272        0.20       88.34
-                       TLA |         32        0.02       88.36
-                      TSQL |      1,456        1.09       89.45
-                       Tcl |        672        0.50       89.96
-                       TeX |      1,056        0.79       90.75
-                       Tea |         16        0.01       90.76
-                     Terra |         48        0.04       90.80
-                    Thrift |        240        0.18       90.98
-                    Turing |         48        0.04       91.01
-                      Twig |        576        0.43       91.44
-                TypeScript |      2,080        1.56       93.00
-              UnrealScript |        256        0.19       93.19
-                         V |         80        0.06       93.25
-                       VBA |        288        0.22       93.47
-                  VBScript |        384        0.29       93.76
-                       VCL |         96        0.07       93.83
-                      VHDL |        384        0.29       94.12
-                      Vala |         80        0.06       94.18
-Velocity Template Language |         16        0.01       94.19
-                   Verilog |        512        0.38       94.57
-                Vim Script |        912        0.68       95.25
-               Vim Snippet |        288        0.22       95.47
-         Visual Basic .NET |        384        0.29       95.76
-          Visual Basic 6.0 |        176        0.13       95.89
-                       Vue |      1,584        1.19       97.08
-                     Vyper |         32        0.02       97.10
-               WebAssembly |        144        0.11       97.21
-            Witcher Script |         48        0.04       97.24
-                    Wollok |         16        0.01       97.26
-                        XC |         16        0.01       97.27
-                    XQuery |         48        0.04       97.30
-                        XS |        304        0.23       97.53
-                      XSLT |        960        0.72       98.25
-                     Xonsh |         64        0.05       98.30
-                     Xtend |         64        0.05       98.35
-                      YAML |        160        0.12       98.47
-                      YARA |         32        0.02       98.49
-                 YASnippet |         80        0.06       98.55
-                      Yacc |        656        0.49       99.04
-                       Yul |         16        0.01       99.05
-                       ZAP |         16        0.01       99.07
-                      Zeek |         32        0.02       99.09
-                 ZenScript |         16        0.01       99.10
-                       Zig |        224        0.17       99.27
-                        eC |         32        0.02       99.29
-                        jq |        128        0.10       99.39
-                    kvlang |         96        0.07       99.46
-               mIRC Script |         16        0.01       99.47
-                mcfunction |         32        0.02       99.50
-                      nesC |         16        0.01       99.51
-                         q |         64        0.05       99.56
-          reStructuredText |         16        0.01       99.57
-                       sed |        496        0.37       99.94
-                     xBase |         80        0.06      100.00
----------------------------+-----------------------------------
-                     Total |    133,504      100.00
-
-. do "c:\users\alexan~1\appdata\local\temp\st_stata_temp.tmp"
-
-. 
-. coefplot (JavaScript_sdid, label("JavaScript")) ///
-> (Python_sdid, label("Python")) ///
-> (TypeScript_sdid, label("TypeScript")) ///
-> , keep(gpt_available_post1) ///
-> sort ylab("") title("High-Level, General-Purpose Languages", orient(horiz)) xline(0) msymbol(S)  scheme(plotplainblind)
-
-. 
-. graph save "$path/output/figures/high_level_coefplot.gph", replace
-(file C:/Users/Alexander/Documents/GitHub/GPT-Impact-GitHub/output/figures/high_level_coefplot.gph saved)
-
-. graph export "$path/output/figures/high_level_coefplot.pdf", replace
-(file C:/Users/Alexander/Documents/GitHub/GPT-Impact-GitHub/output/figures/high_level_coefplot.pdf written in PDF format)
-
-. 
-. 
-. coefplot (Rust_sdid, label("Rust")) ///
-> (C_sdid, label("C")) ///
-> (cpp_sdid, label("C++")) ///
-> (Assembly_sdid, label("Assembly")), keep(gpt_available_post1) ///
-> sort ylab("") title("Low-Level, Systems Programming Languages", orient(horiz)) xline(0) msymbol(S)  scheme(plotplainblind)
-
-. 
-. graph save "$path/output/figures/low_level_coefplot.gph", replace
-(file C:/Users/Alexander/Documents/GitHub/GPT-Impact-GitHub/output/figures/low_level_coefplot.gph saved)
-
-. graph export "$path/output/figures/low_level_coefplot.pdf", replace
-(file C:/Users/Alexander/Documents/GitHub/GPT-Impact-GitHub/output/figures/low_level_coefplot.pdf written in PDF format)
-
-. 
-. 
-. coefplot (Shell_sdid, label("Shell")) ///
-> (Batchfile_sdid, label("Batchfile")) ///
-> (PowerShell_sdid, label("PowerShell")) ///
-> , keep(gpt_available_post1) ///
-> sort ylab("") title("Shell Scripting Languages", orient(horiz)) xline(0) msymbol(S)  scheme(plotplainblind)
-
-. graph save "$path/output/figures/shell_coefplot.gph", replace
-(file C:/Users/Alexander/Documents/GitHub/GPT-Impact-GitHub/output/figures/shell_coefplot.gph saved)
-
-. graph export "$path/output/figures/shell_coefplot.pdf", replace
-(file C:/Users/Alexander/Documents/GitHub/GPT-Impact-GitHub/output/figures/shell_coefplot.pdf written in PDF format)
-
-. 
-. coefplot  ///
-> (HTML_sdid, label("HTML")) ///
-> (CSS_sdid, label("CSS")) ///
-> (R_sdid, label("R"))  ///
-> (MATLAB_sdid, label("MATLAB")) ///
-> (PLpgSQL_sdid, label("PLpgSQL")) , keep(gpt_available_post1) ///
-> sort ylab("") title("Domain-Specific Languages", orient(horiz)) xline(0) msymbol(S)  scheme(plotplainblind)
-
-. graph save "$path/output/figures/dsl_coefplot.gph", replace
-(file C:/Users/Alexander/Documents/GitHub/GPT-Impact-GitHub/output/figures/dsl_coefplot.gph saved)
+. ****** Table with three panels 
+.                                                 
+. esttab C_did ///
+>                 C_sc ///
+>                 C_sdid ///
+>                 using "$path/output\tables/gpt_impact_github_DataScience.tex",                         ///
+>                 replace label booktabs                                                                   ///
+>                 cells(b(star fmt(%9.3f)) se(par fmt(%9.3f)))             ///
+>                 starlevels(* 0.10 ** 0.05 *** 0.01) ///         
+>                 delim("&")  /// Type of column delimiter 
+>                 nomtitle ///
+>                 collabels(none) /// No column names within model
+>                 keep( gpt_available_post1 ///
+>                         ) ///
+>                 order(gpt_available_post1) ///
+>                 mgroups("\shortstack{DID}" ///
+>                                         "\shortstack{SC}" ///
+>                                         "\shortstack{SDID}",  ///
+>                                         pattern(1 1 1)                           ///
+>                                         prefix(\multicolumn{@span}{c}{) suffix(}) span                       ///
+>                                         erepeat(\cmidrule(lr){@span})) ///
+>                                 nomtitles                       ///
+>                 scalars("control_mean Baseline Mean Outcome") ///
+>                         refcat( gpt_available_post1 "\Gape[0.25cm][0.25cm]{ \underline{Panel A. \textbf{ \textit{C} } } }" , nolabel) ///
+>                         prefoot("") posthead(\hline) postfoot("")  nonumbers
+(output written to C:/Users/ronco/Desktop/Tesis_Nicho_Janampa/GPT-Impact-GitHub/output\tables/gpt_impact_github_DataScience.tex)
+
+. 
+. esttab  C_hashtag_did ///
+>                 C_hashtag_sc ///
+>                 C_hashtag_sdid ///
+>                 using "$path/output\tables/gpt_impact_github_DataScience.tex", ///
+>                 append label booktabs mlabel(,none)                                                                      ///
+>                 cells(b(star fmt(%9.3f)) se(par fmt(%9.3f)))             ///
+>                 starlevels(* 0.10 ** 0.05 *** 0.01) /// 
+>         keep( gpt_available_post1 ///
+>                 ) ///
+>         order(gpt_available_post1) ///
+>                 scalars("control_mean Baseline Mean Outcome") ///
+>                 refcat( gpt_available_post1 "\Gape[0.25cm][0.25cm]{ \underline{Panel B. \textbf{ \textit{C#} } } }" , nolabel) /// Subtitles
+>                 prehead("") prefoot("") posthead("\hline") postfoot("") delim("&") collabels(none) nonumbers nogaps nonote
+(output written to C:/Users/ronco/Desktop/Tesis_Nicho_Janampa/GPT-Impact-GitHub/output\tables/gpt_impact_github_DataScience.tex)
+
+. 
+.                                 
+. esttab  C_plus_did ///
+>                 C_plus_sc ///
+>                 C_plus_sdid ///
+>                 using "$path/output\tables/gpt_impact_github_DataScience.tex", ///
+>                 append label booktabs mlabel(,none)                                                                      ///
+>                 cells(b(star fmt(%9.3f)) se(par fmt(%9.3f)))             ///
+>                 starlevels(* 0.10 ** 0.05 *** 0.01) /// 
+>         keep( gpt_available_post1 ///
+>                 ) ///
+>         order(gpt_available_post1) ///
+>                 scalars("control_mean Baseline Mean Outcome") ///
+>                 refcat( gpt_available_post1 "\Gape[0.25cm][0.25cm]{ \underline{Panel C. \textbf{ \textit{C++} } } }" , nolabel) /// Subtitles
+>                 prehead("") prefoot("") posthead("\hline") postfoot("") delim("&") collabels(none) nonumbers nogaps nonote
+(output written to C:/Users/ronco/Desktop/Tesis_Nicho_Janampa/GPT-Impact-GitHub/output\tables/gpt_impact_github_DataScience.tex)
+
+.                                                 
+. esttab  Go_did ///
+>                 Go_sc ///
+>                 Go_sdid ///
+>                 using "$path/output\tables/gpt_impact_github_DataScience.tex", ///
+>                 append label booktabs mlabel(,none)                                                                      ///
+>                 cells(b(star fmt(%9.3f)) se(par fmt(%9.3f)))             ///
+>                 starlevels(* 0.10 ** 0.05 *** 0.01) /// 
+>         keep( gpt_available_post1 ///
+>                 ) ///
+>         order(gpt_available_post1) ///
+>                 scalars("control_mean Baseline Mean Outcome") ///
+>                 refcat( gpt_available_post1 "\Gape[0.25cm][0.25cm]{ \underline{Panel D. \textbf{ \textit{Go} } } }" , nolabel) /// Subtitles
+>                 prehead("") prefoot("") posthead("\hline") postfoot("") delim("&") collabels(none) nonumbers nogaps nonote                                           
+>    
+(output written to C:/Users/ronco/Desktop/Tesis_Nicho_Janampa/GPT-Impact-GitHub/output\tables/gpt_impact_github_DataScience.tex)
+
+.                                                 
+.                 
+. esttab  Java_did ///
+>                 Java_sc ///
+>                 Java_sdid ///
+>                 using "$path/output\tables/gpt_impact_github_DataScience.tex", ///
+>                 append label booktabs mlabel(,none)                                                                      ///
+>                 cells(b(star fmt(%9.3f)) se(par fmt(%9.3f)))             ///
+>                 starlevels(* 0.10 ** 0.05 *** 0.01) /// 
+>         keep( gpt_available_post1 ///
+>                 ) ///
+>         order(gpt_available_post1) ///
+>                 scalars("control_mean Baseline Mean Outcome") ///
+>                 refcat( gpt_available_post1 "\Gape[0.25cm][0.25cm]{ \underline{Panel E. \textbf{ \textit{Java} } } }" , nolabel) /// Subtitles
+>                 prehead("") prefoot("") posthead("\hline") postfoot("") delim("&") collabels(none) nonumbers nogaps nonote
+(output written to C:/Users/ronco/Desktop/Tesis_Nicho_Janampa/GPT-Impact-GitHub/output\tables/gpt_impact_github_DataScience.tex)
+
+. 
+. esttab  JavaScript_did ///
+>                 JavaScript_sc ///
+>                 JavaScript_sdid ///
+>                 using "$path/output\tables/gpt_impact_github_DataScience.tex", ///
+>                 append label booktabs mlabel(,none)                                                                      ///
+>                 cells(b(star fmt(%9.3f)) se(par fmt(%9.3f)))             ///
+>                 starlevels(* 0.10 ** 0.05 *** 0.01) /// 
+>         keep( gpt_available_post1 ///
+>                 ) ///
+>         order(gpt_available_post1) ///
+>                 scalars("control_mean Baseline Mean Outcome") ///
+>                 refcat( gpt_available_post1 "\Gape[0.25cm][0.25cm]{ \underline{Panel F. \textbf{ \textit{JavaScript} } } }" , nolabel) /// Subtitles
+>                 prehead("") prefoot("") posthead("\hline") postfoot("") delim("&") collabels(none) nonumbers nogaps nonote
+(output written to C:/Users/ronco/Desktop/Tesis_Nicho_Janampa/GPT-Impact-GitHub/output\tables/gpt_impact_github_DataScience.tex)
+
+. 
+.                                 
+. esttab  PHP_did ///
+>                 PHP_sc ///
+>                 PHP_sdid ///
+>                 using "$path/output\tables/gpt_impact_github_DataScience.tex", ///
+>                 append label booktabs mlabel(,none)                                                                      ///
+>                 cells(b(star fmt(%9.3f)) se(par fmt(%9.3f)))             ///
+>                 starlevels(* 0.10 ** 0.05 *** 0.01) /// 
+>         keep( gpt_available_post1 ///
+>                 ) ///
+>         order(gpt_available_post1) ///
+>                 scalars("control_mean Baseline Mean Outcome") ///
+>                 refcat( gpt_available_post1 "\Gape[0.25cm][0.25cm]{ \underline{Panel G. \textbf{ \textit{PHP} } } }" , nolabel) /// Subtitles
+>                 prehead("") prefoot("") posthead("\hline") postfoot("") delim("&") collabels(none) nonumbers nogaps nonote 
+(output written to C:/Users/ronco/Desktop/Tesis_Nicho_Janampa/GPT-Impact-GitHub/output\tables/gpt_impact_github_DataScience.tex)
+
+. 
+. esttab  Python_did ///
+>                 Python_sc ///
+>                 Python_sdid ///
+>                 using "$path/output\tables/gpt_impact_github_DataScience.tex", ///
+>                 append label booktabs mlabel(,none)                                                                      ///
+>                 cells(b(star fmt(%9.3f)) se(par fmt(%9.3f)))             ///
+>                 starlevels(* 0.10 ** 0.05 *** 0.01) /// 
+>         keep( gpt_available_post1 ///
+>                 ) ///
+>         order(gpt_available_post1) ///
+>                 scalars("control_mean Baseline Mean Outcome") ///
+>                 refcat( gpt_available_post1 "\Gape[0.25cm][0.25cm]{ \underline{Panel H. \textbf{ \textit{Python} } } }" , nolabel) /// Subtitles
+>                 prehead("") prefoot("") posthead("\hline") postfoot("") delim("&") collabels(none) nonumbers nogaps nonote 
+(output written to C:/Users/ronco/Desktop/Tesis_Nicho_Janampa/GPT-Impact-GitHub/output\tables/gpt_impact_github_DataScience.tex)
+
+.                                 
+. esttab  Ruby_did ///
+>                 Ruby_sc ///
+>                 Ruby_sdid ///
+>                 using "$path/output\tables/gpt_impact_github_DataScience.tex", ///
+>                 append label booktabs mlabel(,none)                                                                      ///
+>                 cells(b(star fmt(%9.3f)) se(par fmt(%9.3f)))             ///
+>                 starlevels(* 0.10 ** 0.05 *** 0.01) /// 
+>         keep( gpt_available_post1 ///
+>                 ) ///
+>         order(gpt_available_post1) ///
+>                 scalars("control_mean Baseline Mean Outcome") ///
+>                 refcat( gpt_available_post1 "\Gape[0.25cm][0.25cm]{ \underline{Panel I. \textbf{ \textit{Ruby} } } }" , nolabel) /// Subtitles
+>                 prehead("") prefoot("") posthead("\hline") postfoot("") delim("&") collabels(none) nonumbers nogaps nonote 
+(output written to C:/Users/ronco/Desktop/Tesis_Nicho_Janampa/GPT-Impact-GitHub/output\tables/gpt_impact_github_DataScience.tex)
+
+.                         
+.                                 
+. esttab  TypeScript_did ///
+>                 TypeScript_sc ///
+>                 TypeScript_sdid ///
+>                 using "$path/output\tables/gpt_impact_github_DataScience.tex", ///
+>                 append label booktabs mlabel(,none)                                                                      ///
+>                 cells(b(star fmt(%9.3f)) se(par fmt(%9.3f)))             ///
+>                 starlevels(* 0.10 ** 0.05 *** 0.01) /// 
+>         keep( gpt_available_post1 ///
+>                 ) ///
+>         order(gpt_available_post1) ///
+>                 scalars("control_mean Baseline Mean Outcome") ///
+>                 refcat( gpt_available_post1 "\Gape[0.25cm][0.25cm]{ \underline{Panel J. \textbf{ \textit{TypeScript} } } }" , nolabel) /// Subtitles
+>                 prehead("") prefoot("") posthead("\hline")  delim("&") collabels(none) nonumbers nogaps nonote  
+(output written to C:/Users/ronco/Desktop/Tesis_Nicho_Janampa/GPT-Impact-GitHub/output\tables/gpt_impact_github_DataScience.tex)
+
+. 
+. 
+. 
+. 
+. 
+. 
+. cd "$path"
+C:\Users\ronco\Desktop\Tesis_Nicho_Janampa\GPT-Impact-GitHub
 
-. graph export "$path/output/figures/dsl_coefplot.pdf", replace
-(file C:/Users/Alexander/Documents/GitHub/GPT-Impact-GitHub/output/figures/dsl_coefplot.pdf written in PDF format)
-
-. 
-. 
-end of do-file
-
-. do "c:\users\alexan~1\appdata\local\temp\st_stata_temp.tmp"
-
-. graph combine  "$path/output/figures/high_level_coefplot.gph"                           ///
->                       "$path/output/figures/low_level_coefplot.gph"                     ///
->                           "$path/output/figures/shell_coefplot.gph" ///
->                           "$path/output/figures/dsl_coefplot.gph", col(2) xcommon               
-
-. graph export "$path/output/figures/all_program_lang_coefplot.pdf", replace
-(file C:/Users/Alexander/Documents/GitHub/GPT-Impact-GitHub/output/figures/all_program_lang_coefplot.pdf written in PDF format)
-
 . 
-. 
-. 
 end of do-file
-
-. do "c:\users\alexan~1\appdata\local\temp\st_stata_temp.tmp"
-
-. // cd "$path/output/figures" 
-. 
-. import delimited "output/data/pushes.csv", clear
-(17 vars, 2,368 obs)
-
-. 
-. sort iso2_code year quarter year_quarter_num
-
-. 
-. drop if iso2_code == "HK"
-(16 observations deleted)
-
-. 
-. 
-. gen pushes_p100k = pushes_pc * 100000
-
-. gen developers_p100k = developers_pc * 100000
-
-. gen repositories_p100k = repositories_pc * 100000
-
-. 
-. 
-. label var pushes_p100k "Num. Pushes per 100k inhabitants"
-
-. label var repositories_p100k "Num. Repositories per 100k inhabitants"
 
-. label var developers_p100k "Num. Developers per 100k inhabitants"
-
-. 
 . 
 end of do-file
-
-. twoway (scatter pushes_p100k year_quarter_num)
-
-. twoway (scatter pushes_p100k year_quarter_num), by(iso2_code)
---Break--
-r(1);
-
-. twoway (tsline pushes_p100k)
-time variable not set, use tsset varname ...
-r(111);
-
-. tsset year_quarter_num
-repeated time values in sample
-r(451);
-
-. tsset year_quarter_num
-repeated time values in sample
-r(451);
 
