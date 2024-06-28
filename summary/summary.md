@@ -14,7 +14,7 @@ Our data was provided by the [GitHub Innovation Graph](https://github.com/github
 
 ### Main Results:
 
-For our main measure, the number of Git Pushes per 100,000 people, our main method finds a significant increase of 645.6 pushes, from a pre-treatment baseline mean outcome of 741.5. The other methods also find a positive effect, although with lower precision. The number of repositories created and the number of unique developers per 100,000 inhabitants also show a positive effect, though it is also, for the most part, insignificant across methods, and the significant cases may be explained by bias introduced by the difference in pre-treatment trends for each group.
+For our main measure, the number of Git Pushes per 100,000 people, our main method finds a significant increase of 645.6 pushes, from a pre-treatment baseline mean outcome of 1547.4. The other methods also find a positive effect, although with lower precision. The number of repositories created and the number of unique developers per 100,000 inhabitants also show a positive effect, though it is also, for the most part, insignificant across methods, and the significant cases may be explained by bias introduced by the difference in pre-treatment trends for each group.
 
 ![SDiD results for Git pushes per 100,000 people](assets/pp100_sdid_trends.png)
 
