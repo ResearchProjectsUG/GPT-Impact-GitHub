@@ -1,11 +1,13 @@
--------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+------------------------------------------------------------
       name:  <unnamed>
-       log:  C:\Users\Work\Documents\Personal\Work\papers\GPT-Impact-GitHub\output/analysis.log
+       log:  C:\Users\ronco\Desktop\Tesis_Nicho_Janampa\GPT-
+> Impact-GitHub\output/analysis.log
   log type:  text
- opened on:  11 May 2024, 12:35:03
+ opened on:  21 Jun 2024, 21:21:26
 
 . 
 . import delimited "output/data/data_langs.csv", clear
+(encoding automatically selected: ISO-8859-1)
 (14 vars, 48,640 obs)
 
 . 
@@ -14,14 +16,17 @@
 
 . 
 . 
-. //----------------------------------------------------------------------------//
+. //--------------------------------------------------------
+> --------------------//
 . // main
-. //----------------------------------------------------------------------------//
+. //--------------------------------------------------------
+> --------------------//
 . 
 . // regressions
 . do "code/sub/analysis_per_lang.do"
 
-. //----------------------------------------------------------------------------//
+. //--------------------------------------------------------
+> --------------------//
 . //
 . // project:
 . //
@@ -29,33 +34,808 @@
 . //
 . // author(s):
 . //
-. //----------------------------------------------------------------------------//
+. //--------------------------------------------------------
+> --------------------//
 . 
-. local languages "Python Java R Julia Swift"
+. // local languages "Python Java R Julia Swift"
+. 
+. // foreach lang of local languages {
+. 
+. //         preserve
+. 
+. //         cd "$path/output/figures"
+. 
+. //         keep if language == "`lang'"
+. 
+. //         eststo est_sdid: sdid num_pushers_pc iso2_code 
+> quarter treatment, ///
+. //                 vce(bootstrap) reps(100) seed(1234) met
+> hod(sdid) graph g1on ///
+. //                 g1_opt(xtitle("") scheme(sj)) ///
+. //                 g2_opt(ytitle("`lang' pushers per 100k 
+> inhabitants") scheme(sj) ///
+. //                 xtitle("Quarters since 2020Q1")) graph_
+> export(`lang'_sdid_, .png)
+. 
+. //         cd "$path/output/tables"
+. 
+. //         esttab est_sdid using `lang'_sdid.tex, replace
+. 
+. //         restore
+. // }
+. 
+. import delimited "output/csv/all_languages_panel.csv", cle
+> ar
+(encoding automatically selected: ISO-8859-1)
+(20 vars, 136,208 obs)
 
 . 
-. foreach lang of local languages {
+. sort unique_id year quarter 
+
+. drop if iso2_code == "HK"
+(2,704 observations deleted)
+
+. label var num_pushers_pc "Num pushers per 100k"
+
+. label var gpt_available_post1 "Chat GPT Available"
+
+. 
+. 
+. drop quarter 
+
+. rename quarter_int quarter
+
+. 
+. **************************
+. // Se realizo un cambio de nombres de etiquetas
+. ************************
+. replace language = "C_hashtag" if language == "C#"
+(1,744 real changes made)
+
+. replace language = "C_plus" if language == "C++"
+(1,856 real changes made)
+
+. 
+. ***********************************************
+. // Aqui comienzo a editar // Tesis_DataScience 
+. ***********************************************
+. local DataScience "C C_hashtag C_plus Go Java JavaScript P
+> HP Python Ruby TypeScript"
+
+. 
+. foreach lang of local DataScience {
   2. 
-.         preserve
+.         local l`v' : variable label num_pushers_pc
   3. 
-.         cd "$path/output/figures"
+. 
+. eststo `lang'_did: sdid num_pushers_pc iso2_code quarter g
+> pt_available_post1 if language == "`lang'", ///
+>         vce(bootstrap) reps(100) seed(1234) method(did) gr
+> aph g1on /// 
+>         g1_opt(xtitle("") scheme(plotplainblind)) ///
+>         g2_opt(ytitle("`l`v''-`lang'")scheme(plotplainblin
+> d) ///
+>                 xtitle("Quarter") xlabel(1 "2020-Q1" 2 "20
+> 20-Q2" 3 "2020-Q3" 4 "2020-Q4"  ///
+>         5 "2021-Q1" 6 "2021-Q2" 7 "2021-Q3" 8 "2021-Q4" //
+> /
+>         9 "2022-Q1" 10 "2022-Q2" 11 "2022-Q3" 12 "2022-Q4"
+>  ///
+>         13 "2023-Q1" 14 "2023-Q2" 15 "2023-Q3" 16 "2023-Q4
+> ", labsize(small) angle(45) ) ///
+>         )   graph_export("$path/output/figures/`lang'_did_
+> ", .png )
   4. 
-.         keep if language == "`lang'"
-  5. 
-.         eststo est_sdid: sdid num_pushers_pc iso2_code quarter treatment, ///
->                 vce(bootstrap) reps(100) seed(1234) method(sdid) graph g1on ///
->                 g1_opt(xtitle("") scheme(sj)) ///
->                 g2_opt(ytitle("`lang' pushers per 100k inhabitants") scheme(sj) ///
->                 xtitle("Quarters since 2020Q1")) graph_export(`lang'_sdid_, .png)
+.         sum  num_pushers_pc  if  gpt_available==0 & quarte
+> r<12 & language == "`lang'"
+  5.         estadd scalar control_mean `r(mean)'
   6. 
-.         cd "$path/output/tables"
+. eststo `lang'_sc:  sdid num_pushers_pc iso2_code quarter g
+> pt_available_post1 if language == "`lang'", ///
+>         vce(bootstrap) reps(100) seed(1234) method(sc) gra
+> ph g1on /// 
+>         g1_opt(xtitle("") scheme(plotplainblind)) ///
+>         g2_opt(ytitle("`l`v''-`lang'")scheme(plotplainblin
+> d) ///
+>                 xtitle("Quarter") xlabel(1 "2020-Q1" 2 "20
+> 20-Q2" 3 "2020-Q3" 4 "2020-Q4"  ///
+>         5 "2021-Q1" 6 "2021-Q2" 7 "2021-Q3" 8 "2021-Q4" //
+> /
+>         9 "2022-Q1" 10 "2022-Q2" 11 "2022-Q3" 12 "2022-Q4"
+>  ///
+>         13 "2023-Q1" 14 "2023-Q2" 15 "2023-Q3" 16 "2023-Q4
+> ", labsize(small) angle(45) ) ///
+>         )  graph_export("$path/output/figures/`lang'_sc_",
+>  .png)
   7. 
-.         esttab est_sdid using `lang'_sdid.tex, replace
-  8. 
-.         restore
-  9. }
-C:\Users\Work\Documents\Personal\Work\papers\GPT-Impact-GitHub\output\figures
-(45,792 observations deleted)
+.         sum  num_pushers_pc  if  gpt_available==0 & quarte
+> r<12 & language == "`lang'"
+  8.         estadd scalar control_mean `r(mean)'
+  9. 
+. eststo `lang'_sdid:  sdid num_pushers_pc iso2_code quarter
+>  gpt_available_post1 if language == "`lang'", ///
+>         vce(bootstrap) reps(100) seed(1234) method(sdid) g
+> raph g1on /// 
+>         g1_opt(xtitle("") scheme(plotplainblind)) ///
+>         g2_opt(ytitle("`l`v''-`lang'")scheme(plotplainblin
+> d) ///
+>                 xtitle("Quarter") xlabel(1 "2020-Q1" 2 "20
+> 20-Q2" 3 "2020-Q3" 4 "2020-Q4"  ///
+>         5 "2021-Q1" 6 "2021-Q2" 7 "2021-Q3" 8 "2021-Q4" //
+> /
+>         9 "2022-Q1" 10 "2022-Q2" 11 "2022-Q3" 12 "2022-Q4"
+>  ///
+>         13 "2023-Q1" 14 "2023-Q2" 15 "2023-Q3" 16 "2023-Q4
+> ", labsize(small) angle(45) ) ///
+>         )  graph_export("$path/output/figures/`lang'_sdid_
+> ", .png)
+ 10. 
+.         sum  num_pushers_pc  if  gpt_available==0 & quarte
+> r<12 & language == "`lang'"
+ 11.         estadd scalar control_mean `r(mean)'
+ 12. 
+. }
+Bootstrap replications (100). This may take some time.
+----+--- 1 ---+--- 2 ---+--- 3 ---+--- 4 ---+--- 5
+..................................................     50
+..................................................     100
+
+
+Difference-in-Differences Estimator
+
+------------------------------------------------------------
+> -----------------
+num_pusher~c |     ATT     Std. Err.     t      P>|t|    [95
+> % Conf. Interval]
+-------------+----------------------------------------------
+> -----------------
+gpt_availa~1 |   3.00526    0.79415     3.78    0.000     1.
+> 44875     4.56176
+------------------------------------------------------------
+> -----------------
+95% CIs and p-values are based on Large-Sample approximation
+> s.
+
+(note: scheme plotplainblind not found, using s2color)
+(file
+    C:/Users/ronco/Desktop/Tesis_Nicho_Janampa/GPT-Impact-
+    > GitHub/output/figures/C_did_weights12.png not found)
+file
+    C:/Users/ronco/Desktop/Tesis_Nicho_Janampa/GPT-Impact-
+    > GitHub/output/figures/C_did_weights12.png saved as
+    PNG format
+(note: scheme plotplainblind not found, using s2color)
+(file
+    C:/Users/ronco/Desktop/Tesis_Nicho_Janampa/GPT-Impact-
+    > GitHub/output/figures/C_did_trends12.png not found)
+file
+    C:/Users/ronco/Desktop/Tesis_Nicho_Janampa/GPT-Impact-
+    > GitHub/output/figures/C_did_trends12.png saved as
+    PNG format
+
+    Variable |        Obs        Mean    Std. dev.       Min
+>         Max
+-------------+----------------------------------------------
+> -----------
+num_pusher~c |        209     2.04345    3.343251          0
+>    13.69906
+
+added scalar:
+       e(control_mean) =  2.0434503
+Bootstrap replications (100). This may take some time.
+----+--- 1 ---+--- 2 ---+--- 3 ---+--- 4 ---+--- 5
+..................................................     50
+..................................................     100
+
+
+Synthetic Control
+
+------------------------------------------------------------
+> -----------------
+num_pusher~c |     ATT     Std. Err.     t      P>|t|    [95
+> % Conf. Interval]
+-------------+----------------------------------------------
+> -----------------
+gpt_availa~1 |   3.46921    1.36069     2.55    0.011     0.
+> 80230     6.13612
+------------------------------------------------------------
+> -----------------
+95% CIs and p-values are based on Large-Sample approximation
+> s.
+
+(note: scheme plotplainblind not found, using s2color)
+(file
+    C:/Users/ronco/Desktop/Tesis_Nicho_Janampa/GPT-Impact-
+    > GitHub/output/figures/C_sc_weights12.png not found)
+file
+    C:/Users/ronco/Desktop/Tesis_Nicho_Janampa/GPT-Impact-
+    > GitHub/output/figures/C_sc_weights12.png saved as
+    PNG format
+(note: scheme plotplainblind not found, using s2color)
+(file
+    C:/Users/ronco/Desktop/Tesis_Nicho_Janampa/GPT-Impact-
+    > GitHub/output/figures/C_sc_trends12.png not found)
+file
+    C:/Users/ronco/Desktop/Tesis_Nicho_Janampa/GPT-Impact-
+    > GitHub/output/figures/C_sc_trends12.png saved as PNG
+    format
+
+    Variable |        Obs        Mean    Std. dev.       Min
+>         Max
+-------------+----------------------------------------------
+> -----------
+num_pusher~c |        209     2.04345    3.343251          0
+>    13.69906
+
+added scalar:
+       e(control_mean) =  2.0434503
+Bootstrap replications (100). This may take some time.
+----+--- 1 ---+--- 2 ---+--- 3 ---+--- 4 ---+--- 5
+..................................................     50
+..................................................     100
+
+
+Synthetic Difference-in-Differences Estimator
+
+------------------------------------------------------------
+> -----------------
+num_pusher~c |     ATT     Std. Err.     t      P>|t|    [95
+> % Conf. Interval]
+-------------+----------------------------------------------
+> -----------------
+gpt_availa~1 |   1.69038    0.56374     3.00    0.003     0.
+> 58546     2.79529
+------------------------------------------------------------
+> -----------------
+95% CIs and p-values are based on Large-Sample approximation
+> s.
+Refer to Arkhangelsky et al., (2020) for theoretical derivat
+> ions.
+(note: scheme plotplainblind not found, using s2color)
+(file
+    C:/Users/ronco/Desktop/Tesis_Nicho_Janampa/GPT-Impact-
+    > GitHub/output/figures/C_sdid_weights12.png not
+    found)
+file
+    C:/Users/ronco/Desktop/Tesis_Nicho_Janampa/GPT-Impact-
+    > GitHub/output/figures/C_sdid_weights12.png saved as
+    PNG format
+(note: scheme plotplainblind not found, using s2color)
+(file
+    C:/Users/ronco/Desktop/Tesis_Nicho_Janampa/GPT-Impact-
+    > GitHub/output/figures/C_sdid_trends12.png not found)
+file
+    C:/Users/ronco/Desktop/Tesis_Nicho_Janampa/GPT-Impact-
+    > GitHub/output/figures/C_sdid_trends12.png saved as
+    PNG format
+
+    Variable |        Obs        Mean    Std. dev.       Min
+>         Max
+-------------+----------------------------------------------
+> -----------
+num_pusher~c |        209     2.04345    3.343251          0
+>    13.69906
+
+added scalar:
+       e(control_mean) =  2.0434503
+Bootstrap replications (100). This may take some time.
+----+--- 1 ---+--- 2 ---+--- 3 ---+--- 4 ---+--- 5
+..................................................     50
+..................................................     100
+
+
+Difference-in-Differences Estimator
+
+------------------------------------------------------------
+> -----------------
+num_pusher~c |     ATT     Std. Err.     t      P>|t|    [95
+> % Conf. Interval]
+-------------+----------------------------------------------
+> -----------------
+gpt_availa~1 |   1.89191    0.57253     3.30    0.001     0.
+> 76977     3.01404
+------------------------------------------------------------
+> -----------------
+95% CIs and p-values are based on Large-Sample approximation
+> s.
+
+(note: scheme plotplainblind not found, using s2color)
+(file
+    C:/Users/ronco/Desktop/Tesis_Nicho_Janampa/GPT-Impact-
+    > GitHub/output/figures/C_hashtag_did_weights12.png
+    not found)
+file
+    C:/Users/ronco/Desktop/Tesis_Nicho_Janampa/GPT-Impact-
+    > GitHub/output/figures/C_hashtag_did_weights12.png
+    saved as PNG format
+(note: scheme plotplainblind not found, using s2color)
+(file
+    C:/Users/ronco/Desktop/Tesis_Nicho_Janampa/GPT-Impact-
+    > GitHub/output/figures/C_hashtag_did_trends12.png not
+    found)
+file
+    C:/Users/ronco/Desktop/Tesis_Nicho_Janampa/GPT-Impact-
+    > GitHub/output/figures/C_hashtag_did_trends12.png
+    saved as PNG format
+
+    Variable |        Obs        Mean    Std. dev.       Min
+>         Max
+-------------+----------------------------------------------
+> -----------
+num_pusher~c |        187    3.466207    6.516462          0
+>    29.20286
+
+added scalar:
+       e(control_mean) =  3.466207
+Bootstrap replications (100). This may take some time.
+----+--- 1 ---+--- 2 ---+--- 3 ---+--- 4 ---+--- 5
+..................................................     50
+..................................................     100
+
+
+Synthetic Control
+
+------------------------------------------------------------
+> -----------------
+num_pusher~c |     ATT     Std. Err.     t      P>|t|    [95
+> % Conf. Interval]
+-------------+----------------------------------------------
+> -----------------
+gpt_availa~1 |   1.45892    2.08046     0.70    0.483    -2.
+> 61869     5.53654
+------------------------------------------------------------
+> -----------------
+95% CIs and p-values are based on Large-Sample approximation
+> s.
+
+(note: scheme plotplainblind not found, using s2color)
+(file
+    C:/Users/ronco/Desktop/Tesis_Nicho_Janampa/GPT-Impact-
+    > GitHub/output/figures/C_hashtag_sc_weights12.png not
+    found)
+file
+    C:/Users/ronco/Desktop/Tesis_Nicho_Janampa/GPT-Impact-
+    > GitHub/output/figures/C_hashtag_sc_weights12.png
+    saved as PNG format
+(note: scheme plotplainblind not found, using s2color)
+(file
+    C:/Users/ronco/Desktop/Tesis_Nicho_Janampa/GPT-Impact-
+    > GitHub/output/figures/C_hashtag_sc_trends12.png not
+    found)
+file
+    C:/Users/ronco/Desktop/Tesis_Nicho_Janampa/GPT-Impact-
+    > GitHub/output/figures/C_hashtag_sc_trends12.png
+    saved as PNG format
+
+    Variable |        Obs        Mean    Std. dev.       Min
+>         Max
+-------------+----------------------------------------------
+> -----------
+num_pusher~c |        187    3.466207    6.516462          0
+>    29.20286
+
+added scalar:
+       e(control_mean) =  3.466207
+Bootstrap replications (100). This may take some time.
+----+--- 1 ---+--- 2 ---+--- 3 ---+--- 4 ---+--- 5
+..................................................     50
+..................................................     100
+
+
+Synthetic Difference-in-Differences Estimator
+
+------------------------------------------------------------
+> -----------------
+num_pusher~c |     ATT     Std. Err.     t      P>|t|    [95
+> % Conf. Interval]
+-------------+----------------------------------------------
+> -----------------
+gpt_availa~1 |   0.57575    0.69770     0.83    0.409    -0.
+> 79172     1.94322
+------------------------------------------------------------
+> -----------------
+95% CIs and p-values are based on Large-Sample approximation
+> s.
+Refer to Arkhangelsky et al., (2020) for theoretical derivat
+> ions.
+(note: scheme plotplainblind not found, using s2color)
+(file
+    C:/Users/ronco/Desktop/Tesis_Nicho_Janampa/GPT-Impact-
+    > GitHub/output/figures/C_hashtag_sdid_weights12.png
+    not found)
+file
+    C:/Users/ronco/Desktop/Tesis_Nicho_Janampa/GPT-Impact-
+    > GitHub/output/figures/C_hashtag_sdid_weights12.png
+    saved as PNG format
+(note: scheme plotplainblind not found, using s2color)
+(file
+    C:/Users/ronco/Desktop/Tesis_Nicho_Janampa/GPT-Impact-
+    > GitHub/output/figures/C_hashtag_sdid_trends12.png
+    not found)
+file
+    C:/Users/ronco/Desktop/Tesis_Nicho_Janampa/GPT-Impact-
+    > GitHub/output/figures/C_hashtag_sdid_trends12.png
+    saved as PNG format
+
+    Variable |        Obs        Mean    Std. dev.       Min
+>         Max
+-------------+----------------------------------------------
+> -----------
+num_pusher~c |        187    3.466207    6.516462          0
+>    29.20286
+
+added scalar:
+       e(control_mean) =  3.466207
+Bootstrap replications (100). This may take some time.
+----+--- 1 ---+--- 2 ---+--- 3 ---+--- 4 ---+--- 5
+..................................................     50
+..................................................     100
+
+
+Difference-in-Differences Estimator
+
+------------------------------------------------------------
+> -----------------
+num_pusher~c |     ATT     Std. Err.     t      P>|t|    [95
+> % Conf. Interval]
+-------------+----------------------------------------------
+> -----------------
+gpt_availa~1 |   2.68060    0.67265     3.99    0.000     1.
+> 36223     3.99897
+------------------------------------------------------------
+> -----------------
+95% CIs and p-values are based on Large-Sample approximation
+> s.
+
+(note: scheme plotplainblind not found, using s2color)
+(file
+    C:/Users/ronco/Desktop/Tesis_Nicho_Janampa/GPT-Impact-
+    > GitHub/output/figures/C_plus_did_weights12.png not
+    found)
+file
+    C:/Users/ronco/Desktop/Tesis_Nicho_Janampa/GPT-Impact-
+    > GitHub/output/figures/C_plus_did_weights12.png saved
+    as PNG format
+(note: scheme plotplainblind not found, using s2color)
+(file
+    C:/Users/ronco/Desktop/Tesis_Nicho_Janampa/GPT-Impact-
+    > GitHub/output/figures/C_plus_did_trends12.png not
+    found)
+file
+    C:/Users/ronco/Desktop/Tesis_Nicho_Janampa/GPT-Impact-
+    > GitHub/output/figures/C_plus_did_trends12.png saved
+    as PNG format
+
+    Variable |        Obs        Mean    Std. dev.       Min
+>         Max
+-------------+----------------------------------------------
+> -----------
+num_pusher~c |        198    2.684079     4.68772          0
+>    22.14225
+
+added scalar:
+       e(control_mean) =  2.684079
+Bootstrap replications (100). This may take some time.
+----+--- 1 ---+--- 2 ---+--- 3 ---+--- 4 ---+--- 5
+..................................................     50
+..................................................     100
+
+
+Synthetic Control
+
+------------------------------------------------------------
+> -----------------
+num_pusher~c |     ATT     Std. Err.     t      P>|t|    [95
+> % Conf. Interval]
+-------------+----------------------------------------------
+> -----------------
+gpt_availa~1 |   1.98266    1.69207     1.17    0.241    -1.
+> 33373     5.29905
+------------------------------------------------------------
+> -----------------
+95% CIs and p-values are based on Large-Sample approximation
+> s.
+
+(note: scheme plotplainblind not found, using s2color)
+(file
+    C:/Users/ronco/Desktop/Tesis_Nicho_Janampa/GPT-Impact-
+    > GitHub/output/figures/C_plus_sc_weights12.png not
+    found)
+file
+    C:/Users/ronco/Desktop/Tesis_Nicho_Janampa/GPT-Impact-
+    > GitHub/output/figures/C_plus_sc_weights12.png saved
+    as PNG format
+(note: scheme plotplainblind not found, using s2color)
+(file
+    C:/Users/ronco/Desktop/Tesis_Nicho_Janampa/GPT-Impact-
+    > GitHub/output/figures/C_plus_sc_trends12.png not
+    found)
+file
+    C:/Users/ronco/Desktop/Tesis_Nicho_Janampa/GPT-Impact-
+    > GitHub/output/figures/C_plus_sc_trends12.png saved
+    as PNG format
+
+    Variable |        Obs        Mean    Std. dev.       Min
+>         Max
+-------------+----------------------------------------------
+> -----------
+num_pusher~c |        198    2.684079     4.68772          0
+>    22.14225
+
+added scalar:
+       e(control_mean) =  2.684079
+Bootstrap replications (100). This may take some time.
+----+--- 1 ---+--- 2 ---+--- 3 ---+--- 4 ---+--- 5
+..................................................     50
+..................................................     100
+
+
+Synthetic Difference-in-Differences Estimator
+
+------------------------------------------------------------
+> -----------------
+num_pusher~c |     ATT     Std. Err.     t      P>|t|    [95
+> % Conf. Interval]
+-------------+----------------------------------------------
+> -----------------
+gpt_availa~1 |   1.46617    0.52112     2.81    0.005     0.
+> 44481     2.48754
+------------------------------------------------------------
+> -----------------
+95% CIs and p-values are based on Large-Sample approximation
+> s.
+Refer to Arkhangelsky et al., (2020) for theoretical derivat
+> ions.
+(note: scheme plotplainblind not found, using s2color)
+(file
+    C:/Users/ronco/Desktop/Tesis_Nicho_Janampa/GPT-Impact-
+    > GitHub/output/figures/C_plus_sdid_weights12.png not
+    found)
+file
+    C:/Users/ronco/Desktop/Tesis_Nicho_Janampa/GPT-Impact-
+    > GitHub/output/figures/C_plus_sdid_weights12.png
+    saved as PNG format
+(note: scheme plotplainblind not found, using s2color)
+(file
+    C:/Users/ronco/Desktop/Tesis_Nicho_Janampa/GPT-Impact-
+    > GitHub/output/figures/C_plus_sdid_trends12.png not
+    found)
+file
+    C:/Users/ronco/Desktop/Tesis_Nicho_Janampa/GPT-Impact-
+    > GitHub/output/figures/C_plus_sdid_trends12.png saved
+    as PNG format
+
+    Variable |        Obs        Mean    Std. dev.       Min
+>         Max
+-------------+----------------------------------------------
+> -----------
+num_pusher~c |        198    2.684079     4.68772          0
+>    22.14225
+
+added scalar:
+       e(control_mean) =  2.684079
+Bootstrap replications (100). This may take some time.
+----+--- 1 ---+--- 2 ---+--- 3 ---+--- 4 ---+--- 5
+..................................................     50
+..................................................     100
+
+
+Difference-in-Differences Estimator
+
+------------------------------------------------------------
+> -----------------
+num_pusher~c |     ATT     Std. Err.     t      P>|t|    [95
+> % Conf. Interval]
+-------------+----------------------------------------------
+> -----------------
+gpt_availa~1 |   2.49012    0.52960     4.70    0.000     1.
+> 45212     3.52812
+------------------------------------------------------------
+> -----------------
+95% CIs and p-values are based on Large-Sample approximation
+> s.
+
+(note: scheme plotplainblind not found, using s2color)
+(file
+    C:/Users/ronco/Desktop/Tesis_Nicho_Janampa/GPT-Impact-
+    > GitHub/output/figures/Go_did_weights12.png not
+    found)
+file
+    C:/Users/ronco/Desktop/Tesis_Nicho_Janampa/GPT-Impact-
+    > GitHub/output/figures/Go_did_weights12.png saved as
+    PNG format
+(note: scheme plotplainblind not found, using s2color)
+(file
+    C:/Users/ronco/Desktop/Tesis_Nicho_Janampa/GPT-Impact-
+    > GitHub/output/figures/Go_did_trends12.png not found)
+file
+    C:/Users/ronco/Desktop/Tesis_Nicho_Janampa/GPT-Impact-
+    > GitHub/output/figures/Go_did_trends12.png saved as
+    PNG format
+
+    Variable |        Obs        Mean    Std. dev.       Min
+>         Max
+-------------+----------------------------------------------
+> -----------
+num_pusher~c |        121    1.234592    1.563576          0
+>    5.583055
+
+added scalar:
+       e(control_mean) =  1.2345922
+Bootstrap replications (100). This may take some time.
+----+--- 1 ---+--- 2 ---+--- 3 ---+--- 4 ---+--- 5
+..................................................     50
+..................................................     100
+
+
+Synthetic Control
+
+------------------------------------------------------------
+> -----------------
+num_pusher~c |     ATT     Std. Err.     t      P>|t|    [95
+> % Conf. Interval]
+-------------+----------------------------------------------
+> -----------------
+gpt_availa~1 |   3.30311    1.27108     2.60    0.009     0.
+> 81184     5.79438
+------------------------------------------------------------
+> -----------------
+95% CIs and p-values are based on Large-Sample approximation
+> s.
+
+(note: scheme plotplainblind not found, using s2color)
+(file
+    C:/Users/ronco/Desktop/Tesis_Nicho_Janampa/GPT-Impact-
+    > GitHub/output/figures/Go_sc_weights12.png not found)
+file
+    C:/Users/ronco/Desktop/Tesis_Nicho_Janampa/GPT-Impact-
+    > GitHub/output/figures/Go_sc_weights12.png saved as
+    PNG format
+(note: scheme plotplainblind not found, using s2color)
+(file
+    C:/Users/ronco/Desktop/Tesis_Nicho_Janampa/GPT-Impact-
+    > GitHub/output/figures/Go_sc_trends12.png not found)
+file
+    C:/Users/ronco/Desktop/Tesis_Nicho_Janampa/GPT-Impact-
+    > GitHub/output/figures/Go_sc_trends12.png saved as
+    PNG format
+
+    Variable |        Obs        Mean    Std. dev.       Min
+>         Max
+-------------+----------------------------------------------
+> -----------
+num_pusher~c |        121    1.234592    1.563576          0
+>    5.583055
+
+added scalar:
+       e(control_mean) =  1.2345922
+Bootstrap replications (100). This may take some time.
+----+--- 1 ---+--- 2 ---+--- 3 ---+--- 4 ---+--- 5
+..................................................     50
+..................................................     100
+
+
+Synthetic Difference-in-Differences Estimator
+
+------------------------------------------------------------
+> -----------------
+num_pusher~c |     ATT     Std. Err.     t      P>|t|    [95
+> % Conf. Interval]
+-------------+----------------------------------------------
+> -----------------
+gpt_availa~1 |   1.41212    0.47956     2.94    0.003     0.
+> 47220     2.35205
+------------------------------------------------------------
+> -----------------
+95% CIs and p-values are based on Large-Sample approximation
+> s.
+Refer to Arkhangelsky et al., (2020) for theoretical derivat
+> ions.
+(note: scheme plotplainblind not found, using s2color)
+(file
+    C:/Users/ronco/Desktop/Tesis_Nicho_Janampa/GPT-Impact-
+    > GitHub/output/figures/Go_sdid_weights12.png not
+    found)
+file
+    C:/Users/ronco/Desktop/Tesis_Nicho_Janampa/GPT-Impact-
+    > GitHub/output/figures/Go_sdid_weights12.png saved as
+    PNG format
+(note: scheme plotplainblind not found, using s2color)
+(file
+    C:/Users/ronco/Desktop/Tesis_Nicho_Janampa/GPT-Impact-
+    > GitHub/output/figures/Go_sdid_trends12.png not
+    found)
+file
+    C:/Users/ronco/Desktop/Tesis_Nicho_Janampa/GPT-Impact-
+    > GitHub/output/figures/Go_sdid_trends12.png saved as
+    PNG format
+
+    Variable |        Obs        Mean    Std. dev.       Min
+>         Max
+-------------+----------------------------------------------
+> -----------
+num_pusher~c |        121    1.234592    1.563576          0
+>    5.583055
+
+added scalar:
+       e(control_mean) =  1.2345922
+Bootstrap replications (100). This may take some time.
+----+--- 1 ---+--- 2 ---+--- 3 ---+--- 4 ---+--- 5
+..................................................     50
+..................................................     100
+
+
+Difference-in-Differences Estimator
+
+------------------------------------------------------------
+> -----------------
+num_pusher~c |     ATT     Std. Err.     t      P>|t|    [95
+> % Conf. Interval]
+-------------+----------------------------------------------
+> -----------------
+gpt_availa~1 |   3.19384    0.93041     3.43    0.001     1.
+> 37027     5.01741
+------------------------------------------------------------
+> -----------------
+95% CIs and p-values are based on Large-Sample approximation
+> s.
+
+(note: scheme plotplainblind not found, using s2color)
+(file
+    C:/Users/ronco/Desktop/Tesis_Nicho_Janampa/GPT-Impact-
+    > GitHub/output/figures/Java_did_weights12.png not
+    found)
+file
+    C:/Users/ronco/Desktop/Tesis_Nicho_Janampa/GPT-Impact-
+    > GitHub/output/figures/Java_did_weights12.png saved
+    as PNG format
+(note: scheme plotplainblind not found, using s2color)
+(file
+    C:/Users/ronco/Desktop/Tesis_Nicho_Janampa/GPT-Impact-
+    > GitHub/output/figures/Java_did_trends12.png not
+    found)
+file
+    C:/Users/ronco/Desktop/Tesis_Nicho_Janampa/GPT-Impact-
+    > GitHub/output/figures/Java_did_trends12.png saved as
+    PNG format
+
+    Variable |        Obs        Mean    Std. dev.       Min
+>         Max
+-------------+----------------------------------------------
+> -----------
+num_pusher~c |        209    5.600129    10.39761          0
+>    50.04697
+
+added scalar:
+       e(control_mean) =  5.6001294
+Bootstrap replications (100). This may take some time.
+----+--- 1 ---+--- 2 ---+--- 3 ---+--- 4 ---+--- 5
+..................................................     50
+..................................................     100
+
+
+Synthetic Control
+
+-----------------------------------------------------------------------------
+num_pusher~c |     ATT     Std. Err.     t      P>|t|    [95% Conf. Interval]
+-------------+---------------------------------------------------------------
+gpt_availa~1 |   2.65787    2.17026     1.22    0.221    -1.59575     6.91149
+-----------------------------------------------------------------------------
+95% CIs and p-values are based on Large-Sample approximations.
+
+(note: scheme plotplainblind not found, using s2color)
+(file C:/Users/ronco/Desktop/Tesis_Nicho_Janampa/GPT-Impact-GitHub/output/figures/Java_sc_weights12.png not found)
+file C:/Users/ronco/Desktop/Tesis_Nicho_Janampa/GPT-Impact-GitHub/output/figures/Java_sc_weights12.png saved as PNG format
+(note: scheme plotplainblind not found, using s2color)
+(file C:/Users/ronco/Desktop/Tesis_Nicho_Janampa/GPT-Impact-GitHub/output/figures/Java_sc_trends12.png not found)
+file C:/Users/ronco/Desktop/Tesis_Nicho_Janampa/GPT-Impact-GitHub/output/figures/Java_sc_trends12.png saved as PNG format
+
+    Variable |        Obs        Mean    Std. dev.       Min        Max
+-------------+---------------------------------------------------------
+num_pusher~c |        209    5.600129    10.39761          0   50.04697
+
+added scalar:
+       e(control_mean) =  5.6001294
 Bootstrap replications (100). This may take some time.
 ----+--- 1 ---+--- 2 ---+--- 3 ---+--- 4 ---+--- 5
 ..................................................     50
@@ -67,16 +847,79 @@ Synthetic Difference-in-Differences Estimator
 -----------------------------------------------------------------------------
 num_pusher~c |     ATT     Std. Err.     t      P>|t|    [95% Conf. Interval]
 -------------+---------------------------------------------------------------
-   treatment |   4.79920    1.10425     4.35    0.000     2.63490     6.96349
+gpt_availa~1 |   2.10371    1.09567     1.92    0.055    -0.04375     4.25118
 -----------------------------------------------------------------------------
 95% CIs and p-values are based on Large-Sample approximations.
 Refer to Arkhangelsky et al., (2020) for theoretical derivations.
-(file Python_sdid_weights9.png written in PNG format)
-(file Python_sdid_trends9.png written in PNG format)
-C:\Users\Work\Documents\Personal\Work\papers\GPT-Impact-GitHub\output\tables
-(output written to Python_sdid.tex)
-C:\Users\Work\Documents\Personal\Work\papers\GPT-Impact-GitHub\output\figures
-(45,792 observations deleted)
+(note: scheme plotplainblind not found, using s2color)
+(file C:/Users/ronco/Desktop/Tesis_Nicho_Janampa/GPT-Impact-GitHub/output/figures/Java_sdid_weights12.png not found)
+file C:/Users/ronco/Desktop/Tesis_Nicho_Janampa/GPT-Impact-GitHub/output/figures/Java_sdid_weights12.png saved as PNG format
+(note: scheme plotplainblind not found, using s2color)
+(file C:/Users/ronco/Desktop/Tesis_Nicho_Janampa/GPT-Impact-GitHub/output/figures/Java_sdid_trends12.png not found)
+file C:/Users/ronco/Desktop/Tesis_Nicho_Janampa/GPT-Impact-GitHub/output/figures/Java_sdid_trends12.png saved as PNG format
+
+    Variable |        Obs        Mean    Std. dev.       Min        Max
+-------------+---------------------------------------------------------
+num_pusher~c |        209    5.600129    10.39761          0   50.04697
+
+added scalar:
+       e(control_mean) =  5.6001294
+Bootstrap replications (100). This may take some time.
+----+--- 1 ---+--- 2 ---+--- 3 ---+--- 4 ---+--- 5
+..................................................     50
+..................................................     100
+
+
+Difference-in-Differences Estimator
+
+-----------------------------------------------------------------------------
+num_pusher~c |     ATT     Std. Err.     t      P>|t|    [95% Conf. Interval]
+-------------+---------------------------------------------------------------
+gpt_availa~1 |  13.56793    2.53566     5.35    0.000     8.59813    18.53773
+-----------------------------------------------------------------------------
+95% CIs and p-values are based on Large-Sample approximations.
+
+(note: scheme plotplainblind not found, using s2color)
+(file C:/Users/ronco/Desktop/Tesis_Nicho_Janampa/GPT-Impact-GitHub/output/figures/JavaScript_did_weights12.png not found)
+file C:/Users/ronco/Desktop/Tesis_Nicho_Janampa/GPT-Impact-GitHub/output/figures/JavaScript_did_weights12.png saved as PNG format
+(note: scheme plotplainblind not found, using s2color)
+(file C:/Users/ronco/Desktop/Tesis_Nicho_Janampa/GPT-Impact-GitHub/output/figures/JavaScript_did_trends12.png not found)
+file C:/Users/ronco/Desktop/Tesis_Nicho_Janampa/GPT-Impact-GitHub/output/figures/JavaScript_did_trends12.png saved as PNG format
+
+    Variable |        Obs        Mean    Std. dev.       Min        Max
+-------------+---------------------------------------------------------
+num_pusher~c |        319     12.6522    20.73705          0   115.1122
+
+added scalar:
+       e(control_mean) =  12.652195
+Bootstrap replications (100). This may take some time.
+----+--- 1 ---+--- 2 ---+--- 3 ---+--- 4 ---+--- 5
+..................................................     50
+..................................................     100
+
+
+Synthetic Control
+
+-----------------------------------------------------------------------------
+num_pusher~c |     ATT     Std. Err.     t      P>|t|    [95% Conf. Interval]
+-------------+---------------------------------------------------------------
+gpt_availa~1 |   9.48436    4.73505     2.00    0.045     0.20383    18.76488
+-----------------------------------------------------------------------------
+95% CIs and p-values are based on Large-Sample approximations.
+
+(note: scheme plotplainblind not found, using s2color)
+(file C:/Users/ronco/Desktop/Tesis_Nicho_Janampa/GPT-Impact-GitHub/output/figures/JavaScript_sc_weights12.png not found)
+file C:/Users/ronco/Desktop/Tesis_Nicho_Janampa/GPT-Impact-GitHub/output/figures/JavaScript_sc_weights12.png saved as PNG format
+(note: scheme plotplainblind not found, using s2color)
+(file C:/Users/ronco/Desktop/Tesis_Nicho_Janampa/GPT-Impact-GitHub/output/figures/JavaScript_sc_trends12.png not found)
+file C:/Users/ronco/Desktop/Tesis_Nicho_Janampa/GPT-Impact-GitHub/output/figures/JavaScript_sc_trends12.png saved as PNG format
+
+    Variable |        Obs        Mean    Std. dev.       Min        Max
+-------------+---------------------------------------------------------
+num_pusher~c |        319     12.6522    20.73705          0   115.1122
+
+added scalar:
+       e(control_mean) =  12.652195
 Bootstrap replications (100). This may take some time.
 ----+--- 1 ---+--- 2 ---+--- 3 ---+--- 4 ---+--- 5
 ..................................................     50
@@ -88,16 +931,79 @@ Synthetic Difference-in-Differences Estimator
 -----------------------------------------------------------------------------
 num_pusher~c |     ATT     Std. Err.     t      P>|t|    [95% Conf. Interval]
 -------------+---------------------------------------------------------------
-   treatment |   2.97917    1.07555     2.77    0.006     0.87112     5.08722
+gpt_availa~1 |   8.25660    2.77557     2.97    0.003     2.81657    13.69662
 -----------------------------------------------------------------------------
 95% CIs and p-values are based on Large-Sample approximations.
 Refer to Arkhangelsky et al., (2020) for theoretical derivations.
-(file Java_sdid_weights9.png written in PNG format)
-(file Java_sdid_trends9.png written in PNG format)
-C:\Users\Work\Documents\Personal\Work\papers\GPT-Impact-GitHub\output\tables
-(output written to Java_sdid.tex)
-C:\Users\Work\Documents\Personal\Work\papers\GPT-Impact-GitHub\output\figures
-(45,792 observations deleted)
+(note: scheme plotplainblind not found, using s2color)
+(file C:/Users/ronco/Desktop/Tesis_Nicho_Janampa/GPT-Impact-GitHub/output/figures/JavaScript_sdid_weights12.png not found)
+file C:/Users/ronco/Desktop/Tesis_Nicho_Janampa/GPT-Impact-GitHub/output/figures/JavaScript_sdid_weights12.png saved as PNG format
+(note: scheme plotplainblind not found, using s2color)
+(file C:/Users/ronco/Desktop/Tesis_Nicho_Janampa/GPT-Impact-GitHub/output/figures/JavaScript_sdid_trends12.png not found)
+file C:/Users/ronco/Desktop/Tesis_Nicho_Janampa/GPT-Impact-GitHub/output/figures/JavaScript_sdid_trends12.png saved as PNG format
+
+    Variable |        Obs        Mean    Std. dev.       Min        Max
+-------------+---------------------------------------------------------
+num_pusher~c |        319     12.6522    20.73705          0   115.1122
+
+added scalar:
+       e(control_mean) =  12.652195
+Bootstrap replications (100). This may take some time.
+----+--- 1 ---+--- 2 ---+--- 3 ---+--- 4 ---+--- 5
+..................................................     50
+..................................................     100
+
+
+Difference-in-Differences Estimator
+
+-----------------------------------------------------------------------------
+num_pusher~c |     ATT     Std. Err.     t      P>|t|    [95% Conf. Interval]
+-------------+---------------------------------------------------------------
+gpt_availa~1 |   1.05967    0.48140     2.20    0.028     0.11614     2.00319
+-----------------------------------------------------------------------------
+95% CIs and p-values are based on Large-Sample approximations.
+
+(note: scheme plotplainblind not found, using s2color)
+(file C:/Users/ronco/Desktop/Tesis_Nicho_Janampa/GPT-Impact-GitHub/output/figures/PHP_did_weights12.png not found)
+file C:/Users/ronco/Desktop/Tesis_Nicho_Janampa/GPT-Impact-GitHub/output/figures/PHP_did_weights12.png saved as PNG format
+(note: scheme plotplainblind not found, using s2color)
+(file C:/Users/ronco/Desktop/Tesis_Nicho_Janampa/GPT-Impact-GitHub/output/figures/PHP_did_trends12.png not found)
+file C:/Users/ronco/Desktop/Tesis_Nicho_Janampa/GPT-Impact-GitHub/output/figures/PHP_did_trends12.png saved as PNG format
+
+    Variable |        Obs        Mean    Std. dev.       Min        Max
+-------------+---------------------------------------------------------
+num_pusher~c |        253    2.576931    3.709226          0   14.62781
+
+added scalar:
+       e(control_mean) =  2.5769305
+Bootstrap replications (100). This may take some time.
+----+--- 1 ---+--- 2 ---+--- 3 ---+--- 4 ---+--- 5
+..................................................     50
+..................................................     100
+
+
+Synthetic Control
+
+-----------------------------------------------------------------------------
+num_pusher~c |     ATT     Std. Err.     t      P>|t|    [95% Conf. Interval]
+-------------+---------------------------------------------------------------
+gpt_availa~1 |   1.28483    1.36273     0.94    0.346    -1.38607     3.95573
+-----------------------------------------------------------------------------
+95% CIs and p-values are based on Large-Sample approximations.
+
+(note: scheme plotplainblind not found, using s2color)
+(file C:/Users/ronco/Desktop/Tesis_Nicho_Janampa/GPT-Impact-GitHub/output/figures/PHP_sc_weights12.png not found)
+file C:/Users/ronco/Desktop/Tesis_Nicho_Janampa/GPT-Impact-GitHub/output/figures/PHP_sc_weights12.png saved as PNG format
+(note: scheme plotplainblind not found, using s2color)
+(file C:/Users/ronco/Desktop/Tesis_Nicho_Janampa/GPT-Impact-GitHub/output/figures/PHP_sc_trends12.png not found)
+file C:/Users/ronco/Desktop/Tesis_Nicho_Janampa/GPT-Impact-GitHub/output/figures/PHP_sc_trends12.png saved as PNG format
+
+    Variable |        Obs        Mean    Std. dev.       Min        Max
+-------------+---------------------------------------------------------
+num_pusher~c |        253    2.576931    3.709226          0   14.62781
+
+added scalar:
+       e(control_mean) =  2.5769305
 Bootstrap replications (100). This may take some time.
 ----+--- 1 ---+--- 2 ---+--- 3 ---+--- 4 ---+--- 5
 ..................................................     50
@@ -109,16 +1015,79 @@ Synthetic Difference-in-Differences Estimator
 -----------------------------------------------------------------------------
 num_pusher~c |     ATT     Std. Err.     t      P>|t|    [95% Conf. Interval]
 -------------+---------------------------------------------------------------
-   treatment |   0.15750    0.08716     1.81    0.071    -0.01333     0.32833
+gpt_availa~1 |   1.04479    0.49737     2.10    0.036     0.06996     2.01961
 -----------------------------------------------------------------------------
 95% CIs and p-values are based on Large-Sample approximations.
 Refer to Arkhangelsky et al., (2020) for theoretical derivations.
-(file R_sdid_weights9.png written in PNG format)
-(file R_sdid_trends9.png written in PNG format)
-C:\Users\Work\Documents\Personal\Work\papers\GPT-Impact-GitHub\output\tables
-(output written to R_sdid.tex)
-C:\Users\Work\Documents\Personal\Work\papers\GPT-Impact-GitHub\output\figures
-(45,792 observations deleted)
+(note: scheme plotplainblind not found, using s2color)
+(file C:/Users/ronco/Desktop/Tesis_Nicho_Janampa/GPT-Impact-GitHub/output/figures/PHP_sdid_weights12.png not found)
+file C:/Users/ronco/Desktop/Tesis_Nicho_Janampa/GPT-Impact-GitHub/output/figures/PHP_sdid_weights12.png saved as PNG format
+(note: scheme plotplainblind not found, using s2color)
+(file C:/Users/ronco/Desktop/Tesis_Nicho_Janampa/GPT-Impact-GitHub/output/figures/PHP_sdid_trends12.png not found)
+file C:/Users/ronco/Desktop/Tesis_Nicho_Janampa/GPT-Impact-GitHub/output/figures/PHP_sdid_trends12.png saved as PNG format
+
+    Variable |        Obs        Mean    Std. dev.       Min        Max
+-------------+---------------------------------------------------------
+num_pusher~c |        253    2.576931    3.709226          0   14.62781
+
+added scalar:
+       e(control_mean) =  2.5769305
+Bootstrap replications (100). This may take some time.
+----+--- 1 ---+--- 2 ---+--- 3 ---+--- 4 ---+--- 5
+..................................................     50
+..................................................     100
+
+
+Difference-in-Differences Estimator
+
+-----------------------------------------------------------------------------
+num_pusher~c |     ATT     Std. Err.     t      P>|t|    [95% Conf. Interval]
+-------------+---------------------------------------------------------------
+gpt_availa~1 |   8.75388    1.63615     5.35    0.000     5.54708    11.96068
+-----------------------------------------------------------------------------
+95% CIs and p-values are based on Large-Sample approximations.
+
+(note: scheme plotplainblind not found, using s2color)
+(file C:/Users/ronco/Desktop/Tesis_Nicho_Janampa/GPT-Impact-GitHub/output/figures/Python_did_weights12.png not found)
+file C:/Users/ronco/Desktop/Tesis_Nicho_Janampa/GPT-Impact-GitHub/output/figures/Python_did_weights12.png saved as PNG format
+(note: scheme plotplainblind not found, using s2color)
+(file C:/Users/ronco/Desktop/Tesis_Nicho_Janampa/GPT-Impact-GitHub/output/figures/Python_did_trends12.png not found)
+file C:/Users/ronco/Desktop/Tesis_Nicho_Janampa/GPT-Impact-GitHub/output/figures/Python_did_trends12.png saved as PNG format
+
+    Variable |        Obs        Mean    Std. dev.       Min        Max
+-------------+---------------------------------------------------------
+num_pusher~c |        286    6.136882    9.223599          0   41.96262
+
+added scalar:
+       e(control_mean) =  6.1368821
+Bootstrap replications (100). This may take some time.
+----+--- 1 ---+--- 2 ---+--- 3 ---+--- 4 ---+--- 5
+..................................................     50
+..................................................     100
+
+
+Synthetic Control
+
+-----------------------------------------------------------------------------
+num_pusher~c |     ATT     Std. Err.     t      P>|t|    [95% Conf. Interval]
+-------------+---------------------------------------------------------------
+gpt_availa~1 |   1.58611    5.38653     0.29    0.768    -8.97130    12.14351
+-----------------------------------------------------------------------------
+95% CIs and p-values are based on Large-Sample approximations.
+
+(note: scheme plotplainblind not found, using s2color)
+(file C:/Users/ronco/Desktop/Tesis_Nicho_Janampa/GPT-Impact-GitHub/output/figures/Python_sc_weights12.png not found)
+file C:/Users/ronco/Desktop/Tesis_Nicho_Janampa/GPT-Impact-GitHub/output/figures/Python_sc_weights12.png saved as PNG format
+(note: scheme plotplainblind not found, using s2color)
+(file C:/Users/ronco/Desktop/Tesis_Nicho_Janampa/GPT-Impact-GitHub/output/figures/Python_sc_trends12.png not found)
+file C:/Users/ronco/Desktop/Tesis_Nicho_Janampa/GPT-Impact-GitHub/output/figures/Python_sc_trends12.png saved as PNG format
+
+    Variable |        Obs        Mean    Std. dev.       Min        Max
+-------------+---------------------------------------------------------
+num_pusher~c |        286    6.136882    9.223599          0   41.96262
+
+added scalar:
+       e(control_mean) =  6.1368821
 Bootstrap replications (100). This may take some time.
 ----+--- 1 ---+--- 2 ---+--- 3 ---+--- 4 ---+--- 5
 ..................................................     50
@@ -130,16 +1099,79 @@ Synthetic Difference-in-Differences Estimator
 -----------------------------------------------------------------------------
 num_pusher~c |     ATT     Std. Err.     t      P>|t|    [95% Conf. Interval]
 -------------+---------------------------------------------------------------
-   treatment |   0.05731    0.03169     1.81    0.071    -0.00481     0.11942
+gpt_availa~1 |   5.23072    1.35092     3.87    0.000     2.58297     7.87847
 -----------------------------------------------------------------------------
 95% CIs and p-values are based on Large-Sample approximations.
 Refer to Arkhangelsky et al., (2020) for theoretical derivations.
-(file Julia_sdid_weights9.png written in PNG format)
-(file Julia_sdid_trends9.png written in PNG format)
-C:\Users\Work\Documents\Personal\Work\papers\GPT-Impact-GitHub\output\tables
-(output written to Julia_sdid.tex)
-C:\Users\Work\Documents\Personal\Work\papers\GPT-Impact-GitHub\output\figures
-(45,792 observations deleted)
+(note: scheme plotplainblind not found, using s2color)
+(file C:/Users/ronco/Desktop/Tesis_Nicho_Janampa/GPT-Impact-GitHub/output/figures/Python_sdid_weights12.png not found)
+file C:/Users/ronco/Desktop/Tesis_Nicho_Janampa/GPT-Impact-GitHub/output/figures/Python_sdid_weights12.png saved as PNG format
+(note: scheme plotplainblind not found, using s2color)
+(file C:/Users/ronco/Desktop/Tesis_Nicho_Janampa/GPT-Impact-GitHub/output/figures/Python_sdid_trends12.png not found)
+file C:/Users/ronco/Desktop/Tesis_Nicho_Janampa/GPT-Impact-GitHub/output/figures/Python_sdid_trends12.png saved as PNG format
+
+    Variable |        Obs        Mean    Std. dev.       Min        Max
+-------------+---------------------------------------------------------
+num_pusher~c |        286    6.136882    9.223599          0   41.96262
+
+added scalar:
+       e(control_mean) =  6.1368821
+Bootstrap replications (100). This may take some time.
+----+--- 1 ---+--- 2 ---+--- 3 ---+--- 4 ---+--- 5
+..................................................     50
+..................................................     100
+
+
+Difference-in-Differences Estimator
+
+-----------------------------------------------------------------------------
+num_pusher~c |     ATT     Std. Err.     t      P>|t|    [95% Conf. Interval]
+-------------+---------------------------------------------------------------
+gpt_availa~1 |   0.63077    0.52512     1.20    0.230    -0.39845     1.65998
+-----------------------------------------------------------------------------
+95% CIs and p-values are based on Large-Sample approximations.
+
+(note: scheme plotplainblind not found, using s2color)
+(file C:/Users/ronco/Desktop/Tesis_Nicho_Janampa/GPT-Impact-GitHub/output/figures/Ruby_did_weights12.png not found)
+file C:/Users/ronco/Desktop/Tesis_Nicho_Janampa/GPT-Impact-GitHub/output/figures/Ruby_did_weights12.png saved as PNG format
+(note: scheme plotplainblind not found, using s2color)
+(file C:/Users/ronco/Desktop/Tesis_Nicho_Janampa/GPT-Impact-GitHub/output/figures/Ruby_did_trends12.png not found)
+file C:/Users/ronco/Desktop/Tesis_Nicho_Janampa/GPT-Impact-GitHub/output/figures/Ruby_did_trends12.png saved as PNG format
+
+    Variable |        Obs        Mean    Std. dev.       Min        Max
+-------------+---------------------------------------------------------
+num_pusher~c |        154    2.830668    3.354391          0   15.37715
+
+added scalar:
+       e(control_mean) =  2.8306679
+Bootstrap replications (100). This may take some time.
+----+--- 1 ---+--- 2 ---+--- 3 ---+--- 4 ---+--- 5
+..................................................     50
+..................................................     100
+
+
+Synthetic Control
+
+-----------------------------------------------------------------------------
+num_pusher~c |     ATT     Std. Err.     t      P>|t|    [95% Conf. Interval]
+-------------+---------------------------------------------------------------
+gpt_availa~1 |   2.46030    1.23421     1.99    0.046     0.04129     4.87930
+-----------------------------------------------------------------------------
+95% CIs and p-values are based on Large-Sample approximations.
+
+(note: scheme plotplainblind not found, using s2color)
+(file C:/Users/ronco/Desktop/Tesis_Nicho_Janampa/GPT-Impact-GitHub/output/figures/Ruby_sc_weights12.png not found)
+file C:/Users/ronco/Desktop/Tesis_Nicho_Janampa/GPT-Impact-GitHub/output/figures/Ruby_sc_weights12.png saved as PNG format
+(note: scheme plotplainblind not found, using s2color)
+(file C:/Users/ronco/Desktop/Tesis_Nicho_Janampa/GPT-Impact-GitHub/output/figures/Ruby_sc_trends12.png not found)
+file C:/Users/ronco/Desktop/Tesis_Nicho_Janampa/GPT-Impact-GitHub/output/figures/Ruby_sc_trends12.png saved as PNG format
+
+    Variable |        Obs        Mean    Std. dev.       Min        Max
+-------------+---------------------------------------------------------
+num_pusher~c |        154    2.830668    3.354391          0   15.37715
+
+added scalar:
+       e(control_mean) =  2.8306679
 Bootstrap replications (100). This may take some time.
 ----+--- 1 ---+--- 2 ---+--- 3 ---+--- 4 ---+--- 5
 ..................................................     50
@@ -151,325 +1183,299 @@ Synthetic Difference-in-Differences Estimator
 -----------------------------------------------------------------------------
 num_pusher~c |     ATT     Std. Err.     t      P>|t|    [95% Conf. Interval]
 -------------+---------------------------------------------------------------
-   treatment |   0.57828    0.20946     2.76    0.006     0.16774     0.98883
+gpt_availa~1 |   1.01930    0.28672     3.56    0.000     0.45734     1.58126
 -----------------------------------------------------------------------------
 95% CIs and p-values are based on Large-Sample approximations.
 Refer to Arkhangelsky et al., (2020) for theoretical derivations.
-(file Swift_sdid_weights9.png written in PNG format)
-(file Swift_sdid_trends9.png written in PNG format)
-C:\Users\Work\Documents\Personal\Work\papers\GPT-Impact-GitHub\output\tables
-(output written to Swift_sdid.tex)
+(note: scheme plotplainblind not found, using s2color)
+(file C:/Users/ronco/Desktop/Tesis_Nicho_Janampa/GPT-Impact-GitHub/output/figures/Ruby_sdid_weights12.png not found)
+file C:/Users/ronco/Desktop/Tesis_Nicho_Janampa/GPT-Impact-GitHub/output/figures/Ruby_sdid_weights12.png saved as PNG format
+(note: scheme plotplainblind not found, using s2color)
+(file C:/Users/ronco/Desktop/Tesis_Nicho_Janampa/GPT-Impact-GitHub/output/figures/Ruby_sdid_trends12.png not found)
+file C:/Users/ronco/Desktop/Tesis_Nicho_Janampa/GPT-Impact-GitHub/output/figures/Ruby_sdid_trends12.png saved as PNG format
 
+    Variable |        Obs        Mean    Std. dev.       Min        Max
+-------------+---------------------------------------------------------
+num_pusher~c |        154    2.830668    3.354391          0   15.37715
+
+added scalar:
+       e(control_mean) =  2.8306679
+Bootstrap replications (100). This may take some time.
+----+--- 1 ---+--- 2 ---+--- 3 ---+--- 4 ---+--- 5
+..................................................     50
+..................................................     100
+
+
+Difference-in-Differences Estimator
+
+-----------------------------------------------------------------------------
+num_pusher~c |     ATT     Std. Err.     t      P>|t|    [95% Conf. Interval]
+-------------+---------------------------------------------------------------
+gpt_availa~1 |   8.42118    1.59099     5.29    0.000     5.30289    11.53947
+-----------------------------------------------------------------------------
+95% CIs and p-values are based on Large-Sample approximations.
+
+(note: scheme plotplainblind not found, using s2color)
+(file C:/Users/ronco/Desktop/Tesis_Nicho_Janampa/GPT-Impact-GitHub/output/figures/TypeScript_did_weights12.png not found)
+file C:/Users/ronco/Desktop/Tesis_Nicho_Janampa/GPT-Impact-GitHub/output/figures/TypeScript_did_weights12.png saved as PNG format
+(note: scheme plotplainblind not found, using s2color)
+(file C:/Users/ronco/Desktop/Tesis_Nicho_Janampa/GPT-Impact-GitHub/output/figures/TypeScript_did_trends12.png not found)
+file C:/Users/ronco/Desktop/Tesis_Nicho_Janampa/GPT-Impact-GitHub/output/figures/TypeScript_did_trends12.png saved as PNG format
+
+    Variable |        Obs        Mean    Std. dev.       Min        Max
+-------------+---------------------------------------------------------
+num_pusher~c |        242    2.710053     5.64365          0   34.52206
+
+added scalar:
+       e(control_mean) =  2.7100529
+Bootstrap replications (100). This may take some time.
+----+--- 1 ---+--- 2 ---+--- 3 ---+--- 4 ---+--- 5
+..................................................     50
+..................................................     100
+
+
+Synthetic Control
+
+-----------------------------------------------------------------------------
+num_pusher~c |     ATT     Std. Err.     t      P>|t|    [95% Conf. Interval]
+-------------+---------------------------------------------------------------
+gpt_availa~1 |   3.88699    2.77640     1.40    0.162    -1.55464     9.32863
+-----------------------------------------------------------------------------
+95% CIs and p-values are based on Large-Sample approximations.
+
+(note: scheme plotplainblind not found, using s2color)
+(file C:/Users/ronco/Desktop/Tesis_Nicho_Janampa/GPT-Impact-GitHub/output/figures/TypeScript_sc_weights12.png not found)
+file C:/Users/ronco/Desktop/Tesis_Nicho_Janampa/GPT-Impact-GitHub/output/figures/TypeScript_sc_weights12.png saved as PNG format
+(note: scheme plotplainblind not found, using s2color)
+(file C:/Users/ronco/Desktop/Tesis_Nicho_Janampa/GPT-Impact-GitHub/output/figures/TypeScript_sc_trends12.png not found)
+file C:/Users/ronco/Desktop/Tesis_Nicho_Janampa/GPT-Impact-GitHub/output/figures/TypeScript_sc_trends12.png saved as PNG format
+
+    Variable |        Obs        Mean    Std. dev.       Min        Max
+-------------+---------------------------------------------------------
+num_pusher~c |        242    2.710053     5.64365          0   34.52206
+
+added scalar:
+       e(control_mean) =  2.7100529
+Bootstrap replications (100). This may take some time.
+----+--- 1 ---+--- 2 ---+--- 3 ---+--- 4 ---+--- 5
+..................................................     50
+..................................................     100
+
+
+Synthetic Difference-in-Differences Estimator
+
+-----------------------------------------------------------------------------
+num_pusher~c |     ATT     Std. Err.     t      P>|t|    [95% Conf. Interval]
+-------------+---------------------------------------------------------------
+gpt_availa~1 |   3.86292    0.98241     3.93    0.000     1.93743     5.78841
+-----------------------------------------------------------------------------
+95% CIs and p-values are based on Large-Sample approximations.
+Refer to Arkhangelsky et al., (2020) for theoretical derivations.
+(note: scheme plotplainblind not found, using s2color)
+(file C:/Users/ronco/Desktop/Tesis_Nicho_Janampa/GPT-Impact-GitHub/output/figures/TypeScript_sdid_weights12.png not found)
+file C:/Users/ronco/Desktop/Tesis_Nicho_Janampa/GPT-Impact-GitHub/output/figures/TypeScript_sdid_weights12.png saved as PNG format
+(note: scheme plotplainblind not found, using s2color)
+(file C:/Users/ronco/Desktop/Tesis_Nicho_Janampa/GPT-Impact-GitHub/output/figures/TypeScript_sdid_trends12.png not found)
+file C:/Users/ronco/Desktop/Tesis_Nicho_Janampa/GPT-Impact-GitHub/output/figures/TypeScript_sdid_trends12.png saved as PNG format
+
+    Variable |        Obs        Mean    Std. dev.       Min        Max
+-------------+---------------------------------------------------------
+num_pusher~c |        242    2.710053     5.64365          0   34.52206
+
+added scalar:
+       e(control_mean) =  2.7100529
+
+. 
+. 
+. 
+. ****** Table with three panels 
+.                                                 
+. esttab C_did ///
+>                 C_sc ///
+>                 C_sdid ///
+>                 using "$path/output\tables/gpt_impact_github_DataScience.tex",                         ///
+>                 replace label booktabs                                                                   ///
+>                 cells(b(star fmt(%9.3f)) se(par fmt(%9.3f)))             ///
+>                 starlevels(* 0.10 ** 0.05 *** 0.01) ///         
+>                 delim("&")  /// Type of column delimiter 
+>                 nomtitle ///
+>                 collabels(none) /// No column names within model
+>                 keep( gpt_available_post1 ///
+>                         ) ///
+>                 order(gpt_available_post1) ///
+>                 mgroups("\shortstack{DID}" ///
+>                                         "\shortstack{SC}" ///
+>                                         "\shortstack{SDID}",  ///
+>                                         pattern(1 1 1)                           ///
+>                                         prefix(\multicolumn{@span}{c}{) suffix(}) span                       ///
+>                                         erepeat(\cmidrule(lr){@span})) ///
+>                                 nomtitles                       ///
+>                 scalars("control_mean Baseline Mean Outcome") ///
+>                         refcat( gpt_available_post1 "\Gape[0.25cm][0.25cm]{ \underline{Panel A. \textbf{ \textit{C} } } }" , nolabel) ///
+>                         prefoot("") posthead(\hline) postfoot("")  nonumbers
+(output written to C:/Users/ronco/Desktop/Tesis_Nicho_Janampa/GPT-Impact-GitHub/output\tables/gpt_impact_github_DataScience.tex)
+
+. 
+. esttab  C_hashtag_did ///
+>                 C_hashtag_sc ///
+>                 C_hashtag_sdid ///
+>                 using "$path/output\tables/gpt_impact_github_DataScience.tex", ///
+>                 append label booktabs mlabel(,none)                                                                      ///
+>                 cells(b(star fmt(%9.3f)) se(par fmt(%9.3f)))             ///
+>                 starlevels(* 0.10 ** 0.05 *** 0.01) /// 
+>         keep( gpt_available_post1 ///
+>                 ) ///
+>         order(gpt_available_post1) ///
+>                 scalars("control_mean Baseline Mean Outcome") ///
+>                 refcat( gpt_available_post1 "\Gape[0.25cm][0.25cm]{ \underline{Panel B. \textbf{ \textit{C#} } } }" , nolabel) /// Subtitles
+>                 prehead("") prefoot("") posthead("\hline") postfoot("") delim("&") collabels(none) nonumbers nogaps nonote
+(output written to C:/Users/ronco/Desktop/Tesis_Nicho_Janampa/GPT-Impact-GitHub/output\tables/gpt_impact_github_DataScience.tex)
+
+. 
+.                                 
+. esttab  C_plus_did ///
+>                 C_plus_sc ///
+>                 C_plus_sdid ///
+>                 using "$path/output\tables/gpt_impact_github_DataScience.tex", ///
+>                 append label booktabs mlabel(,none)                                                                      ///
+>                 cells(b(star fmt(%9.3f)) se(par fmt(%9.3f)))             ///
+>                 starlevels(* 0.10 ** 0.05 *** 0.01) /// 
+>         keep( gpt_available_post1 ///
+>                 ) ///
+>         order(gpt_available_post1) ///
+>                 scalars("control_mean Baseline Mean Outcome") ///
+>                 refcat( gpt_available_post1 "\Gape[0.25cm][0.25cm]{ \underline{Panel C. \textbf{ \textit{C++} } } }" , nolabel) /// Subtitles
+>                 prehead("") prefoot("") posthead("\hline") postfoot("") delim("&") collabels(none) nonumbers nogaps nonote
+(output written to C:/Users/ronco/Desktop/Tesis_Nicho_Janampa/GPT-Impact-GitHub/output\tables/gpt_impact_github_DataScience.tex)
+
+.                                                 
+. esttab  Go_did ///
+>                 Go_sc ///
+>                 Go_sdid ///
+>                 using "$path/output\tables/gpt_impact_github_DataScience.tex", ///
+>                 append label booktabs mlabel(,none)                                                                      ///
+>                 cells(b(star fmt(%9.3f)) se(par fmt(%9.3f)))             ///
+>                 starlevels(* 0.10 ** 0.05 *** 0.01) /// 
+>         keep( gpt_available_post1 ///
+>                 ) ///
+>         order(gpt_available_post1) ///
+>                 scalars("control_mean Baseline Mean Outcome") ///
+>                 refcat( gpt_available_post1 "\Gape[0.25cm][0.25cm]{ \underline{Panel D. \textbf{ \textit{Go} } } }" , nolabel) /// Subtitles
+>                 prehead("") prefoot("") posthead("\hline") postfoot("") delim("&") collabels(none) nonumbers nogaps nonote                                           
+>    
+(output written to C:/Users/ronco/Desktop/Tesis_Nicho_Janampa/GPT-Impact-GitHub/output\tables/gpt_impact_github_DataScience.tex)
+
+.                                                 
+.                 
+. esttab  Java_did ///
+>                 Java_sc ///
+>                 Java_sdid ///
+>                 using "$path/output\tables/gpt_impact_github_DataScience.tex", ///
+>                 append label booktabs mlabel(,none)                                                                      ///
+>                 cells(b(star fmt(%9.3f)) se(par fmt(%9.3f)))             ///
+>                 starlevels(* 0.10 ** 0.05 *** 0.01) /// 
+>         keep( gpt_available_post1 ///
+>                 ) ///
+>         order(gpt_available_post1) ///
+>                 scalars("control_mean Baseline Mean Outcome") ///
+>                 refcat( gpt_available_post1 "\Gape[0.25cm][0.25cm]{ \underline{Panel E. \textbf{ \textit{Java} } } }" , nolabel) /// Subtitles
+>                 prehead("") prefoot("") posthead("\hline") postfoot("") delim("&") collabels(none) nonumbers nogaps nonote
+(output written to C:/Users/ronco/Desktop/Tesis_Nicho_Janampa/GPT-Impact-GitHub/output\tables/gpt_impact_github_DataScience.tex)
+
+. 
+. esttab  JavaScript_did ///
+>                 JavaScript_sc ///
+>                 JavaScript_sdid ///
+>                 using "$path/output\tables/gpt_impact_github_DataScience.tex", ///
+>                 append label booktabs mlabel(,none)                                                                      ///
+>                 cells(b(star fmt(%9.3f)) se(par fmt(%9.3f)))             ///
+>                 starlevels(* 0.10 ** 0.05 *** 0.01) /// 
+>         keep( gpt_available_post1 ///
+>                 ) ///
+>         order(gpt_available_post1) ///
+>                 scalars("control_mean Baseline Mean Outcome") ///
+>                 refcat( gpt_available_post1 "\Gape[0.25cm][0.25cm]{ \underline{Panel F. \textbf{ \textit{JavaScript} } } }" , nolabel) /// Subtitles
+>                 prehead("") prefoot("") posthead("\hline") postfoot("") delim("&") collabels(none) nonumbers nogaps nonote
+(output written to C:/Users/ronco/Desktop/Tesis_Nicho_Janampa/GPT-Impact-GitHub/output\tables/gpt_impact_github_DataScience.tex)
+
+. 
+.                                 
+. esttab  PHP_did ///
+>                 PHP_sc ///
+>                 PHP_sdid ///
+>                 using "$path/output\tables/gpt_impact_github_DataScience.tex", ///
+>                 append label booktabs mlabel(,none)                                                                      ///
+>                 cells(b(star fmt(%9.3f)) se(par fmt(%9.3f)))             ///
+>                 starlevels(* 0.10 ** 0.05 *** 0.01) /// 
+>         keep( gpt_available_post1 ///
+>                 ) ///
+>         order(gpt_available_post1) ///
+>                 scalars("control_mean Baseline Mean Outcome") ///
+>                 refcat( gpt_available_post1 "\Gape[0.25cm][0.25cm]{ \underline{Panel G. \textbf{ \textit{PHP} } } }" , nolabel) /// Subtitles
+>                 prehead("") prefoot("") posthead("\hline") postfoot("") delim("&") collabels(none) nonumbers nogaps nonote 
+(output written to C:/Users/ronco/Desktop/Tesis_Nicho_Janampa/GPT-Impact-GitHub/output\tables/gpt_impact_github_DataScience.tex)
+
+. 
+. esttab  Python_did ///
+>                 Python_sc ///
+>                 Python_sdid ///
+>                 using "$path/output\tables/gpt_impact_github_DataScience.tex", ///
+>                 append label booktabs mlabel(,none)                                                                      ///
+>                 cells(b(star fmt(%9.3f)) se(par fmt(%9.3f)))             ///
+>                 starlevels(* 0.10 ** 0.05 *** 0.01) /// 
+>         keep( gpt_available_post1 ///
+>                 ) ///
+>         order(gpt_available_post1) ///
+>                 scalars("control_mean Baseline Mean Outcome") ///
+>                 refcat( gpt_available_post1 "\Gape[0.25cm][0.25cm]{ \underline{Panel H. \textbf{ \textit{Python} } } }" , nolabel) /// Subtitles
+>                 prehead("") prefoot("") posthead("\hline") postfoot("") delim("&") collabels(none) nonumbers nogaps nonote 
+(output written to C:/Users/ronco/Desktop/Tesis_Nicho_Janampa/GPT-Impact-GitHub/output\tables/gpt_impact_github_DataScience.tex)
+
+.                                 
+. esttab  Ruby_did ///
+>                 Ruby_sc ///
+>                 Ruby_sdid ///
+>                 using "$path/output\tables/gpt_impact_github_DataScience.tex", ///
+>                 append label booktabs mlabel(,none)                                                                      ///
+>                 cells(b(star fmt(%9.3f)) se(par fmt(%9.3f)))             ///
+>                 starlevels(* 0.10 ** 0.05 *** 0.01) /// 
+>         keep( gpt_available_post1 ///
+>                 ) ///
+>         order(gpt_available_post1) ///
+>                 scalars("control_mean Baseline Mean Outcome") ///
+>                 refcat( gpt_available_post1 "\Gape[0.25cm][0.25cm]{ \underline{Panel I. \textbf{ \textit{Ruby} } } }" , nolabel) /// Subtitles
+>                 prehead("") prefoot("") posthead("\hline") postfoot("") delim("&") collabels(none) nonumbers nogaps nonote 
+(output written to C:/Users/ronco/Desktop/Tesis_Nicho_Janampa/GPT-Impact-GitHub/output\tables/gpt_impact_github_DataScience.tex)
+
+.                         
+.                                 
+. esttab  TypeScript_did ///
+>                 TypeScript_sc ///
+>                 TypeScript_sdid ///
+>                 using "$path/output\tables/gpt_impact_github_DataScience.tex", ///
+>                 append label booktabs mlabel(,none)                                                                      ///
+>                 cells(b(star fmt(%9.3f)) se(par fmt(%9.3f)))             ///
+>                 starlevels(* 0.10 ** 0.05 *** 0.01) /// 
+>         keep( gpt_available_post1 ///
+>                 ) ///
+>         order(gpt_available_post1) ///
+>                 scalars("control_mean Baseline Mean Outcome") ///
+>                 refcat( gpt_available_post1 "\Gape[0.25cm][0.25cm]{ \underline{Panel J. \textbf{ \textit{TypeScript} } } }" , nolabel) /// Subtitles
+>                 prehead("") prefoot("") posthead("\hline")  delim("&") collabels(none) nonumbers nogaps nonote  
+(output written to C:/Users/ronco/Desktop/Tesis_Nicho_Janampa/GPT-Impact-GitHub/output\tables/gpt_impact_github_DataScience.tex)
+
+. 
+. 
+. 
+. 
+. 
 . 
 . cd "$path"
-C:\Users\Work\Documents\Personal\Work\papers\GPT-Impact-GitHub
+C:\Users\ronco\Desktop\Tesis_Nicho_Janampa\GPT-Impact-GitHub
 
 . 
 end of do-file
 
 . 
-. import delimited "output/data/pushes.csv", clear
-(15 vars, 2,368 obs)
-
-. 
-. drop if iso2_code == "HK"
-(16 observations deleted)
-
-. 
-. do "code/sub/analysis_pushes.do"
-
-. cd "$path/output/figures" 
-C:\Users\Work\Documents\Personal\Work\papers\GPT-Impact-GitHub\output\figures
-
-. 
-. gen pushes_p100k = pushes_pc * 100000
-
-. gen developers_p100k = developers_pc * 100000
-
-. 
-. eststo pp100_did: sdid pushes_p100k iso2_code year_quarter_num gpt_available_post1, ///
->         vce(bootstrap) reps(100) seed(1234) method(did) graph g1on /// 
->         g1_opt(xtitle("") scheme(sj)) ///
->         g2_opt(ytitle("Pushes per 100k inhabitants") scheme(sj) ///
->         xtitle("Quarters since 2020Q1")) graph_export(pp100_did_, .png)
-Bootstrap replications (100). This may take some time.
-----+--- 1 ---+--- 2 ---+--- 3 ---+--- 4 ---+--- 5
-..................................................     50
-..................................................     100
-
-
-Difference-in-Differences Estimator
-
------------------------------------------------------------------------------
-pushes_p100k |     ATT     Std. Err.     t      P>|t|    [95% Conf. Interval]
--------------+---------------------------------------------------------------
-gpt_availa~1 | 899.26770  147.39530     6.10    0.000   610.37822    1.19e+03
------------------------------------------------------------------------------
-95% CIs and p-values are based on Large-Sample approximations.
-
-(note: file pp100_did_weights12.png not found)
-(file pp100_did_weights12.png written in PNG format)
-(note: file pp100_did_trends12.png not found)
-(file pp100_did_trends12.png written in PNG format)
-
-. 
-. eststo pp100_sc: sdid pushes_p100k iso2_code year_quarter_num gpt_available_post1, ///
->         vce(bootstrap) reps(100) seed(1234) method(sc) graph g1on /// 
->         g1_opt(xtitle("") scheme(sj)) ///
->         g2_opt(ytitle("Pushes per 100k inhabitants") scheme(sj) ///
->         xtitle("Quarters since 2020Q1")) graph_export(pp100_sc_, .png)
-Bootstrap replications (100). This may take some time.
-----+--- 1 ---+--- 2 ---+--- 3 ---+--- 4 ---+--- 5
-..................................................     50
-..................................................     100
-
-
-Synthetic Control
-
------------------------------------------------------------------------------
-pushes_p100k |     ATT     Std. Err.     t      P>|t|    [95% Conf. Interval]
--------------+---------------------------------------------------------------
-gpt_availa~1 | 595.05880  437.06130     1.36    0.173   -2.62e+02    1.45e+03
------------------------------------------------------------------------------
-95% CIs and p-values are based on Large-Sample approximations.
-
-(note: file pp100_sc_weights12.png not found)
-(file pp100_sc_weights12.png written in PNG format)
-(note: file pp100_sc_trends12.png not found)
-(file pp100_sc_trends12.png written in PNG format)
-
-. 
-. eststo pp100_sdid: sdid pushes_p100k iso2_code year_quarter_num gpt_available_post1, ///
->         vce(bootstrap) reps(100) seed(1234) method(sdid) graph g1on /// 
->         g1_opt(xtitle("") scheme(sj)) ///
->         g2_opt(ytitle("Pushes per 100k inhabitants") scheme(sj) ///
->         xtitle("Quarters since 2020Q1")) graph_export(pp100_sdid_, .png)
-Bootstrap replications (100). This may take some time.
-----+--- 1 ---+--- 2 ---+--- 3 ---+--- 4 ---+--- 5
-..................................................     50
-..................................................     100
-
-
-Synthetic Difference-in-Differences Estimator
-
------------------------------------------------------------------------------
-pushes_p100k |     ATT     Std. Err.     t      P>|t|    [95% Conf. Interval]
--------------+---------------------------------------------------------------
-gpt_availa~1 | 645.62310  146.44510     4.41    0.000   358.59598   932.65022
------------------------------------------------------------------------------
-95% CIs and p-values are based on Large-Sample approximations.
-Refer to Arkhangelsky et al., (2020) for theoretical derivations.
-(note: file pp100_sdid_weights12.png not found)
-(file pp100_sdid_weights12.png written in PNG format)
-(note: file pp100_sdid_trends12.png not found)
-(file pp100_sdid_trends12.png written in PNG format)
-
-. 
-. eststo dp100_did: sdid developers_p100k iso2_code year_quarter_num gpt_available_post1, ///
->         vce(bootstrap) reps(100) seed(1234) method(did) graph g1on /// 
->         g1_opt(xtitle("") scheme(sj)) ///
->         g2_opt(ytitle("Developers per 100k inhabitants") scheme(sj) ///
->         xtitle("Quarters since 2020Q1")) graph_export(dp100_did_, .png)
-Bootstrap replications (100). This may take some time.
-----+--- 1 ---+--- 2 ---+--- 3 ---+--- 4 ---+--- 5
-..................................................     50
-..................................................     100
-
-
-Difference-in-Differences Estimator
-
------------------------------------------------------------------------------
-develop~100k |     ATT     Std. Err.     t      P>|t|    [95% Conf. Interval]
--------------+---------------------------------------------------------------
-gpt_availa~1 | 578.91240  109.39790     5.29    0.000   364.49646   793.32834
------------------------------------------------------------------------------
-95% CIs and p-values are based on Large-Sample approximations.
-
-(note: file dp100_did_weights12.png not found)
-(file dp100_did_weights12.png written in PNG format)
-(note: file dp100_did_trends12.png not found)
-(file dp100_did_trends12.png written in PNG format)
-
-. 
-. eststo dp100_sc: sdid developers_p100k iso2_code year_quarter_num gpt_available_post1, ///
->         vce(bootstrap) reps(100) seed(1234) method(sc) graph g1on /// 
->         g1_opt(xtitle("") scheme(sj)) ///
->         g2_opt(ytitle("Developers per 100k inhabitants") scheme(sj) ///
->         xtitle("Quarters since 2020Q1")) graph_export(dp100_sc_, .png)
-Bootstrap replications (100). This may take some time.
-----+--- 1 ---+--- 2 ---+--- 3 ---+--- 4 ---+--- 5
-..................................................     50
-..................................................     100
-
-
-Synthetic Control
-
------------------------------------------------------------------------------
-develop~100k |     ATT     Std. Err.     t      P>|t|    [95% Conf. Interval]
--------------+---------------------------------------------------------------
-gpt_availa~1 |  13.75245  204.40550     0.07    0.946   -3.87e+02   414.37987
------------------------------------------------------------------------------
-95% CIs and p-values are based on Large-Sample approximations.
-
-(note: file dp100_sc_weights12.png not found)
-(file dp100_sc_weights12.png written in PNG format)
-(note: file dp100_sc_trends12.png not found)
-(file dp100_sc_trends12.png written in PNG format)
-
-. 
-. eststo dp100_sdid: sdid developers_p100k iso2_code year_quarter_num gpt_available_post1, ///
->         vce(bootstrap) reps(100) seed(1234) method(sdid) graph g1on /// 
->         g1_opt(xtitle("") scheme(sj)) ///
->         g2_opt(ytitle("Developers per 100k inhabitants") scheme(sj) ///
->         xtitle("Quarters since 2020Q1")) graph_export(dp100_sdid_, .png)
-Bootstrap replications (100). This may take some time.
-----+--- 1 ---+--- 2 ---+--- 3 ---+--- 4 ---+--- 5
-..................................................     50
-..................................................     100
-
-
-Synthetic Difference-in-Differences Estimator
-
------------------------------------------------------------------------------
-develop~100k |     ATT     Std. Err.     t      P>|t|    [95% Conf. Interval]
--------------+---------------------------------------------------------------
-gpt_availa~1 |  51.69258   45.91805     1.13    0.260   -38.30514   141.69030
------------------------------------------------------------------------------
-95% CIs and p-values are based on Large-Sample approximations.
-Refer to Arkhangelsky et al., (2020) for theoretical derivations.
-(note: file dp100_sdid_weights12.png not found)
-(file dp100_sdid_weights12.png written in PNG format)
-(note: file dp100_sdid_trends12.png not found)
-(file dp100_sdid_trends12.png written in PNG format)
-
-. 
-. 
-. eststo ppd_did: sdid pushes_perdev iso2_code year_quarter_num gpt_available_post1, ///
->         vce(bootstrap) reps(100) seed(1234) method(did) graph g1on /// 
->         g1_opt(xtitle("") scheme(sj)) ///
->         g2_opt(ytitle("Pushes per developer") scheme(sj) ///
->         xtitle("Quarters since 2020Q1")) graph_export(ppd_did_, .png)
-Bootstrap replications (100). This may take some time.
-----+--- 1 ---+--- 2 ---+--- 3 ---+--- 4 ---+--- 5
-..................................................     50
-..................................................     100
-
-
-Difference-in-Differences Estimator
-
------------------------------------------------------------------------------
-pushes_per~v |     ATT     Std. Err.     t      P>|t|    [95% Conf. Interval]
--------------+---------------------------------------------------------------
-gpt_availa~1 |  -0.12223    0.10854    -1.13    0.260    -0.33496     0.09050
------------------------------------------------------------------------------
-95% CIs and p-values are based on Large-Sample approximations.
-
-(note: file ppd_did_weights12.png not found)
-(file ppd_did_weights12.png written in PNG format)
-(note: file ppd_did_trends12.png not found)
-(file ppd_did_trends12.png written in PNG format)
-
-. 
-. eststo ppd_sc: sdid pushes_perdev iso2_code year_quarter_num gpt_available_post1, ///
->         vce(bootstrap) reps(100) seed(1234) method(sc) graph g1on /// 
->         g1_opt(xtitle("") scheme(sj)) ///
->         g2_opt(ytitle("Pushes per developer") scheme(sj) ///
->         xtitle("Quarters since 2020Q1")) graph_export(ppd_sc_, .png)
-Bootstrap replications (100). This may take some time.
-----+--- 1 ---+--- 2 ---+--- 3 ---+--- 4 ---+--- 5
-..................................................     50
-..................................................     100
-
-
-Synthetic Control
-
------------------------------------------------------------------------------
-pushes_per~v |     ATT     Std. Err.     t      P>|t|    [95% Conf. Interval]
--------------+---------------------------------------------------------------
-gpt_availa~1 |   0.06085    0.09605     0.63    0.526    -0.12740     0.24911
------------------------------------------------------------------------------
-95% CIs and p-values are based on Large-Sample approximations.
-
-(note: file ppd_sc_weights12.png not found)
-(file ppd_sc_weights12.png written in PNG format)
-(note: file ppd_sc_trends12.png not found)
-(file ppd_sc_trends12.png written in PNG format)
-
-. 
-. eststo ppd_sdid: sdid pushes_perdev iso2_code year_quarter_num gpt_available_post1, ///
->         vce(bootstrap) reps(100) seed(1234) method(sdid) graph g1on /// 
->         g1_opt(xtitle("") scheme(sj)) ///
->         g2_opt(ytitle("Pushes per developer") scheme(sj) ///
->         xtitle("Quarters since 2020Q1")) graph_export(ppd_sdid_, .png)
-Bootstrap replications (100). This may take some time.
-----+--- 1 ---+--- 2 ---+--- 3 ---+--- 4 ---+--- 5
-..................................................     50
-..................................................     100
-
-
-Synthetic Difference-in-Differences Estimator
-
------------------------------------------------------------------------------
-pushes_per~v |     ATT     Std. Err.     t      P>|t|    [95% Conf. Interval]
--------------+---------------------------------------------------------------
-gpt_availa~1 |  -0.03259    0.06387    -0.51    0.610    -0.15777     0.09259
------------------------------------------------------------------------------
-95% CIs and p-values are based on Large-Sample approximations.
-Refer to Arkhangelsky et al., (2020) for theoretical derivations.
-(note: file ppd_sdid_weights12.png not found)
-(file ppd_sdid_weights12.png written in PNG format)
-(note: file ppd_sdid_trends12.png not found)
-(file ppd_sdid_trends12.png written in PNG format)
-
-. 
-. cd "$path/output/tables"
-C:\Users\Work\Documents\Personal\Work\papers\GPT-Impact-GitHub\output\tables
-
-. 
-. esttab pp100_did using pp100_did.tex, replace
-(note: file pp100_did.tex not found)
-(output written to pp100_did.tex)
-
-. esttab pp100_sc using pp100_sc.tex, replace
-(note: file pp100_sc.tex not found)
-(output written to pp100_sc.tex)
-
-. esttab pp100_sdid using pp100_sdid.tex, replace
-(note: file pp100_sdid.tex not found)
-(output written to pp100_sdid.tex)
-
-. esttab dp100_did using dp100_did.tex, replace
-(note: file dp100_did.tex not found)
-(output written to dp100_did.tex)
-
-. esttab dp100_sc using dp100_sc.tex, replace
-(note: file dp100_sc.tex not found)
-(output written to dp100_sc.tex)
-
-. esttab dp100_sdid using dp100_sdid.tex, replace
-(note: file dp100_sdid.tex not found)
-(output written to dp100_sdid.tex)
-
-. esttab ppd_did using ppd_did.tex, replace
-(note: file ppd_did.tex not found)
-(output written to ppd_did.tex)
-
-. esttab ppd_sc using ppd_sc.tex, replace
-(note: file ppd_sc.tex not found)
-(output written to ppd_sc.tex)
-
-. esttab ppd_sdid using ppd_sdid.tex, replace
-(note: file ppd_sdid.tex not found)
-(output written to ppd_sdid.tex)
-
-. 
 end of do-file
 
-. 
-. 
-. log close
-      name:  <unnamed>
-       log:  C:\Users\Work\Documents\Personal\Work\papers\GPT-Impact-GitHub\output/analysis.log
-  log type:  text
- closed on:  11 May 2024, 12:36:22
--------------------------------------------------------------------------------------------------------------------------------------------------------------------------

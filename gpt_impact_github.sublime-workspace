@@ -1,0 +1,1628 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"quarte",
+				"quarter\tVariable"
+			],
+			[
+				"quarter",
+				"quarter_int\tVariable"
+			],
+			[
+				"yea",
+				"year_quarter_num\tVariable"
+			],
+			[
+				"gp",
+				"gpt_available\tVariable"
+			],
+			[
+				"inve",
+				"inverse_distance_pos_v11\tVariable"
+			],
+			[
+				"num_pp",
+				"num_pp_district\tVariable"
+			],
+			[
+				"per",
+				"period_2\tVariable"
+			],
+			[
+				"coef",
+				"coefplot"
+			],
+			[
+				"any",
+				"any_bribes\tVariable"
+			],
+			[
+				"total",
+				"total_bribes\tVariable"
+			],
+			[
+				"bank",
+				"bank_access\tVariable"
+			],
+			[
+				"proc",
+				"PROVINCE\tVariable"
+			],
+			[
+				"ses",
+				"session_correct\tVariable"
+			],
+			[
+				"hist",
+				"history_correct\tVariable"
+			],
+			[
+				"uc",
+				"uc_ma\tVariable"
+			],
+			[
+				"provinc",
+				"PROVINCE\tVariable"
+			],
+			[
+				"bvs",
+				"BVS\tVariable"
+			],
+			[
+				"num",
+				"num_transac\tVariable"
+			],
+			[
+				"baseline_",
+				"baseline_PSU\tVariable"
+			],
+			[
+				"dis",
+				"district_code_bline\tVariable"
+			],
+			[
+				"distr",
+				"district_code_bline\tVariable"
+			],
+			[
+				"QUA",
+				"quarter\tVariable"
+			],
+			[
+				"more",
+				"more_100km_0\tVariable"
+			],
+			[
+				"min_dis",
+				"min_dist_pos_osrm\tVariable"
+			],
+			[
+				"PER",
+				"period\tVariable"
+			],
+			[
+				"own",
+				"owner_name\tVariable"
+			],
+			[
+				"id",
+				"IDCODE\tVariable"
+			],
+			[
+				"ban",
+				"bank\tVariable"
+			],
+			[
+				"prop",
+				"prop_visit_twice\tVariable"
+			],
+			[
+				"uniqu",
+				"unique_count_visi2\tVariable"
+			],
+			[
+				"unique",
+				"unique_count\tVariable"
+			],
+			[
+				"prp",
+				"prop_visit_twice\tVariable"
+			],
+			[
+				"lon",
+				"longitud_pp\tVariable"
+			],
+			[
+				"pos_",
+				"pos_bvs\tVariable"
+			],
+			[
+				"turn",
+				"turn_wait_clean\tVariable"
+			],
+			[
+				"correc",
+				"correct_match\tVariable"
+			],
+			[
+				"benef",
+				"benef_tehsil\tVariable"
+			],
+			[
+				"pos",
+				"poscode\tVariable"
+			],
+			[
+				"num_pos",
+				"num_pos_m2_10km_w\tVariable"
+			],
+			[
+				"pred",
+				"pred_concentr\tVariable"
+			],
+			[
+				"ful",
+				"full_hhi_m2_10km\tVariable"
+			],
+			[
+				"diff",
+				"diff_fullhhi_2018_2015\tVariable"
+			],
+			[
+				"tota",
+				"total_bribes\tVariable"
+			],
+			[
+				"bas",
+				"baseline_PSU"
+			],
+			[
+				"num_p",
+				"num_pos_m2_10km2018\tVariable"
+			],
+			[
+				"post",
+				"POST"
+			],
+			[
+				"admi",
+				"admin_BVS\tVariable"
+			],
+			[
+				"ID",
+				"IDCODE\tVariable"
+			],
+			[
+				"AREA",
+				"area_m2\tVariable"
+			],
+			[
+				"vill",
+				"village_opm\tVariable"
+			],
+			[
+				"pop",
+				"population_sum\tVariable"
+			],
+			[
+				"long",
+				"long_google\tVariable"
+			],
+			[
+				"lat",
+				"lat_google\tVariable"
+			],
+			[
+				"num_pos_",
+				"num_pos_m2_10km\tVariable"
+			],
+			[
+				"trave",
+				"travel_cost_1attempt\tVariable"
+			],
+			[
+				"amount",
+				"amount_due_1\tVariable"
+			],
+			[
+				"new",
+				"newid\tVariable"
+			],
+			[
+				"ATMS",
+				"atmslocationaddress\tVariable"
+			],
+			[
+				"ban_",
+				"bank_pp\tVariable"
+			],
+			[
+				"pp",
+				"pp_type\tVariable"
+			],
+			[
+				"TREA",
+				"treatment_dt\tVariable"
+			],
+			[
+				"_",
+				"_ID\tVariable"
+			],
+			[
+				"distri",
+				"DISTRICT_GIS_PP\tVariable"
+			],
+			[
+				"num_tra",
+				"num_transac"
+			],
+			[
+				"drop",
+				"dropbox"
+			],
+			[
+				"min",
+				"min_dist_PP\tVariable"
+			],
+			[
+				"pp_",
+				"pp_type"
+			],
+			[
+				"fisca",
+				"fiscal_year\tVariable"
+			],
+			[
+				"trea",
+				"treatment_dt\tVariable"
+			],
+			[
+				"matc",
+				"matching_accuracy\tVariable"
+			],
+			[
+				"provi",
+				"PROVINCE_0\tVariable"
+			],
+			[
+				"pay",
+				"paymentpoint_ID\tVariable"
+			],
+			[
+				"base",
+				"baseline_PSU\tVariable"
+			],
+			[
+				"dri",
+				"driving_time_sec\tVariable"
+			],
+			[
+				"tran",
+				"tranche\tVariable"
+			],
+			[
+				"O",
+				"OSRM"
+			],
+			[
+				"distric",
+				"district_str\tVariable"
+			],
+			[
+				"dist",
+				"dist_HH_PP"
+			],
+			[
+				"distrc",
+				"district_str\tVariable"
+			],
+			[
+				"idc",
+				"IDCODE"
+			],
+			[
+				"district",
+				"district_str"
+			],
+			[
+				"outs",
+				"opm_tranche_pos_used_avail"
+			],
+			[
+				"out",
+				"collect_money_out_hh\tVariable"
+			],
+			[
+				"min_di",
+				"min_dist_PP\tVariable"
+			],
+			[
+				"disrti",
+				"district_pp\tVariable"
+			],
+			[
+				"benefi",
+				"beneficiary_address\tVariable"
+			],
+			[
+				"zero",
+				"zero_withdrawal\tVariable"
+			],
+			[
+				"adm",
+				"admin_BVS\tVariable"
+			],
+			[
+				"hh",
+				"hh_240_bl\tVariable"
+			],
+			[
+				"atm",
+				"ATM_used\tVariable"
+			],
+			[
+				"pa",
+				"partlinear1\tVariable"
+			],
+			[
+				"bs",
+				"bspline1\tVariable"
+			],
+			[
+				"neig",
+				"neighborhoodx\tVariable"
+			],
+			[
+				"estimade",
+				"estimated_income2\tVariable"
+			],
+			[
+				"leas",
+				"lease_date2\tVariable"
+			],
+			[
+				"logP",
+				"logPopulation500\tVariable"
+			],
+			[
+				"Dist",
+				"DistBoundNB\tVariable"
+			],
+			[
+				"l07",
+				"l0708d\tVariable"
+			],
+			[
+				"censu",
+				"census_block\tVariable"
+			],
+			[
+				"point",
+				"point_x\tVariable"
+			],
+			[
+				"readi",
+				"reading_score"
+			],
+			[
+				"math",
+				"math_score"
+			],
+			[
+				"sta",
+				"stay"
+			],
+			[
+				"stu",
+				"students_siagie\tVariable"
+			],
+			[
+				"sha",
+				"share11\tVariable"
+			],
+			[
+				"retent",
+				"retention01\tVariable"
+			],
+			[
+				"retet",
+				"retention11\tVariable"
+			],
+			[
+				"stude",
+				"students_siagie"
+			],
+			[
+				"cp",
+				"cpdesa"
+			],
+			[
+				"bias",
+				"biasadj"
+			],
+			[
+				"levels",
+				"levelsof\tCommand"
+			],
+			[
+				"s",
+				"size"
+			],
+			[
+				"treat",
+				"treated\tVariable"
+			],
+			[
+				"base_",
+				"base_x_dim\tVariable"
+			],
+			[
+				"POB",
+				"POB_MIX\tVariable"
+			],
+			[
+				"tiempo",
+				"tiempo2016\tVariable"
+			],
+			[
+				"share",
+				"share01\tVariable"
+			],
+			[
+				"shoo",
+				"school_exp\tVariable"
+			],
+			[
+				"scho",
+				"school_exp2017\tVariable"
+			],
+			[
+				"school",
+				"school_exp\tVariable"
+			],
+			[
+				"row",
+				"rowtotal"
+			],
+			[
+				"inbound",
+				"inbound_new\tVariable"
+			],
+			[
+				"sample",
+				"samplevar\tVariable"
+			],
+			[
+				"type",
+				"type_fill\tVariable"
+			],
+			[
+				"min_te",
+				"min_tenured\tVariable"
+			],
+			[
+				"dni",
+				"dni\tVariable"
+			],
+			[
+				"Re",
+				"Retention"
+			],
+			[
+				"reten",
+				"retention11"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"file": "code/analysis.do",
+			"settings":
+			{
+				"buffer_size": 1240,
+				"encoding": "UTF-8",
+				"line_ending": "Windows"
+			}
+		}
+	],
+	"build_system": "Packages/Python/Python.sublime-build",
+	"build_system_choices":
+	[
+		[
+			[
+				[
+					"Packages/IJulia/julia-build.sublime-build",
+					""
+				],
+				[
+					"Packages/SublimeREPL/sublimerepl_build_system_hack.sublime-build",
+					""
+				]
+			],
+			[
+				"Packages/IJulia/julia-build.sublime-build",
+				""
+			]
+		],
+		[
+			[
+				[
+					"Packages/LaTeXTools/LaTeX.sublime-build",
+					""
+				],
+				[
+					"Packages/LaTeXTools/LaTeX.sublime-build",
+					"Traditional"
+				],
+				[
+					"Packages/LaTeXTools/LaTeX.sublime-build",
+					"PdfLaTeX"
+				],
+				[
+					"Packages/LaTeXTools/LaTeX.sublime-build",
+					"XeLaTeX"
+				],
+				[
+					"Packages/LaTeXTools/LaTeX.sublime-build",
+					"LuaLaTeX"
+				],
+				[
+					"Packages/LaTeXTools/LaTeX.sublime-build",
+					"Basic Builder"
+				],
+				[
+					"Packages/LaTeXTools/LaTeX.sublime-build",
+					"Basic Builder - PdfLaTeX"
+				],
+				[
+					"Packages/LaTeXTools/LaTeX.sublime-build",
+					"Basic Builder - XeLaTeX"
+				],
+				[
+					"Packages/LaTeXTools/LaTeX.sublime-build",
+					"Basic Builder - LuaLaTeX"
+				],
+				[
+					"Packages/LaTeXTools/LaTeX.sublime-build",
+					"Script Builder"
+				]
+			],
+			[
+				"Packages/LaTeXTools/LaTeX.sublime-build",
+				""
+			]
+		],
+		[
+			[
+				[
+					"Packages/LaTeXTools/LaTeX.sublime-build",
+					""
+				],
+				[
+					"Packages/LaTeXTools/LaTeX.sublime-build",
+					"Traditional"
+				],
+				[
+					"Packages/LaTeXTools/LaTeX.sublime-build",
+					"PdfLaTeX"
+				],
+				[
+					"Packages/LaTeXTools/LaTeX.sublime-build",
+					"XeLaTeX"
+				],
+				[
+					"Packages/LaTeXTools/LaTeX.sublime-build",
+					"LuaLaTeX"
+				],
+				[
+					"Packages/LaTeXTools/LaTeX.sublime-build",
+					"Basic Builder"
+				],
+				[
+					"Packages/LaTeXTools/LaTeX.sublime-build",
+					"Basic Builder - PdfLaTeX"
+				],
+				[
+					"Packages/LaTeXTools/LaTeX.sublime-build",
+					"Basic Builder - XeLaTeX"
+				],
+				[
+					"Packages/LaTeXTools/LaTeX.sublime-build",
+					"Basic Builder - LuaLaTeX"
+				],
+				[
+					"Packages/LaTeXTools/LaTeX.sublime-build",
+					"Script Builder"
+				],
+				[
+					"Packages/SublimeREPL/sublimerepl_build_system_hack.sublime-build",
+					""
+				]
+			],
+			[
+				"Packages/LaTeXTools/LaTeX.sublime-build",
+				"PdfLaTeX"
+			]
+		],
+		[
+			[
+				[
+					"Packages/Python/Python.sublime-build",
+					""
+				],
+				[
+					"Packages/Python/Python.sublime-build",
+					"Syntax Check"
+				]
+			],
+			[
+				"Packages/Python/Python.sublime-build",
+				"Syntax Check"
+			]
+		],
+		[
+			[
+				[
+					"Packages/Python/Python.sublime-build",
+					""
+				],
+				[
+					"Packages/Python/Python.sublime-build",
+					"Syntax Check"
+				],
+				[
+					"Packages/SendCode/support/IPython - Source File.sublime-build",
+					""
+				],
+				[
+					"Packages/SublimeREPL/sublimerepl_build_system_hack.sublime-build",
+					""
+				]
+			],
+			[
+				"Packages/Python/Python.sublime-build",
+				""
+			]
+		],
+		[
+			[
+				[
+					"Packages/Python/Python.sublime-build",
+					""
+				],
+				[
+					"Packages/Python/Python.sublime-build",
+					"Syntax Check"
+				],
+				[
+					"Packages/SublimeREPL/sublimerepl_build_system_hack.sublime-build",
+					""
+				]
+			],
+			[
+				"Packages/Python/Python.sublime-build",
+				""
+			]
+		],
+		[
+			[
+				[
+					"Packages/R/R.sublime-build",
+					""
+				],
+				[
+					"Packages/SendCode/support/R - Source File.sublime-build",
+					""
+				],
+				[
+					"Packages/SublimeREPL/sublimerepl_build_system_hack.sublime-build",
+					""
+				]
+			],
+			[
+				"Packages/SendCode/support/R - Source File.sublime-build",
+				""
+			]
+		]
+	],
+	"build_varint": "",
+	"command_palette":
+	{
+		"height": 203.0,
+		"last_filter": "",
+		"selected_items":
+		[
+			[
+				"package",
+				"Package Control: Install Package"
+			],
+			[
+				"list pac",
+				"Package Control: List Packages"
+			],
+			[
+				"stata ",
+				"Stata: Insert locals"
+			],
+			[
+				"da",
+				"DA UI: General Settings"
+			],
+			[
+				"set syntax r",
+				"Set Syntax: R"
+			],
+			[
+				"instal",
+				"Package Control: Install Package"
+			],
+			[
+				"remve",
+				"Package Control: Remove Package"
+			],
+			[
+				"packa",
+				"Package Control: Remove Package"
+			],
+			[
+				"insta",
+				"Package Control: Install Package"
+			],
+			[
+				"lsp",
+				"LSP: Show Diagnostics"
+			],
+			[
+				"text pas",
+				"Text Pastry: Generate a list of numbers from 1 to 100"
+			],
+			[
+				"textpa",
+				"Text Pastry: Menu"
+			],
+			[
+				"install",
+				"Package Control: Install Package"
+			],
+			[
+				"remov",
+				"Package Control: Remove Package"
+			],
+			[
+				"latex",
+				"Build With: LaTeX"
+			],
+			[
+				"exporthtml",
+				"Export to HTML: Show Export Menu"
+			],
+			[
+				"export",
+				"ExportHtml: Settings"
+			],
+			[
+				"a fi",
+				"A File Icon: Changelog"
+			],
+			[
+				"a file",
+				"A File Icon: Settings"
+			],
+			[
+				"remo",
+				"Package Control: Remove Package"
+			],
+			[
+				"update pac",
+				"Package Control: Upgrade/Overwrite All Packages"
+			],
+			[
+				"proje",
+				"Project Manager"
+			],
+			[
+				"sublime-iju",
+				"Sublime-IJulia: Open New IJulia Console"
+			],
+			[
+				"ijulia",
+				"Sublime-IJulia: Open New IJulia Console"
+			],
+			[
+				"remove",
+				"Package Control: Remove Package"
+			],
+			[
+				"open ij",
+				"Sublime-IJulia: Open New IJulia Console"
+			],
+			[
+				"iju",
+				"Sublime-IJulia: Open New IJulia Console"
+			],
+			[
+				"remoe",
+				"Package Control: Remove Channel"
+			],
+			[
+				"open iju",
+				"Sublime-IJulia: Open New IJulia Console"
+			],
+			[
+				"re",
+				"Package Control: Remove Package"
+			],
+			[
+				"SUBLI",
+				"SublimeREPL: Matlab"
+			],
+			[
+				"Package Control: ",
+				"Package Control: Install Package"
+			],
+			[
+				"",
+				"Boxy Theme: Configuration"
+			],
+			[
+				"Package Control: insta",
+				"Package Control: Install Package"
+			],
+			[
+				"instal pa",
+				"Package Control: Install Package"
+			],
+			[
+				"boxy",
+				"Boxy Theme: Preferences"
+			],
+			[
+				"side bar",
+				"View: Toggle Side Bar"
+			],
+			[
+				"sublimerepl",
+				"Build With: sublimerepl_build_system_hack"
+			],
+			[
+				"disa",
+				"Package Control: Disable Package"
+			],
+			[
+				"disable",
+				"Package Control: Disable Package"
+			],
+			[
+				"install ",
+				"Package Control: Install Package"
+			],
+			[
+				"Package Control: install",
+				"Package Control: Install Package"
+			],
+			[
+				"Package Control: install Package",
+				"Package Control: Install Package"
+			]
+		],
+		"width": 444.0
+	},
+	"console":
+	{
+		"height": 120.0,
+		"history":
+		[
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"expanded_folders":
+	[
+		"/C/Users/Alexander/Documents/GitHub/GPT-Impact-GitHub",
+		"/C/Users/Alexander/Documents/GitHub/GPT-Impact-GitHub/code",
+		"/C/Users/Alexander/Documents/GitHub/GPT-Impact-GitHub/code/sub",
+		"/C/Users/Alexander/Documents/GitHub/GPT-Impact-GitHub/output",
+		"/C/Users/Alexander/Documents/GitHub/GPT-Impact-GitHub/output/csv",
+		"/C/Users/Alexander/Documents/GitHub/GPT-Impact-GitHub/output/data"
+	],
+	"file_history":
+	[
+		"/C/Users/Alexander/Documents/GitHub/GPT-Impact-GitHub/code/sub/analysis_per_lang.do",
+		"/C/Users/Alexander/Documents/GitHub/BISP-IE/2019_IE_analysis/code/3_tex/esttab/gpt_impact_github_push_dev_repo.tex",
+		"/C/Users/Alexander/Documents/GitHub/GPT-Impact-GitHub/output/tables/gpt_impact_github_shell.tex",
+		"/C/Users/Alexander/Documents/GitHub/GPT-Impact-GitHub/output/tables/gpt_impact_github_dsl.tex",
+		"/C/Users/Alexander/Documents/GitHub/GPT-Impact-GitHub/code/sub/analysis_pushes.do",
+		"/C/Users/Alexander/Documents/GitHub/GPT-Impact-GitHub/code/sub/analysis_all_lang.do",
+		"/C/Users/Alexander/Documents/GitHub/BISP-IE/Policy_Report/policy_report.tex",
+		"/C/Users/Alexander/Documents/GitHub/GPT-Impact-GitHub/output/tables/gpt_impact_github_high_level.tex",
+		"/C/Users/Alexander/Documents/GitHub/GPT-Impact-GitHub/output/tables/gpt_impact_github_langugages.tex",
+		"/C/Users/Alexander/Documents/GitHub/GPT-Impact-GitHub/output/tables/gpt_impact_github_push_dev_repo.tex",
+		"/C/Users/Alexander/Documents/GitHub/GPT-Impact-GitHub/code/build_pushes.py",
+		"/C/Users/Alexander/Documents/GitHub/GPT-Impact-GitHub/code/sub/analysis_figures.do",
+		"/C/Users/Alexander/Documents/GitHub/GPT-Impact-GitHub/code/sub/build_covariates.do",
+		"/C/Users/Alexander/Documents/GitHub/GPT-Impact-GitHub/code/sub/build_datasets.do",
+		"/C/Users/Alexander/Documents/GitHub/GPT-Impact-GitHub/code/sub/build_merge.do",
+		"/C/Users/Alexander/Documents/GitHub/GPT-Impact-GitHub/code/build.do",
+		"/C/Users/Alexander/Documents/GitHub/GPT-Impact-GitHub/code/sub/analysis_tables.do",
+		"/C/Users/Alexander/Documents/GitHub/BISP-IE/2019_IE_analysis/code/3_tex/esttab/idw_std_controls_fe_no2013.tex",
+		"/C/Users/Alexander/Documents/GitHub/BISP-IE/2019_IE_analysis/code/3_tex/esttab/FE_panel_attempts_nohbl_pctl_unbpn_3y.tex",
+		"/C/Users/Alexander/Documents/GitHub/BISP-IE/2019_IE_analysis/code/3_tex/esttab/attempts_idw_v11_fe_no2013.tex",
+		"/C/Users/Alexander/Documents/GitHub/BISP-IE/2019_IE_analysis/code/3_tex/esttab/bribes_amount_idw_v11_controls_fe_no2013.tex",
+		"/C/Users/Alexander/Documents/GitHub/BISP-IE/2019_IE_analysis/code/3_tex/esttab/entry_exit_comp.tex",
+		"/C/Users/Alexander/Documents/GitHub/BISP-IE/2019_IE_analysis/code/3_tex/esttab/FE_panel_amount_nohbl_pctl_unbpn_3y.tex",
+		"/C/Users/Alexander/Documents/GitHub/BISP-IE/2019_IE_analysis/code/3_tex/esttab/pos_wdr_idw_v11_controls_fe_no2013.tex",
+		"/C/Users/Alexander/Downloads/Translated_LaTeX_Document.tex",
+		"/C/Users/Alexander/Documents/GitHub/BISP-IE/2019_IE_analysis/code/3_tex/esttab/8_firststage_predict_treatment_nohbl_comp_unbpn_3y.tex",
+		"/C/Users/Alexander/Documents/GitHub/BISP-IE/2019_IE_analysis/code/3_tex/esttab/27_balance_BVS_bribes_amount_dist_raster.tex",
+		"/C/Users/Alexander/Documents/GitHub/BISP-IE/2019_IE_analysis/code/2_analysis/63_pretrend_test.do",
+		"/C/Users/Alexander/Documents/GitHub/BISP-IE/2019_IE_analysis/code/3_tex/esttab/any_bribes_idw_v11_controls_fe_no2013_v2.tex",
+		"/C/Users/Alexander/Documents/GitHub/BISP-IE/2019_IE_analysis/code/3_tex/esttab/pct_amt_idw_v11_controls_fe_no2013.tex",
+		"/C/Users/Alexander/Documents/GitHub/BISP-IE/2019_IE_analysis/code/3_tex/esttab/any_bribes_idw_v11_controls_fe_no2013_2.tex",
+		"/C/Users/Alexander/Documents/GitHub/BISP-IE/2019_IE_analysis/code/3_tex/esttab/27_balance_comp_bribes_amount_dist_raster.tex",
+		"/C/Users/Alexander/Documents/GitHub/BISP-IE/2019_IE_analysis/code/2_analysis/11_main_HTE_panel_reg_PART1.do",
+		"/C/Users/Alexander/Documents/GitHub/BISP-IE/2019_IE_analysis/code/3_tex/esttab/25_HTE_index_H1_b_mobility.tex",
+		"/C/Users/Alexander/Documents/GitHub/BISP-IE/2019_IE_analysis/code/2_analysis/64_paper_main_reg_comp_no2013.do",
+		"/C/Users/Alexander/Documents/GitHub/BISP-IE/2019_IE_analysis/code/2_analysis/64_paper_main_reg_panel.do",
+		"/C/Users/Alexander/Documents/GitHub/BISP-IE/2019_IE_analysis/code/1_cleaning/8_endline_paym+deliv+emp+CNICs.do",
+		"/C/Users/Alexander/Documents/GitHub/BISP-IE/2019_IE_analysis/code/2_analysis/64_paper_main_reg.do",
+		"/C/Users/Alexander/Documents/GitHub/BISP-IE/2019_IE_analysis/code/2_analysis/62_uc_ma_main_reg_hte_panel.do",
+		"/C/Users/Alexander/Documents/GitHub/BISP-IE/2019_IE_analysis/code/3_tex/esttab/FE_panel_satisf_nohbl_pctl_unbpn_3y.tex",
+		"/C/Users/Alexander/Documents/GitHub/BISP-IE/2019_IE_analysis/code/3_tex/esttab/FE_panel_satisf_selfcoll_nohbl_pctl_unbpn_3y.tex",
+		"/C/Users/Alexander/Documents/GitHub/BISP-IE/2019_IE_analysis/code/2_analysis/66_paper_main_reg_comp_allsamples.do",
+		"/C/Users/Alexander/Documents/GitHub/BISP-IE/2019_IE_analysis/code/3_tex/esttab/8_firststage_predict_treatment_nohbl_unbpn_3y.tex",
+		"/C/Users/Alexander/Documents/GitHub/BISP-IE/2019_IE_analysis/code/3_tex/esttab/FE_panel_distance_nohbl_pctl_unbpn_3y.tex",
+		"/C/Users/Alexander/Documents/GitHub/BISP-IE/2019_IE_analysis/code/2_analysis/64_paper_main_reg_no2013.do",
+		"/C/Users/Alexander/Documents/GitHub/BISP-IE/2019_IE_analysis/code/3_tex/esttab/FE_panel_amount_nohbl_pctl_unbpn_3y_2.tex",
+		"/C/Users/Alexander/Documents/GitHub/BISP-IE/2019_IE_analysis/code/3_tex/esttab/8_firststage_predict_treatment_nohbl_comp.tex",
+		"/C/Users/Alexander/Documents/GitHub/BISP-IE/2019_IE_analysis/code/3_tex/esttab/8_firststage_predict_treatment_nohbl.tex",
+		"/C/Users/Alexander/Documents/GitHub/BISP-IE/2019_IE_analysis/code/3_tex/esttab/27_balance_BVS_startdate1_2.tex",
+		"/C/Users/Alexander/Documents/GitHub/BISP-IE/2019_IE_analysis/code/3_tex/esttab/FE_panel_distance_nohbl_pctl_balpn_3y_2.tex",
+		"/C/Users/Alexander/Documents/GitHub/BISP-IE/2019_IE_analysis/code/3_tex/esttab/FE_panel_bribes_nohbl_pctl_unbpn_3y_2.tex",
+		"/C/Users/Alexander/Documents/GitHub/BISP-IE/2019_IE_analysis/code/3_tex/esttab/FE_panel_distance_nohbl_pctl_unbpn_3y_2.tex",
+		"/C/Users/Alexander/Documents/GitHub/BISP-IE/2019_IE_analysis/code/3_tex/esttab/FE_panel_bribes_nohbl_pctl_unbpn_3y.tex",
+		"/C/Users/Alexander/Documents/GitHub/BISP-IE/2019_IE_analysis/code/3_tex/HTE.tex",
+		"/C/Users/Alexander/Documents/GitHub/BISP-IE/2019_IE_analysis/code/3_tex/esttab/bribes_mark_acc_p_p20_p80.tex",
+		"/C/Users/Alexander/Documents/GitHub/BISP-IE/2019_IE_analysis/code/3_tex/esttab/bribes_mark_acc_osrm.tex",
+		"/C/Users/Alexander/Documents/GitHub/BISP-IE/2019_IE_analysis/code/3_tex/esttab/FE_panel_bribes_nohbl_pctl_balpn_4y.tex",
+		"/C/Users/Alexander/Documents/GitHub/BISP-IE/2019_IE_analysis/code/3_tex/esttab/FE_panel_distance_nohbl_pctl_balpn_4y.tex",
+		"/C/Users/Alexander/Documents/GitHub/BISP-IE/2019_IE_analysis/code/3_tex/esttab/FE_panel_amount_nohbl_pctl_balpn_4y.tex",
+		"/C/Users/Alexander/Documents/GitHub/BISP-IE/2019_IE_analysis/code/2_analysis/65_bribes_vars_stats.do",
+		"/C/Users/Alexander/Documents/GitHub/BISP-IE/2019_IE_analysis/code/3_tex/esttab/10_FE_panel_amount_nohbl_no2013.tex",
+		"/C/Users/Alexander/Documents/GitHub/BISP-IE/2019_IE_analysis/code/3_tex/esttab/10_FE_panel_distance_nohbl_no2013_pctl.tex",
+		"/C/Users/Alexander/Documents/GitHub/BISP-IE/2019_IE_analysis/code/2_analysis/format_lincom_TEs.do",
+		"/C/Users/Alexander/Documents/GitHub/BISP-IE/2019_IE_analysis/code/3_tex/esttab/10_FE_panel_bribes_total_nohbl_no2013_pctl.tex",
+		"/C/Users/Alexander/Documents/GitHub/BISP-IE/2019_IE_analysis/code/3_tex/esttab/10_FE_panel_distance_nohbl_no2013.tex",
+		"/C/Users/Alexander/Documents/GitHub/BISP-IE/2019_IE_analysis/code/3_tex/esttab/10_FE_panel_amount_nohbl_no2013_pctl.tex",
+		"/C/Users/Alexander/Documents/GitHub/BISP-IE/2019_IE_analysis/code/1_cleaning/15_panel_HTE_variables.do",
+		"/C/Users/Alexander/Documents/GitHub/BISP-IE/2019_IE_analysis/code/3_tex/esttab/10_FE_panel_bribes_total_nohbl.tex",
+		"/C/Users/Alexander/Documents/GitHub/BISP-IE/2019_IE_analysis/code/3_tex/esttab/27_balance_BVS_startdate1.tex",
+		"/C/Users/Alexander/Documents/GitHub/BISP-IE/2019_IE_analysis/code/4_graphs/maps/1_BVS_transition_map.do",
+		"/C/Users/Alexander/Documents/GitHub/BISP-IE/2019_IE_analysis/code/2_analysis/27_balance_by_BVS_startdate.do",
+		"/C/Users/Alexander/Documents/GitHub/BISP-IE/2019_IE_analysis/code/2_analysis/62_uc_ma_main_reg_hte_ES_allsample.do",
+		"/C/Users/Alexander/Documents/GitHub/BISP-IE/2019_IE_analysis/code/2_analysis/8_firststage_predict_treatment.do",
+		"/C/Users/Alexander/Documents/GitHub/BISP-IE/2019_IE_analysis/code/2_analysis/62_uc_ma_main_reg_hte_ES_allsample_no2013.do",
+		"/C/Users/Alexander/Documents/GitHub/BISP-IE/2019_IE_analysis/code/3_tex/esttab/10_FE_panel_bribes_lasttr_nohbl_no2013.tex",
+		"/C/Users/Alexander/Documents/GitHub/BISP-IE/2019_IE_analysis/code/3_tex/esttab/any_bribes_idw_v11_controls_fe_no2013.tex",
+		"/C/Users/Alexander/Documents/GitHub/BISP-IE/2019_IE_analysis/code/3_tex/esttab/10_FE_panel_bribes_total_nohbl_no2013.tex",
+		"/C/Users/Alexander/Documents/GitHub/BISP-IE/2019_IE_analysis/code/3_tex/esttab/10_FE_panel_amount_no2013.tex",
+		"/C/Users/Alexander/Documents/GitHub/BISP-IE/2019_IE_analysis/code/3_tex/esttab/10_FE_panel_bribes_nohbl_no2013.tex",
+		"/C/Users/Alexander/Documents/GitHub/BISP-IE/2019_IE_analysis/code/4_graphs/JQ12_sidepayments_paid_to.do",
+		"/C/Users/Alexander/Downloads/JMP.do",
+		"/C/Users/Alexander/Downloads/JMP_Motivation.do",
+		"/D/google_drive/RA_APP/data_task_siepr/data_task.do",
+		"/D/google_drive/RA_APP/data_task_siepr/ra_app.do",
+		"/D/google_drive/RA_APP/data_task_SIEPRpredoc_polyakova_2019/data_task.do",
+		"/D/google_drive/RA_APP/OI/SCRIPT/data_task_harvard.do",
+		"/D/google_drive/RA_APP/Zurich_Test/scripts/AlexanderQuispe_Data_Task.do",
+		"/C/Users/Alexander/Documents/GitHub/BISP-IE/2019_IE_analysis/code/3_tex/Main_results.tex",
+		"/C/Users/Alexander/Documents/GitHub/BISP-IE/2019_IE_analysis/code/3_tex/esttab/10_FE_panel_cash_received_nohbl.tex",
+		"/C/Users/Alexander/Documents/GitHub/BISP-IE/2019_IE_analysis/code/3_tex/esttab/satis_dist_time_cost_idw_v11_fe.tex",
+		"/C/Users/Alexander/Documents/GitHub/BISP-IE/2019_IE_analysis/code/3_tex/esttab/ihs_idw_v11_controls_fe.tex",
+		"/C/Users/Alexander/Documents/GitHub/BISP-IE/2019_IE_analysis/code/1_cleaning/54_bank_use_district_HIES.do",
+		"/C/Users/Alexander/Documents/GitHub/BISP-IE/2019_IE_analysis/code/2_analysis/61_pp_used_clos_dif.do",
+		"/C/Users/Alexander/Documents/GitHub/BISP-IE/female_downstream_expenditures/1_cleaning/1_HIES_PSLM.do",
+		"/C/Users/Alexander/Documents/GitHub/BISP-IE/2019_IE_analysis/code/3_tex/esttab/8_firststage_predict_treatment.tex",
+		"/C/Users/Alexander/Documents/GitHub/BISP-IE/2019_IE_analysis/code/1_cleaning/47_raster_uc_outcomes.do",
+		"/C/Users/Alexander/Documents/GitHub/BISP-IE/2019_IE_analysis/code/3_tex/esttab/ihs_idw_v11_controls_fe_no2013.tex",
+		"/C/Users/Alexander/Documents/GitHub/BISP-IE/2019_IE_analysis/code/1_cleaning/47_raster_psu_outcomes.do",
+		"/C/Users/Alexander/Documents/GitHub/BISP-IE/2019_IE_analysis/code/3_tex/esttab/ihs_anybr_diffdist_idw_v11_educ_fe_no2013.tex",
+		"/C/Users/Alexander/Documents/GitHub/BISP-IE/2019_IE_analysis/code/1_cleaning/53_closest_pp_uc_ma_clean.do",
+		"/C/Users/Alexander/Documents/GitHub/BISP-IE/2019_IE_analysis/code/1_cleaning/52_closest_pp_uc_ma.do",
+		"/C/Users/Alexander/Documents/GitHub/BISP-IE/2019_IE_analysis/code/2_analysis/11_main_HTE_panel_reg_PART2.do",
+		"/C/Users/Alexander/Dropbox/halflife_regression_rl/cleaning.do",
+		"/C/Users/Alexander/Documents/GitHub/BISP-IE/2019_IE_analysis/code/2_analysis/62_uc_ma_main_reg_hte_panel_ES_final.do",
+		"/C/Users/Alexander/Documents/GitHub/BISP-IE/2019_IE_analysis/code/4_graphs/presentations/HTE_triple_interaction_self_collection.do",
+		"/C/Users/Alexander/Documents/GitHub/BISP-IE/2019_IE_analysis/code/3_tex/esttab/ihs_anybr_diffdist_idw_v11_fe_no2013.tex",
+		"/C/Users/Alexander/Documents/GitHub/BISP-IE/2019_IE_analysis/code/2_analysis/38_OPM_HT_POS_extensive_margin_graphs.do",
+		"/C/Users/Alexander/Documents/GitHub/BISP-IE/2019_IE_analysis/code/2_analysis/13_ES_panel_graphs.do",
+		"/C/Users/Alexander/Documents/GitHub/BISP-IE/2019_IE_analysis/code/2_analysis/28_MIS_9k_tranche-level_em_ES+DDgraphs.do",
+		"/C/Users/Alexander/Documents/GitHub/BISP-IE/2019_IE_analysis/code/4_graphs/presentations/HTE_Rural_overlaid_coefs_pct.do",
+		"/C/Users/Alexander/Documents/GitHub/BISP-IE/2019_IE_analysis/code/2_analysis/38_OPM_HT_ATM_extensive_margin_graphs.do",
+		"/C/Users/Alexander/Documents/GitHub/BISP-IE/2019_IE_analysis/code/2_analysis/62_uc_ma_main_reg_hte.do",
+		"/C/Users/Alexander/Documents/GitHub/BISP-IE/2019_IE_analysis/code/4_graphs/presentations/ES_DD_overlaid_coefs_pct.do",
+		"/C/Users/Alexander/Documents/GitHub/BISP-IE/2019_IE_analysis/code/3_tex/esttab/ihs_anybr_diffdist_idw_v11_fe.tex",
+		"/C/Users/Alexander/Documents/GitHub/BISP-IE/2019_IE_analysis/code/3_tex/esttab/ihs_anybr_diffdist_fe.tex",
+		"/C/Users/Alexander/Documents/GitHub/BISP-IE/2019_IE_analysis/code/4_graphs/presentations/ES_DD_coefs_HTE_selfcollection_separate.do",
+		"/C/Users/Alexander/Documents/GitHub/BISP-IE/2019_IE_analysis/code/2_analysis/60_uc_ma_main_reg.do",
+		"/C/Users/Alexander/Documents/GitHub/BISP-IE/2019_IE_analysis/code/2_analysis/62_uc_ma_main_reg_hte_2.do",
+		"/C/Users/Alexander/Documents/GitHub/BISP-IE/2019_IE_analysis/code/2_analysis/62_uc_ma_main_reg_hte_panel2_ES_final.do",
+		"/C/Users/Alexander/Documents/GitHub/BISP-IE/2019_IE_analysis/code/2_analysis/62_uc_ma_main_reg_hte_ES.do",
+		"/C/Users/Alexander/Documents/GitHub/BISP-IE/2019_IE_analysis/code/2_analysis/62_uc_ma_main_reg_hte_panel_ES_2.do",
+		"/C/Users/Alexander/Documents/GitHub/BISP-IE/2019_IE_analysis/code/2_analysis/62_uc_ma_main_reg_hte_panel2_ES_2.do",
+		"/C/Users/Alexander/Documents/GitHub/BISP-IE/2019_IE_analysis/code/2_analysis/62_uc_ma_main_reg_hte_panel_ES_v14.do",
+		"/C/Users/Alexander/Documents/GitHub/BISP-IE/2019_IE_analysis/code/2_analysis/62_uc_ma_main_reg_hte_panel_ES.do",
+		"/C/Users/Alexander/Documents/GitHub/BISP-IE/2019_IE_analysis/code/3_tex/esttab/uc_ma_psuctr_ihs_poscompet_v11.tex",
+		"/C/Users/Alexander/Documents/GitHub/BISP-IE/2019_IE_analysis/code/2_analysis/42_Tehsil_dist_ES_DD.do",
+		"/C/Users/Alexander/Documents/GitHub/BISP-IE/2019_IE_analysis/code/3_tex/esttab/uc_ma_psuctr_ihs_poscompet_in_all.tex",
+		"/C/Users/Alexander/Documents/GitHub/BISP-IE/2019_IE_analysis/code/3_tex/esttab/uc_ma_ihs_dist_med_in_all_panel.tex"
+	],
+	"find":
+	{
+		"height": 39.0
+	},
+	"find_in_files":
+	{
+		"height": 161.0,
+		"where_history":
+		[
+			"*.do",
+			"<project>",
+			"*.do"
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"hig",
+			"d JavaScript_sdid  TypeScript_sdid ///\nPHP_sdid, keep(gpt_available_post1) sort ylab(\"\") ytitle(\"\", orient(horiz)) xline(0) msymbol(S) ///\neqlabels(\"Equation 1\" \"Equation 2\" \"Equation 3\")\n",
+			"xla",
+			"gpt_impact_github_shell",
+			"PowerShell",
+			"Batchfile",
+			"Shell",
+			"Assembly",
+			"cpp",
+			"C_",
+			"gpt_impact_github_high_level",
+			"TypeScript",
+			"Ruby",
+			"JavaScript",
+			"Python",
+			"\"`lang'\"",
+			"`lang'",
+			"treatment",
+			"gpt_impact_github_langugages",
+			"Swift",
+			"Julia",
+			"Java",
+			"'",
+			"gpt_treat",
+			"gpt_impact_github_push_dev_repo",
+			"repositories_p100k",
+			"pushes_p100k",
+			"1.BVS#1.post#c.inv_dist_pos_v11_bl_std",
+			"3_tex/esttab",
+			"$code",
+			"3_tex/esttab",
+			"code",
+			"path",
+			"\\",
+			"method",
+			"\\",
+			"pos_wdr_inv",
+			"1.BVS#1.post#c.",
+			"bribes_amount_idw_v11_controls_fe_no2013",
+			"idw_std_controls_fe_no2013",
+			"FE_panel_bribes",
+			"queue",
+			"ong queue",
+			"control",
+			"treat_2_inv_dist_pos_v11_bl_std",
+			"green",
+			"gpostXam",
+			"gpost",
+			"median_m3",
+			"small",
+			"size",
+			"JQ13",
+			"label",
+			"FE_panel_amount_nohbl",
+			"inv_dist_pos_v11_bl",
+			"inv_dist_pos_v11",
+			"inv_dist_pos_v11_bl",
+			"group_2_med_inv_d_v11",
+			"8_firststage_predict_treatment",
+			"ihs_bribes",
+			"MUZAFFARGARH",
+			"FR D.I.KHAN",
+			"distric",
+			"psu_mon_ev_admin_visit",
+			"psu",
+			"pctg_visited",
+			"no data",
+			"tehsil",
+			"pct_amt",
+			"pct_amt_received",
+			"anyb_inv",
+			"wins_JQ03",
+			"any_bribes",
+			"pct_amt_received",
+			"group_2_med_inv_d_v11",
+			"combine",
+			"$graphs_results/event_study/",
+			"ES_DD_",
+			"sd",
+			"_nohbl_no2013",
+			"DD_",
+			"total",
+			"gros",
+			"gors",
+			"PROP",
+			"PROPO",
+			"ihs_bribes",
+			"ES_DD_",
+			"ES_DD_total_bribes_nohbl_no2013",
+			"local num_obs = r(N)",
+			"coefplot_bribes_bvs_post_comp_thresh_6groups",
+			"pre_trend_honestdid",
+			"S_ihs_bribes_fe_no2013",
+			"inv_dist_pos_v11_firststage",
+			"stand",
+			"hist_inverse_distance_pos_v11",
+			"_pctl",
+			"`data'_2",
+			"inv_dist_pos_v11_bl_std",
+			"diff",
+			"27_balance_BVS_startdate1",
+			"8_firststage_predict_treatment",
+			"8_firststage_predict_treatment_nohbl",
+			"tabcol",
+			"substitute(\"b/se/qval\" \"\\vspace{-.02cm}\")",
+			"any_bribes_idw_v11_controls_fe_no2013",
+			"inv_dist_pos_v11_bl",
+			"FE_panel_amount_nohbl_pctl_",
+			"source",
+			"10_FE_panel_distance_nohbl_no2013_pctl",
+			"10_FE_panel_amount_nohbl_no2013_pctl",
+			"10_FE_panel_bribes_total_nohbl_no2013_pctl",
+			"outcome_bribes",
+			"outcomes1",
+			"format_lincom_TEs",
+			"wins_JQ03",
+			"yearly_amt_due",
+			"pct_amt_received",
+			"prop",
+			"wins_JQ03",
+			"10_FE_panel_amount_nohbl_no2013",
+			"label",
+			"`outcome'",
+			"25",
+			"10_FE_panel_amount_nohbl_no2013",
+			"inv_dist_pos_v11_firststage",
+			"Source:O",
+			"wins_JQ03"
+		],
+		"highlight": false,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+			"gpt_impact_github_dsl",
+			"R",
+			"MATLAB",
+			"CSS",
+			"HTML",
+			"PLpgSQL",
+			"TSQL",
+			"PowerShell",
+			"Batchfile",
+			"Shell_",
+			"gpt_impact_github_low_level",
+			"Assembly",
+			"Rust",
+			"cpp",
+			"C",
+			"\"C++\"",
+			"gpt_available_post1",
+			"gpt_impact_github_high_level",
+			"TypeScript",
+			"PHP",
+			"JavaScript",
+			"",
+			"treatment",
+			"gpt_impact_github_langugages",
+			"Java",
+			"Python",
+			"gpt_treat",
+			"output\\tables",
+			"$path",
+			"output\\tables",
+			"path",
+			"/",
+			"idw_std",
+			"",
+			"comp",
+			"`var'",
+			"district",
+			"pos_wdr",
+			"positive_wdr_12m_opm",
+			"pct_amt_inv_",
+			"pct_amt_received",
+			"wins_JQ03",
+			"$graphs/presentation/coefplots/",
+			"$graphs/presentation/coefplots",
+			"decay_",
+			"decay",
+			"_median_m3_no2013_std",
+			"median_m3_no2013_std",
+			"",
+			"`var'",
+			"`data'",
+			"",
+			"inv_dist_pos_v11_bl_std",
+			"FE_panel_distance_nohbl_pctl_",
+			"FE_panel_distance_nohbl_pctl_`data'",
+			"FE_panel_amount_nohbl_pctl_`data'",
+			"FE_panel_bribes_nohbl_pctl_`data'",
+			"10_FE_panel_distance_nohbl_no2013",
+			"`var'",
+			"10_FE_panel_bribes_total_nohbl_no2013",
+			"Source: O",
+			"OPM Not balanced Panel 2013, 2014",
+			"OPM balanced Panel 2013, 2014",
+			"",
+			"total_bribes_w",
+			"Payment Agents",
+			"total_bribes",
+			"OPM Not balanced Panel 2014",
+			"inv_dist_pos_v11_bl",
+			"any_bribes",
+			"Biometric Verification",
+			"Union Council",
+			"inv_dist_pos_v11_bl",
+			"Any Side Payments",
+			"(Side Payments)",
+			"any_bribes",
+			"fe3",
+			"fe4",
+			"total_bribes",
+			"any_bribes",
+			"ihs_bribes",
+			"group_3_inv_d_v11_t",
+			"Not balanced Panel 2014,",
+			"treat_2 treat_4",
+			"period_2 period_4",
+			"treat_4",
+			"panel2",
+			"period_4",
+			"_panel4.tex",
+			"_panel4.pdf",
+			"_panel4.gph",
+			"_panel.gph",
+			"ES_",
+			"ES",
+			"inv_dist_pos_v11_bl",
+			"group_2_med_inv_d_v14",
+			"v14",
+			"",
+			"v11",
+			"br_",
+			"br",
+			"",
+			"Compet",
+			"Conpet",
+			"Compet.",
+			"v11",
+			"*0.8",
+			"*.4",
+			"province-year FE",
+			"tert",
+			"ter",
+			"v2",
+			"",
+			"inverse_distance_atm_v1",
+			"inverse_distance_pos_v1",
+			"inverse_distance_pp_v1",
+			"any_pos_bl",
+			"pos",
+			"the closest PP",
+			"clpp",
+			"pos",
+			"",
+			"PSUs",
+			"75",
+			"50",
+			"sum_inv_dist_atm_1km",
+			"inv_dist",
+			"2018"
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": false
+	},
+	"groups":
+	[
+		{
+			"selected": 0,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "code/analysis.do",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1240,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								123,
+								123
+							]
+						],
+						"settings":
+						{
+							"bracket_highlighter.busy": false,
+							"bracket_highlighter.locations":
+							{
+								"close":
+								{
+								},
+								"icon":
+								{
+								},
+								"open":
+								{
+								},
+								"unmatched":
+								{
+								}
+							},
+							"bracket_highlighter.regions":
+							[
+								"bh_round",
+								"bh_round_center",
+								"bh_round_open",
+								"bh_round_close",
+								"bh_round_content",
+								"bh_single_quote",
+								"bh_single_quote_center",
+								"bh_single_quote_open",
+								"bh_single_quote_close",
+								"bh_single_quote_content",
+								"bh_unmatched",
+								"bh_unmatched_center",
+								"bh_unmatched_open",
+								"bh_unmatched_close",
+								"bh_unmatched_content",
+								"bh_default",
+								"bh_default_center",
+								"bh_default_open",
+								"bh_default_close",
+								"bh_default_content",
+								"bh_double_quote",
+								"bh_double_quote_center",
+								"bh_double_quote_open",
+								"bh_double_quote_close",
+								"bh_double_quote_content",
+								"bh_angle",
+								"bh_angle_center",
+								"bh_angle_open",
+								"bh_angle_close",
+								"bh_angle_content",
+								"bh_c_define",
+								"bh_c_define_center",
+								"bh_c_define_open",
+								"bh_c_define_close",
+								"bh_c_define_content",
+								"bh_curly",
+								"bh_curly_center",
+								"bh_curly_open",
+								"bh_curly_close",
+								"bh_curly_content",
+								"bh_regex",
+								"bh_regex_center",
+								"bh_regex_open",
+								"bh_regex_close",
+								"bh_regex_content",
+								"bh_tag",
+								"bh_tag_center",
+								"bh_tag_open",
+								"bh_tag_close",
+								"bh_tag_content",
+								"bh_square",
+								"bh_square_center",
+								"bh_square_open",
+								"bh_square_close",
+								"bh_square_content"
+							],
+							"syntax": "Packages/StataEditor/StataEditor.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				}
+			]
+		},
+		{
+			"sheets":
+			[
+			]
+		},
+		{
+			"sheets":
+			[
+			]
+		},
+		{
+			"sheets":
+			[
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 22.0
+	},
+	"input":
+	{
+		"height": 57.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			],
+			[
+				1,
+				0,
+				2,
+				1
+			],
+			[
+				0,
+				1,
+				1,
+				2
+			],
+			[
+				1,
+				1,
+				2,
+				2
+			]
+		],
+		"cols":
+		[
+			0.0,
+			0.365421764327,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			0.562564102565,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.SublimeLinter":
+	{
+		"height": 0.0
+	},
+	"output.exec":
+	{
+		"height": 123.0
+	},
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"output.latextools":
+	{
+		"height": 60.0
+	},
+	"output.mdpopups":
+	{
+		"height": 0.0
+	},
+	"pinned_build_system": "",
+	"project": "gpt_impact_github.sublime-project",
+	"replace":
+	{
+		"height": 70.0
+	},
+	"save_all_on_build": false,
+	"select_file":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+			[
+				"m",
+				"Teacher_Migration\\Scripts\\Stata\\Migration.do"
+			],
+			[
+				"regex",
+				"Script\\Docentes_categorizacion_censi.xlsx"
+			],
+			[
+				"scra",
+				"T:\\Dropbox\\Research\\Programs\\PythonProg\\Scrapping\\Scrapping_Senahmi.py"
+			],
+			[
+				"",
+				"Calculos.do"
+			],
+			[
+				"re",
+				"T:\\Dropbox\\Research\\Programs\\PythonProg\\Scrapping\\Scrapping_Senahmi.py"
+			]
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 809.0,
+		"last_filter": "",
+		"selected_items":
+		[
+			[
+				"",
+				"T:\\Dropbox\\Research\\Proyectos\\PERU\\cies_drawback\\cies_drawback.sublime-project"
+			]
+		],
+		"width": 1105.0
+	},
+	"select_symbol":
+	{
+		"height": 45.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 374.0
+	},
+	"selected_group": 0,
+	"settings":
+	{
+	},
+	"show_minimap": true,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 367.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+		"max_columns": 3
+	}
+}
