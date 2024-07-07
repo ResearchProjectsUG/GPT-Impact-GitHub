@@ -520,16 +520,23 @@
 	"buffers":
 	[
 		{
-			"contents": "//----------------------------------------------------------------------------//\n//\n// project: \n//\n// do.file: analysis\n//\n// author(s):\n//\n//----------------------------------------------------------------------------//\n\n\n//----------------------------------------------------------------------------//\n// preface\n//----------------------------------------------------------------------------//\n\nclear all\nclear programs\nset more off\nset varabbrev off\ncap log close\n\nif \"`c(username)'\" == \"Work\" {\n\tglobal path \"C:/Users/Work/Documents/Personal/Work/papers/GPT-Impact-GitHub\"\n}\n\nif \"`c(username)'\" == \"Alexander\" {\n\tglobal path \"C:/Users/Alexander/Documents/GitHub/GPT-Impact-GitHub\" \n}\t\n\ncd \"$path\"\n\nlog using \"output/analysis.log\", replace\n\nx\nimport delimited \"output/data/data_langs.csv\", clear\n\ndrop if iso2_code == \"HK\"\n\n\n//----------------------------------------------------------------------------//\n// main\n//----------------------------------------------------------------------------//\n\n// regressions\ndo \"code/sub/analysis_per_lang.do\"\n\nimport delimited \"output/data/pushes.csv\", clear\n\ndrop if iso2_code == \"HK\"\n\ndo \"code/sub/analysis_pushes.do\"\n\n\nlog close\n",
 			"file": "analysis.do",
-			"file_size": 1224,
-			"file_write_time": 133599313749963897,
 			"settings":
 			{
-				"buffer_size": 1173,
-				"encoding": "UTF-8",
+				"buffer_size": 1243,
 				"line_ending": "Windows"
-			}
+			},
+			"undo_stack":
+			[
+				[
+					1,
+					1,
+					"revert",
+					null,
+					"AgAAAAAAAAAAAAAAAAAAAAAAAACVBAAALy8tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLy8KLy8KLy8gcHJvamVjdDogCi8vCi8vIGRvLmZpbGU6IGFuYWx5c2lzCi8vCi8vIGF1dGhvcihzKToKLy8KLy8tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLy8KCgovLy0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0vLwovLyBwcmVmYWNlCi8vLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS8vCgpjbGVhciBhbGwKY2xlYXIgcHJvZ3JhbXMKc2V0IG1vcmUgb2ZmCnNldCB2YXJhYmJyZXYgb2ZmCmNhcCBsb2cgY2xvc2UKCmlmICJgYyh1c2VybmFtZSknIiA9PSAiV29yayIgewoJZ2xvYmFsIHBhdGggIkM6L1VzZXJzL1dvcmsvRG9jdW1lbnRzL1BlcnNvbmFsL1dvcmsvcGFwZXJzL0dQVC1JbXBhY3QtR2l0SHViIgp9CgppZiAiYGModXNlcm5hbWUpJyIgPT0gIkFsZXhhbmRlciIgewoJZ2xvYmFsIHBhdGggIkM6L1VzZXJzL0FsZXhhbmRlci9Eb2N1bWVudHMvR2l0SHViL0dQVC1JbXBhY3QtR2l0SHViIiAKfQkKCmNkICIkcGF0aCIKCmxvZyB1c2luZyAib3V0cHV0L2FuYWx5c2lzLmxvZyIsIHJlcGxhY2UKCngKaW1wb3J0IGRlbGltaXRlZCAib3V0cHV0L2RhdGEvZGF0YV9sYW5ncy5jc3YiLCBjbGVhcgoKZHJvcCBpZiBpc28yX2NvZGUgPT0gIkhLIgoKCi8vLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS8vCi8vIG1haW4KLy8tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLy8KCi8vIHJlZ3Jlc3Npb25zCmRvICJjb2RlL3N1Yi9hbmFseXNpc19wZXJfbGFuZy5kbyIKCmltcG9ydCBkZWxpbWl0ZWQgIm91dHB1dC9kYXRhL3B1c2hlcy5jc3YiLCBjbGVhcgoKZHJvcCBpZiBpc28yX2NvZGUgPT0gIkhLIgoKZG8gImNvZGUvc3ViL2FuYWx5c2lzX3B1c2hlcy5kbyIKCgpsb2cgY2xvc2UKAAAAAAAAAADbBAAAAAAAAAAAAAA",
+					"AQAAAAAAAAABAAAAlwEAAAAAAACXAQAAAAAAAAAAAAAAAPC/"
+				]
+			]
 		}
 	],
 	"build_system": "",
@@ -1063,7 +1070,7 @@
 	],
 	"find":
 	{
-		"height": 22.0
+		"height": 22.4
 	},
 	"find_in_files":
 	{
@@ -1345,32 +1352,34 @@
 			"pctg_visited"
 		],
 		"reverse": false,
+		"scrollbar_highlights": true,
 		"show_context": true,
 		"use_buffer2": true,
+		"use_gitignore": true,
 		"whole_word": false,
 		"wrap": false
 	},
 	"groups":
 	[
 		{
-			"selected": 0,
 			"sheets":
 			[
 				{
 					"buffer": 0,
 					"file": "analysis.do",
+					"selected": true,
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 1173,
+						"buffer_size": 1243,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								407,
-								407
+								398,
+								467
 							]
 						],
 						"settings":
@@ -1449,13 +1458,16 @@
 								"bh_unmatched_close",
 								"bh_unmatched_content"
 							],
-							"syntax": "Packages/StataEditor/StataEditor.tmLanguage"
+							"syntax": "Packages/StataEditor/StataEditor.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 70.0,
+						"translation.y": 117.6,
 						"zoom_level": 1.0
 					},
 					"stack_index": 0,
+					"stack_multiselect": false,
 					"type": "text"
 				}
 			]
@@ -1463,7 +1475,7 @@
 	],
 	"incremental_find":
 	{
-		"height": 22.0
+		"height": 22.4
 	},
 	"input":
 	{
@@ -1512,11 +1524,11 @@
 	{
 		"height": 0.0
 	},
-	"pinned_build_system": "",
+	"pinned_build_system": "Packages/User/Stata.sublime-build",
 	"project": "gpt_impact_github.sublime-project",
 	"replace":
 	{
-		"height": 40.0
+		"height": 41.6
 	},
 	"save_all_on_build": false,
 	"select_file":

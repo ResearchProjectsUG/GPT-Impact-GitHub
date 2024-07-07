@@ -23,8 +23,8 @@ if "`c(username)'" == "Work" {
 	global path "C:/Users/Work/Documents/Personal/Work/papers/GPT-Impact-GitHub"
 }
 
-if "`c(username)'" == "Alexander" {
-	global path "C:/Users/Alexander/Documents/GitHub/GPT-Impact-GitHub" 
+if "`c(username)'" == "ronco" {
+	global path "C:\Users\ronco\Desktop\Tesis_Nicho_Janampa\GPT-Impact-GitHub" 
 }	
 
 cd "$path"
@@ -42,7 +42,7 @@ C:\Users\Alexander\Documents\GitHub\GPT-Impact-GitHub\output\tables
 //----------------------------------------------------------------------------//
 
 // regressions
-do "code/sub/analysis_per_lang.do"
+do "code/sub/analysis_per_lang_Tesis.do"
 
 import delimited "output/data/pushes.csv", clear
 

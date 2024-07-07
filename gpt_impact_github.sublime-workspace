@@ -929,12 +929,7 @@
 	},
 	"expanded_folders":
 	[
-		"/C/Users/Alexander/Documents/GitHub/GPT-Impact-GitHub",
-		"/C/Users/Alexander/Documents/GitHub/GPT-Impact-GitHub/code",
-		"/C/Users/Alexander/Documents/GitHub/GPT-Impact-GitHub/code/sub",
-		"/C/Users/Alexander/Documents/GitHub/GPT-Impact-GitHub/output",
-		"/C/Users/Alexander/Documents/GitHub/GPT-Impact-GitHub/output/csv",
-		"/C/Users/Alexander/Documents/GitHub/GPT-Impact-GitHub/output/data"
+		"/C/Users/ronco/Desktop/Tesis_Nicho_Janampa/GPT-Impact-GitHub"
 	],
 	"file_history":
 	[
@@ -1069,7 +1064,7 @@
 	],
 	"find":
 	{
-		"height": 39.0
+		"height": 22.4
 	},
 	"find_in_files":
 	{
@@ -1351,20 +1346,22 @@
 			"2018"
 		],
 		"reverse": false,
+		"scrollbar_highlights": true,
 		"show_context": true,
 		"use_buffer2": true,
+		"use_gitignore": true,
 		"whole_word": false,
 		"wrap": false
 	},
 	"groups":
 	[
 		{
-			"selected": 0,
 			"sheets":
 			[
 				{
 					"buffer": 0,
 					"file": "code/analysis.do",
+					"selected": true,
 					"semi_transient": false,
 					"settings":
 					{
@@ -1455,13 +1452,16 @@
 								"bh_square_close",
 								"bh_square_content"
 							],
-							"syntax": "Packages/StataEditor/StataEditor.tmLanguage"
+							"syntax": "Packages/StataEditor/StataEditor.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 0,
+					"stack_multiselect": false,
 					"type": "text"
 				}
 			]
@@ -1484,7 +1484,7 @@
 	],
 	"incremental_find":
 	{
-		"height": 22.0
+		"height": 22.4
 	},
 	"input":
 	{
@@ -1557,7 +1557,7 @@
 	"project": "gpt_impact_github.sublime-project",
 	"replace":
 	{
-		"height": 70.0
+		"height": 41.6
 	},
 	"save_all_on_build": false,
 	"select_file":
