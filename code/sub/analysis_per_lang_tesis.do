@@ -126,7 +126,55 @@ esttab C_did ///
                 scalars("control_mean Baseline Mean Outcome") ///
                         refcat( gpt_available_post1 "\Gape[0.25cm][0.25cm]{ \underline{Panel A. \textbf{ \textit{C} } } }" , nolabel) ///
                         prefoot("") posthead(\hline) postfoot("")  nonumbers
-        
+			
+						
+esttab  C_hashtag_did ///
+                C_hashtag_sc ///
+                C_hashtag_sdid ///
+                using "$path/output\tables/gpt_impact_github_DataScience.tex", ///
+                append label booktabs mlabel(,none)                                                                      ///
+                cells(b(star fmt(%9.3f)) se(par fmt(%9.3f)))             ///
+                starlevels(* 0.10 * 0.05 ** 0.01) /// 
+        keep( gpt_available_post1 ///
+                ) ///
+        order(gpt_available_post1) ///
+                scalars("control_mean Baseline Mean Outcome") ///
+                refcat( gpt_available_post1 "\Gape[0.25cm][0.25cm]{ \underline{Panel B. \textbf{ \textit{C#} } } }" , nolabel) /// Subtitles
+                prehead("") prefoot("") posthead("\hline") postfoot("") delim("&") collabels(none) nonumbers nogaps nonote							
+											
+						
+						
+esttab  C_plus_did ///
+                C_plus_sc ///
+                C_plus_sdid ///
+                using "$path/output\tables/gpt_impact_github_DataScience.tex", ///
+                append label booktabs mlabel(,none)                                                                      ///
+                cells(b(star fmt(%9.3f)) se(par fmt(%9.3f)))             ///
+                starlevels(* 0.10 * 0.05 ** 0.01) /// 
+        keep( gpt_available_post1 ///
+                ) ///
+        order(gpt_available_post1) ///
+                scalars("control_mean Baseline Mean Outcome") ///
+                refcat( gpt_available_post1 "\Gape[0.25cm][0.25cm]{ \underline{Panel C. \textbf{ \textit{C++} } } }" , nolabel) /// Subtitles
+                prehead("") prefoot("") posthead("\hline") postfoot("") delim("&") collabels(none) nonumbers nogaps nonote						
+											
+						
+
+esttab  Go_did ///
+                Go_sc ///
+                Go_sdid ///
+                using "$path/output\tables/gpt_impact_github_DataScience.tex", ///
+                append label booktabs mlabel(,none)                                                                      ///
+                cells(b(star fmt(%9.3f)) se(par fmt(%9.3f)))             ///
+                starlevels(* 0.10 * 0.05 ** 0.01) /// 
+        keep( gpt_available_post1 ///
+                ) ///
+        order(gpt_available_post1) ///
+                scalars("control_mean Baseline Mean Outcome") ///
+                refcat( gpt_available_post1 "\Gape[0.25cm][0.25cm]{ \underline{Panel D. \textbf{ \textit{Go} } } }" , nolabel) /// Subtitles
+                prehead("") prefoot("") posthead("\hline") postfoot("") delim("&") collabels(none) nonumbers nogaps nonote
+						
+									
 
 esttab  Java_did ///
                 Java_sc ///
@@ -139,7 +187,7 @@ esttab  Java_did ///
                 ) ///
         order(gpt_available_post1) ///
                 scalars("control_mean Baseline Mean Outcome") ///
-                refcat( gpt_available_post1 "\Gape[0.25cm][0.25cm]{ \underline{Panel B. \textbf{ \textit{Java} } } }" , nolabel) /// Subtitles
+                refcat( gpt_available_post1 "\Gape[0.25cm][0.25cm]{ \underline{Panel E. \textbf{ \textit{Java} } } }" , nolabel) /// Subtitles
                 prehead("") prefoot("") posthead("\hline") postfoot("") delim("&") collabels(none) nonumbers nogaps nonote
 
 esttab  JavaScript_did ///
@@ -153,22 +201,9 @@ esttab  JavaScript_did ///
                 ) ///
         order(gpt_available_post1) ///
                 scalars("control_mean Baseline Mean Outcome") ///
-                refcat( gpt_available_post1 "\Gape[0.25cm][0.25cm]{ \underline{Panel C. \textbf{ \textit{JavaScript} } } }" , nolabel) /// Subtitles
+                refcat( gpt_available_post1 "\Gape[0.25cm][0.25cm]{ \underline{Panel F. \textbf{ \textit{JavaScript} } } }" , nolabel) /// Subtitles
                 prehead("") prefoot("") posthead("\hline") postfoot("") delim("&") collabels(none) nonumbers nogaps nonote
 
-esttab  Kotlin_did ///
-                Kotlin_sc ///
-                Kotlin_sdid ///
-                using "$path/output\tables/gpt_impact_github_DataScience.tex", ///
-                append label booktabs mlabel(,none)                                                                      ///
-                cells(b(star fmt(%9.3f)) se(par fmt(%9.3f)))             ///
-                starlevels(* 0.10 * 0.05 ** 0.01) /// 
-        keep( gpt_available_post1 ///
-                ) ///
-        order(gpt_available_post1) ///
-                scalars("control_mean Baseline Mean Outcome") ///
-                refcat( gpt_available_post1 "\Gape[0.25cm][0.25cm]{ \underline{Panel D. \textbf{ \textit{Kotlin} } } }" , nolabel) /// Subtitles
-                prehead("") prefoot("") posthead("\hline")  delim("&") collabels(none) nonumbers nogaps nonote 
 				
 esttab  PHP_did ///
                 PHP_sc ///
@@ -181,7 +216,7 @@ esttab  PHP_did ///
                 ) ///
         order(gpt_available_post1) ///
                 scalars("control_mean Baseline Mean Outcome") ///
-                refcat( gpt_available_post1 "\Gape[0.25cm][0.25cm]{ \underline{Panel E. \textbf{ \textit{PHP} } } }" , nolabel) /// Subtitles
+                refcat( gpt_available_post1 "\Gape[0.25cm][0.25cm]{ \underline{Panel G. \textbf{ \textit{PHP} } } }" , nolabel) /// Subtitles
                 prehead("") prefoot("") posthead("\hline")  delim("&") collabels(none) nonumbers nogaps nonote 
 
 esttab  Python_did ///
@@ -195,8 +230,10 @@ esttab  Python_did ///
                 ) ///
         order(gpt_available_post1) ///
                 scalars("control_mean Baseline Mean Outcome") ///
-                refcat( gpt_available_post1 "\Gape[0.25cm][0.25cm]{ \underline{Panel F. \textbf{ \textit{Python} } } }" , nolabel) /// Subtitles
+                refcat( gpt_available_post1 "\Gape[0.25cm][0.25cm]{ \underline{Panel H. \textbf{ \textit{Python}} } }" , nolabel) /// Subtitles
                 prehead("") prefoot("") posthead("\hline")  delim("&") collabels(none) nonumbers nogaps nonote 
+				
+
 				
 esttab  Ruby_did ///
                 Ruby_sc ///
@@ -209,21 +246,7 @@ esttab  Ruby_did ///
                 ) ///
         order(gpt_available_post1) ///
                 scalars("control_mean Baseline Mean Outcome") ///
-                refcat( gpt_available_post1 "\Gape[0.25cm][0.25cm]{ \underline{Panel G. \textbf{ \textit{Ruby} } } }" , nolabel) /// Subtitles
-                prehead("") prefoot("") posthead("\hline")  delim("&") collabels(none) nonumbers nogaps nonote 
-				
-esttab  Swift_did ///
-                Swift_sc ///
-                Swift_sdid ///
-                using "$path/output\tables/gpt_impact_github_DataScience.tex", ///
-                append label booktabs mlabel(,none)                                                                      ///
-                cells(b(star fmt(%9.3f)) se(par fmt(%9.3f)))             ///
-                starlevels(* 0.10 * 0.05 ** 0.01) /// 
-        keep( gpt_available_post1 ///
-                ) ///
-        order(gpt_available_post1) ///
-                scalars("control_mean Baseline Mean Outcome") ///
-                refcat( gpt_available_post1 "\Gape[0.25cm][0.25cm]{ \underline{Panel H. \textbf{ \textit{Swift} } } }" , nolabel) /// Subtitles
+                refcat( gpt_available_post1 "\Gape[0.25cm][0.25cm]{ \underline{Panel I. \textbf{ \textit{Ruby} } } }" , nolabel) /// Subtitles
                 prehead("") prefoot("") posthead("\hline")  delim("&") collabels(none) nonumbers nogaps nonote 
 				
 esttab  TypeScript_did ///
@@ -237,7 +260,7 @@ esttab  TypeScript_did ///
                 ) ///
         order(gpt_available_post1) ///
                 scalars("control_mean Baseline Mean Outcome") ///
-                refcat( gpt_available_post1 "\Gape[0.25cm][0.25cm]{ \underline{Panel I. \textbf{ \textit{TypeScript} } } }" , nolabel) /// Subtitles
+                refcat( gpt_available_post1 "\Gape[0.25cm][0.25cm]{ \underline{Panel J. \textbf{ \textit{TypeScript} } } }" , nolabel) /// Subtitles
                 prehead("") prefoot("") posthead("\hline")  delim("&") collabels(none) nonumbers nogaps nonote 				
 				
 *****************
