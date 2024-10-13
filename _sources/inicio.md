@@ -18,11 +18,18 @@ The data for this analysis is sourced from multiple publicly available datasets 
 |-----|-----------------------------|-------------------------------------------------------------------------------------------------|---------|---------------------------------------------|
 | 1   | GitHub Innovation Graph      | Data on Git pushes, developers, organizations, repositories, and other software development metrics. | Open    | [GitHub Innovation Graph](#)                |
 
+### Units of Analysis
+- **Git Pushes, Developers, Repositories, Collaborators:** For these metrics, the unit of analysis is Country-Quarter. This means that the data is analyzed based on the country and the quarter, allowing for the observation of how Git pushes, the number of active developers, the growth of repositories, and international collaborations evolve over each quarter in each country (Bangladesh, Sri Lanka, and India). This approach enables both temporal and geographic comparisons, highlighting trends within each country over time.
+
+- **Languages:** In this case, the unit of analysis is Country-Programming Language-Quarter, meaning that the data is analyzed by country, programming language, and quarter. This allows for a detailed view of which programming languages are most popular in each country and how their usage has changed over time. It enables a comparison of the adoption of languages such as JavaScript, Python, Java, and others across countries and quarters.
+
+---
+
 ### Key Metrics Analyzed
 - **Git Pushes**: The number of code contributions made by developers.
 - **Developers**: The total number of active developers per country.
 - **Repositories**: Growth in the number of software projects hosted on GitHub.
-- **Languages**: The most popular programming languages used.
+- **Languages**: The most popular programming languages used. The top 10 languages—JavaScript, Java, Python, TypeScript, C++, PHP, Ruby, C#, and Go—were selected based on various rankings and the number of available observations (Coursera Staff, 2024; DataCamp, 2023; Rice CS, 2023). Other languages like SQL, R, Julia, and Matlab were excluded due to insufficient data, limiting their comparability.
 - **Collaborators**: Cross-country collaborations and open-source contributions.
 
 ---
