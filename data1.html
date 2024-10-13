@@ -417,6 +417,45 @@ document.write(`
 <h1><strong>Technological Growth and Innovation Across South Asia: A Comparative Analysis of India, Bangladesh, and Sri Lanka (2020-2024)</strong><a class="headerlink" href="#technological-growth-and-innovation-across-south-asia-a-comparative-analysis-of-india-bangladesh-and-sri-lanka-2020-2024" title="Link to this heading">#</a></h1>
 <section id="number-of-pushes-per-100k-by-country-2020q1-2024q1">
 <h2>Number of Pushes per 100k by Country (2020Q1 - 2024Q1)<a class="headerlink" href="#number-of-pushes-per-100k-by-country-2020q1-2024q1" title="Link to this heading">#</a></h2>
+<details>
+  <summary>Mostrar/Ocultar el código</summary>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Crear el gráfico de líneas</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
+
+<span class="c1"># Obtener los países únicos usando la columna &#39;iso2_code&#39;</span>
+<span class="n">countries</span> <span class="o">=</span> <span class="n">git_update</span><span class="p">[</span><span class="s1">&#39;country&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">()</span>
+
+<span class="c1"># Trazar cada país por separado</span>
+<span class="k">for</span> <span class="n">country</span> <span class="ow">in</span> <span class="n">countries</span><span class="p">:</span>
+    <span class="n">filtered_data_4</span> <span class="o">=</span> <span class="n">git_update</span><span class="p">[</span><span class="n">git_update</span><span class="p">[</span><span class="s1">&#39;country&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">country</span><span class="p">]</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">filtered_data_4</span><span class="p">[</span><span class="s1">&#39;year_quarter&#39;</span><span class="p">],</span> <span class="n">filtered_data_4</span><span class="p">[</span><span class="s1">&#39;git_pushes_pc&#39;</span><span class="p">],</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;o&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="n">country</span><span class="p">)</span>
+
+<span class="c1"># Personalización del gráfico</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Number of Pushes per 100k by Country 2020Q1-2024Q1&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Quarter&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Number of pushes per 100k habitants&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">rotation</span><span class="o">=</span><span class="mi">45</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s1">&#39;Countries&#39;</span><span class="p">,</span> <span class="n">loc</span><span class="o">=</span><span class="s1">&#39;upper left&#39;</span><span class="p">)</span>
+
+<span class="c1"># Crear el texto adicional para estadísticas</span>
+<span class="n">text_data</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s1">&#39;Number of periods: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">repos_update</span><span class="p">[</span><span class="s1">&#39;year_quarter&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">nunique</span><span class="p">()),</span>
+    <span class="s1">&#39;Number of observations: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">repos_update</span><span class="p">)),</span>
+    <span class="s1">&#39;Number of countries: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">repos_update</span><span class="p">[</span><span class="s1">&#39;iso2_code&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">nunique</span><span class="p">()),</span>
+    <span class="s1">&#39;Source: GitHub Innovation Graph&#39;</span>
+<span class="p">]</span>
+
+<span class="c1"># Mostrar el texto en el gráfico (fuera del área principal)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">gcf</span><span class="p">()</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="mf">0.01</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.1</span><span class="p">,</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">text_data</span><span class="p">),</span> <span class="n">ha</span><span class="o">=</span><span class="s1">&#39;left&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
+               <span class="n">bbox</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">facecolor</span><span class="o">=</span><span class="s1">&#39;white&#39;</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">))</span>
+
+<span class="c1"># Ajustar el diseño para evitar superposición de elementos</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">(</span><span class="n">rect</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mf">0.85</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+
+<span class="c1"># Mostrar el gráfico</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
 <p><img alt="Number of Pushes per 100k by Country" src="_images/output_4.png" /></p>
 <section id="analysis">
 <h3>Analysis<a class="headerlink" href="#analysis" title="Link to this heading">#</a></h3>
@@ -446,6 +485,45 @@ document.write(`
 </section>
 <section id="number-of-repositories-per-100k-by-country-2020q1-2024q1">
 <h2>Number of Repositories per 100k by Country (2020Q1 - 2024Q1)<a class="headerlink" href="#number-of-repositories-per-100k-by-country-2020q1-2024q1" title="Link to this heading">#</a></h2>
+<details>
+  <summary>Mostrar/Ocultar el código</summary>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Crear el gráfico de líneas</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
+
+<span class="c1"># Obtener los países únicos usando la columna &#39;iso2_code&#39;</span>
+<span class="n">countries</span> <span class="o">=</span> <span class="n">repos_update</span><span class="p">[</span><span class="s1">&#39;country&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">()</span>
+
+<span class="c1"># Trazar cada país por separado</span>
+<span class="k">for</span> <span class="n">country</span> <span class="ow">in</span> <span class="n">countries</span><span class="p">:</span>
+    <span class="n">filtered_data</span> <span class="o">=</span> <span class="n">repos_update</span><span class="p">[</span><span class="n">repos_update</span><span class="p">[</span><span class="s1">&#39;country&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">country</span><span class="p">]</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">filtered_data</span><span class="p">[</span><span class="s1">&#39;year_quarter&#39;</span><span class="p">],</span> <span class="n">filtered_data</span><span class="p">[</span><span class="s1">&#39;repositories_pc&#39;</span><span class="p">],</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;o&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="n">country</span><span class="p">)</span>
+
+<span class="c1"># Personalización del gráfico</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Number of Repositories per 100k by Country 2020Q1-2024Q1&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Quarter&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Number of repositories per 100k habitants&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">rotation</span><span class="o">=</span><span class="mi">45</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s1">&#39;Countries&#39;</span><span class="p">,</span> <span class="n">loc</span><span class="o">=</span><span class="s1">&#39;upper left&#39;</span><span class="p">)</span>
+
+<span class="c1"># Crear el texto adicional para estadísticas</span>
+<span class="n">text_data</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s1">&#39;Number of periods: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">repos_update</span><span class="p">[</span><span class="s1">&#39;year_quarter&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">nunique</span><span class="p">()),</span>
+    <span class="s1">&#39;Number of observations: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">repos_update</span><span class="p">)),</span>
+    <span class="s1">&#39;Number of countries: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">repos_update</span><span class="p">[</span><span class="s1">&#39;iso2_code&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">nunique</span><span class="p">()),</span>
+    <span class="s1">&#39;Source: GitHub Innovation Graph&#39;</span>
+<span class="p">]</span>
+
+<span class="c1"># Mostrar el texto en el gráfico (fuera del área principal)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">gcf</span><span class="p">()</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="mf">0.01</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.1</span><span class="p">,</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">text_data</span><span class="p">),</span> <span class="n">ha</span><span class="o">=</span><span class="s1">&#39;left&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
+               <span class="n">bbox</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">facecolor</span><span class="o">=</span><span class="s1">&#39;white&#39;</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">))</span>
+
+<span class="c1"># Ajustar el diseño para evitar superposición de elementos</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">(</span><span class="n">rect</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mf">0.85</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+
+<span class="c1"># Mostrar el gráfico</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
 <p><img alt="Number of Repositories per 100k by Country" src="_images/output_1.png" /></p>
 <section id="id1">
 <h3>Analysis<a class="headerlink" href="#id1" title="Link to this heading">#</a></h3>
@@ -475,6 +553,45 @@ document.write(`
 </section>
 <section id="number-of-developers-per-100k-by-country-2020q1-2024q1">
 <h2>Number of Developers per 100k by Country (2020Q1 - 2024Q1)<a class="headerlink" href="#number-of-developers-per-100k-by-country-2020q1-2024q1" title="Link to this heading">#</a></h2>
+<details>
+  <summary>Mostrar/Ocultar el código</summary>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Crear el gráfico de líneas</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
+
+<span class="c1"># Obtener los países únicos usando la columna &#39;iso2_code&#39;</span>
+<span class="n">countries</span> <span class="o">=</span> <span class="n">dev_update</span><span class="p">[</span><span class="s1">&#39;country&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">()</span>
+
+<span class="c1"># Trazar cada país por separado</span>
+<span class="k">for</span> <span class="n">country</span> <span class="ow">in</span> <span class="n">countries</span><span class="p">:</span>
+    <span class="n">filtered_data</span> <span class="o">=</span> <span class="n">dev_update</span><span class="p">[</span><span class="n">dev_update</span><span class="p">[</span><span class="s1">&#39;country&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">country</span><span class="p">]</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">filtered_data</span><span class="p">[</span><span class="s1">&#39;year_quarter&#39;</span><span class="p">],</span> <span class="n">filtered_data</span><span class="p">[</span><span class="s1">&#39;developers_pc&#39;</span><span class="p">],</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;o&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="n">country</span><span class="p">)</span>
+
+<span class="c1"># Personalización del gráfico</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Number of Developers per 100k by Country 2020Q1-2024Q1&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Quarter&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Number of developers per 100k habitants&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">rotation</span><span class="o">=</span><span class="mi">45</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s1">&#39;Countries&#39;</span><span class="p">,</span> <span class="n">loc</span><span class="o">=</span><span class="s1">&#39;upper left&#39;</span><span class="p">)</span>
+
+<span class="c1"># Crear el texto adicional para estadísticas</span>
+<span class="n">text_data</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s1">&#39;Number of periods: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">repos_update</span><span class="p">[</span><span class="s1">&#39;year_quarter&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">nunique</span><span class="p">()),</span>
+    <span class="s1">&#39;Number of observations: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">repos_update</span><span class="p">)),</span>
+    <span class="s1">&#39;Number of countries: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">repos_update</span><span class="p">[</span><span class="s1">&#39;iso2_code&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">nunique</span><span class="p">()),</span>
+    <span class="s1">&#39;Source: GitHub Innovation Graph&#39;</span>
+<span class="p">]</span>
+
+<span class="c1"># Mostrar el texto en el gráfico (fuera del área principal)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">gcf</span><span class="p">()</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="mf">0.01</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.1</span><span class="p">,</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">text_data</span><span class="p">),</span> <span class="n">ha</span><span class="o">=</span><span class="s1">&#39;left&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
+               <span class="n">bbox</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">facecolor</span><span class="o">=</span><span class="s1">&#39;white&#39;</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">))</span>
+
+<span class="c1"># Ajustar el diseño para evitar superposición de elementos</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">(</span><span class="n">rect</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mf">0.85</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+
+<span class="c1"># Mostrar el gráfico</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
 <p><img alt="Number of Developers per 100k by Country" src="_images/output_2.png" /></p>
 <section id="id4">
 <h3>Analysis<a class="headerlink" href="#id4" title="Link to this heading">#</a></h3>
@@ -504,6 +621,45 @@ document.write(`
 </section>
 <section id="number-of-organizations-per-100k-by-country-2020q1-2024q1">
 <h2>Number of Organizations per 100k by Country (2020Q1 - 2024Q1)<a class="headerlink" href="#number-of-organizations-per-100k-by-country-2020q1-2024q1" title="Link to this heading">#</a></h2>
+<details>
+  <summary>Mostrar/Ocultar el código</summary>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Crear el gráfico de líneas</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
+
+<span class="c1"># Obtener los países únicos usando la columna &#39;iso2_code&#39;</span>
+<span class="n">countries</span> <span class="o">=</span> <span class="n">org_update</span><span class="p">[</span><span class="s1">&#39;country&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">()</span>
+
+<span class="c1"># Trazar cada país por separado</span>
+<span class="k">for</span> <span class="n">country</span> <span class="ow">in</span> <span class="n">countries</span><span class="p">:</span>
+    <span class="n">filtered_data_3</span> <span class="o">=</span> <span class="n">org_update</span><span class="p">[</span><span class="n">org_update</span><span class="p">[</span><span class="s1">&#39;country&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">country</span><span class="p">]</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">filtered_data_3</span><span class="p">[</span><span class="s1">&#39;year_quarter&#39;</span><span class="p">],</span> <span class="n">filtered_data_3</span><span class="p">[</span><span class="s1">&#39;organizations_pc&#39;</span><span class="p">],</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;o&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="n">country</span><span class="p">)</span>
+
+<span class="c1"># Personalización del gráfico</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Number of Organizations per 100k by Country 2020Q1-2024Q1&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Quarter&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Number of organizations per 100k habitants&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">rotation</span><span class="o">=</span><span class="mi">45</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s1">&#39;Countries&#39;</span><span class="p">,</span> <span class="n">loc</span><span class="o">=</span><span class="s1">&#39;upper left&#39;</span><span class="p">)</span>
+
+<span class="c1"># Crear el texto adicional para estadísticas</span>
+<span class="n">text_data</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s1">&#39;Number of periods: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">repos_update</span><span class="p">[</span><span class="s1">&#39;year_quarter&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">nunique</span><span class="p">()),</span>
+    <span class="s1">&#39;Number of observations: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">repos_update</span><span class="p">)),</span>
+    <span class="s1">&#39;Number of countries: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">repos_update</span><span class="p">[</span><span class="s1">&#39;iso2_code&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">nunique</span><span class="p">()),</span>
+    <span class="s1">&#39;Source: GitHub Innovation Graph&#39;</span>
+<span class="p">]</span>
+
+<span class="c1"># Mostrar el texto en el gráfico (fuera del área principal)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">gcf</span><span class="p">()</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="mf">0.01</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.1</span><span class="p">,</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">text_data</span><span class="p">),</span> <span class="n">ha</span><span class="o">=</span><span class="s1">&#39;left&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
+               <span class="n">bbox</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">facecolor</span><span class="o">=</span><span class="s1">&#39;white&#39;</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">))</span>
+
+<span class="c1"># Ajustar el diseño para evitar superposición de elementos</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">(</span><span class="n">rect</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mf">0.85</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+
+<span class="c1"># Mostrar el gráfico</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
 <p><img alt="Number of Organizations per 100k by Country" src="_images/output_3.png" /></p>
 <section id="id7">
 <h3>Analysis<a class="headerlink" href="#id7" title="Link to this heading">#</a></h3>
