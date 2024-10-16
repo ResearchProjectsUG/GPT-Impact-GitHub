@@ -2,9 +2,9 @@
 # Learn more at https://jupyterbook.org/customize/toc.html
 
 format: jb-book
-root: inicio
+root: maps
 chapters:
-- file: maps
+- file: inicio
 - file: data1 
 - file: desarrollo
 - file: conclusion
