@@ -4,6 +4,7 @@
 format: jb-book
 root: inicio
 chapters:
+- file: maps
 - file: data1 
 - file: desarrollo
 - file: conclusion
